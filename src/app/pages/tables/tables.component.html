@@ -1,0 +1,62 @@
+
+<div class=" content">
+    <div class=" row">
+      <div class=" col-md-12">
+        <div class=" card">
+          <div class=" card-header">
+            <h4 class=" card-title">Danh Sách KH cũ</h4>
+          </div>
+          <div class=" card-body">
+            <div class=" table-responsive">
+              <p-table  #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="8" [tableStyle]="{'table-layout':'auto'}" >
+                  <ng-template pTemplate="caption">
+                      <div style="text-align: left">  
+                            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+            
+                      </div>
+                  </ng-template>
+                <ng-template pTemplate="header" let-columns class=" text-primary">
+                    <tr >
+                        <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                            {{col.header}}
+                        </th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns" >
+                    <tr>
+                        <td *ngFor="let col of columns">
+                            <ng-container *ngIf="[col.field]=='NgayThue' || [col.field]=='NgayTra'">
+                            {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+                          </ng-container>
+                          
+                          <ng-container *ngIf="[col.field]!='NgayThue'&&[col.field]!='NgayTra' &&[col.field]!='TrangThai'">
+                              {{rowData[col.field]}}
+                          </ng-container>
+  
+                          <ng-container *ngIf="[col.field]=='TrangThai'">
+                              <ng-container *ngIf="rowData[col.field]==0">
+                                
+                                  <span><i class="fa fa-circle icon icon-blue" style="color: grey;"></i></span>
+                              </ng-container>
+                              <ng-container *ngIf="rowData[col.field]==1">
+                                
+                                  <span><i class="fa fa-circle icon icon-blue" style="color: green;"></i></span>
+                              </ng-container>
+                          </ng-container>
+                        </td>
+                        <td>
+                            <a (click)="selectNetWithButton(rowData)" routerLink="/user" [state]="(rowData)"><i class="fa fa-edit"></i></a>
+                        </td>
+                       
+                    </tr>
+                </ng-template>
+            </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
