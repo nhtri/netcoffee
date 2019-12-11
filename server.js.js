@@ -6,11 +6,11 @@ const app = express();
 
 // Serve only the static files form the dist directory
 // Serve only the static files form the dist directory
-app.use(express.static(__dirname + '/dist/netcoffee'));
+app.use(express.static(__dirname + '/dist/netcoffeeclient'));
 
 app.get('/*', function(req,res) {
     
-res.sendFile(path.join(__dirname+'/dist/netcoffee/index.html'));
+res.sendFile(path.join(__dirname+'/dist/netcoffeeclient/index.html'));
 });
 
 // Start the app by listening on the default Heroku port
