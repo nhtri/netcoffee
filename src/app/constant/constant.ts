@@ -1,4 +1,4 @@
-export const HOST = 'http://127.0.0.1:3000/';
+export const HOST = 'https://netcoffeeserver.herokuapp.com/';
 export const NETWORK = {
     API:{
         WiFi: HOST + 'wifi',
