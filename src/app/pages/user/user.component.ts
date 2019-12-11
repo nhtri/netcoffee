@@ -20,6 +20,8 @@ export class UserComponent implements OnInit {
   luudata: any
   trangthai: any
   editData:any
+  input1:any
+  input2:any
   constructor(
     private formBuilder: FormBuilder,
     private networkserviceService: NetworkserviceService
@@ -39,12 +41,14 @@ export class UserComponent implements OnInit {
       this.userform.controls.hoten.setValue(this.editData.hoten)
       this.userform.controls.facebook.setValue(this.editData.facebook)
       this.userform.controls.ngaythue.setValue(this.editData.ngaythue)
+      this.input1=this.editData.ngaythue
       this.userform.controls.ngaytra.setValue(this.editData.ngaytra)
+      this.input2=this.editData.ngaytra
       this.userform.controls.diachi.setValue(this.editData.diachi)
       this.userform.controls.giacuoc.setValue(this.editData.giacuoc)
       this.userform.controls.trangthai.setValue(this.editData.trangthai)
       this.userform.controls.ghichu.setValue(this.editData.ghichu)
-      this.thangdongcuoc = this.editData.ThangDongCuoc
+      this.thangdongcuoc = this.editData.thangdongcuoc
       if(this.thangdongcuoc==1){this.thanhtoanform.controls.thanhtoan1.setValue(true)} 
       if(this.thangdongcuoc==2){this.thanhtoanform.controls.thanhtoan2.setValue(true)} 
       if(this.thangdongcuoc==3){this.thanhtoanform.controls.thanhtoan3.setValue(true)} 
@@ -121,6 +125,7 @@ export class UserComponent implements OnInit {
 for(let i=11;i>0;i--){
   if(this.thanhtoan_array[i]==true){
     this.thangdongcuoc=i+1
+    break;
   }
 }
     });
