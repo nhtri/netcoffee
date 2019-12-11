@@ -4,11 +4,12 @@
   "description": "Black Dasboard Angular, a Creative Tim Desgin. Coded by Creative Tim",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "ng build --prod"
   },
   "repository": {
     "type": "git",
@@ -64,12 +65,15 @@
     "npm": "6.9.0"
   },
   "dependencies": {
+    "@angular-devkit/build-angular": "0.800.3",
+    "@angular/cli": "^8.3.20",
+    "@angular/compiler-cli": "^8.0.2",
     "@angular/animations": "^8.0.2",
     "@angular/cdk": "^8.2.3",
-    "@angular/cli": "^8.3.20",
+  
     "@angular/common": "8.0.2",
     "@angular/compiler": "8.0.2",
-    "@angular/compiler-cli": "^8.0.2",
+  
     "@angular/core": "8.0.2",
     "@angular/forms": "8.0.2",
     "@angular/platform-browser": "8.0.2",
