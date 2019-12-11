@@ -33,16 +33,16 @@ export class UserComponent implements OnInit {
     this.cols = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
     this.editData=window.history.state
     if(this.editData){
-      this.userform.controls.mawifi.setValue(this.editData.MaWiFi)
-      this.userform.controls.sdtsim.setValue(this.editData.SDTSim)
-      this.userform.controls.masim.setValue(this.editData.MaSim)
-      this.userform.controls.hoten.setValue(this.editData.Hoten)
-      this.userform.controls.facebook.setValue(this.editData.Facebook)
-      this.userform.controls.ngaythue.setValue(this.editData.NgayThue)
-      this.userform.controls.ngaytra.setValue(this.editData.NgayTra)
-      this.userform.controls.diachi.setValue(this.editData.DiaChi)
-      this.userform.controls.giacuoc.setValue(this.editData.GiaCuoc)
-      this.userform.controls.trangthai.setValue(this.editData.TrangThai)
+      this.userform.controls.mawifi.setValue(this.editData.mawifi)
+      this.userform.controls.sdtsim.setValue(this.editData.sdtsim)
+      this.userform.controls.masim.setValue(this.editData.masim)
+      this.userform.controls.hoten.setValue(this.editData.hoten)
+      this.userform.controls.facebook.setValue(this.editData.facebook)
+      this.userform.controls.ngaythue.setValue(this.editData.ngaythue)
+      this.userform.controls.ngaytra.setValue(this.editData.ngaytra)
+      this.userform.controls.diachi.setValue(this.editData.diachi)
+      this.userform.controls.giacuoc.setValue(this.editData.giacuoc)
+      this.userform.controls.trangthai.setValue(this.editData.trangthai)
       this.userform.controls.ghichu.setValue(this.editData.ghichu)
       this.thangdongcuoc = this.editData.ThangDongCuoc
       if(this.thangdongcuoc==1){this.thanhtoanform.controls.thanhtoan1.setValue(true)} 
