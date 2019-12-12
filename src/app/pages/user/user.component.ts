@@ -22,8 +22,7 @@ export class UserComponent implements OnInit {
   editData:any
   input1:any
   input2:any
-  date1:Date
-  date2:Date
+
   ngaythue:Date
   ngaytra:Date
   constructor(
@@ -38,18 +37,18 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.cols = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
     this.editData=window.history.state
-    this.ngaythue= new Date(this.editData.ngaythue)
-    this.ngaytra= new Date(this.editData.ngaytra)
-    if(this.editData){
+
+    if(this.editData.mawifi){
+   
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
       this.userform.controls.sdtsim.setValue(this.editData.sdtsim)
       this.userform.controls.masim.setValue(this.editData.masim)
       this.userform.controls.hoten.setValue(this.editData.hoten)
       this.userform.controls.facebook.setValue(this.editData.facebook)
-      //this.userform.controls.ngaythue.setValue(this.editData.ngaythue)
-      this.date1= new Date(this.ngaythue)
-      //this.userform.controls.ngaytra.setValue(this.editData.ngaytra)
-      this.date2=new Date(this.ngaytra)
+  
+      
+      this.userform.controls.ngaythue.setValue(new Date(this.editData.ngaythue))
+      this.userform.controls.ngaytra.setValue(new Date(this.editData.ngaytra))
       this.userform.controls.diachi.setValue(this.editData.diachi)
       this.userform.controls.giacuoc.setValue(this.editData.giacuoc)
       this.userform.controls.trangthai.setValue(this.editData.trangthai)

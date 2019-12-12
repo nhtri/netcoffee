@@ -4,7 +4,7 @@
     <div class=" col-md-8">
       <div class=" card">
         <div class=" card-header">
-          <h5 class=" title">Create Profile</h5>
+          <h4 class=" title">Create Profile</h4>
         </div>
         <div class=" card-body">
 
@@ -47,9 +47,8 @@
             <div class=" col-md-6 pr-md-1">
               <div class=" form-group">
                 <label> Ngày Thuê </label>
-                <!-- <input type="date" class="form-control" formControlName="ngaythue" [(ngModel)]="input1"> -->
                 <div>
-                  <p-calendar [(ngModel)]="date1" formControlName="ngaythue" [showIcon]="true" dateFormat="dd.mm.yy">
+                  <p-calendar formControlName="ngaythue" [showIcon]="true" dateFormat="dd.mm.yy">
                   </p-calendar>
                 </div>
               </div>
@@ -57,9 +56,8 @@
             <div class=" col-md-6 pl-md-1">
               <div class=" form-group">
                 <label>Ngày Trả</label>
-                <!-- <input type="date" class="form-control" formControlName="ngaytra" [(ngModel)]="input2"> -->
                 <div>
-                  <p-calendar [(ngModel)]="date2" formControlName="ngaytra" [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
+                  <p-calendar formControlName="ngaytra" [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
                 </div>
               </div>
             </div>
