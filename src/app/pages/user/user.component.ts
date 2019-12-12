@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { NetworkserviceService } from 'src/app/services/networkservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-user",
@@ -16,18 +17,19 @@ export class UserComponent implements OnInit {
   facebook = ""
   data: any
   thanhtoan_array = []
-  thangdongcuoc:any
+  thangdongcuoc: any
   luudata: any
   trangthai: any
-  editData:any
-  input1:any
-  input2:any
-
-  ngaythue:Date
-  ngaytra:Date
+  editData: any
+  input1: any
+  input2: any
+  checked: boolean
+  ngaythue: Date
+  ngaytra: Date
   constructor(
     private formBuilder: FormBuilder,
-    private networkserviceService: NetworkserviceService
+    private networkserviceService: NetworkserviceService,
+    private router:Router
   ) {
     this.initForm();
     this.onFormChanges();
@@ -36,36 +38,39 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.cols = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
-    this.editData=window.history.state
+    this.editData = window.history.state
+    this.checked = true
+    if (this.editData.mawifi) {
 
-    if(this.editData.mawifi){
-   
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
       this.userform.controls.sdtsim.setValue(this.editData.sdtsim)
       this.userform.controls.masim.setValue(this.editData.masim)
       this.userform.controls.hoten.setValue(this.editData.hoten)
       this.userform.controls.facebook.setValue(this.editData.facebook)
-  
-      
+
+
       this.userform.controls.ngaythue.setValue(new Date(this.editData.ngaythue))
-      this.userform.controls.ngaytra.setValue(new Date(this.editData.ngaytra))
+      if(this.editData.ngaytra){
+        this.userform.controls.ngaytra.setValue(new Date(this.editData.ngaytra))
+      }
+      
       this.userform.controls.diachi.setValue(this.editData.diachi)
       this.userform.controls.giacuoc.setValue(this.editData.giacuoc)
       this.userform.controls.trangthai.setValue(this.editData.trangthai)
       this.userform.controls.ghichu.setValue(this.editData.ghichu)
       this.thangdongcuoc = this.editData.thangdongcuoc
-      if(this.thangdongcuoc==1){this.thanhtoanform.controls.thanhtoan1.setValue(true)} 
-      if(this.thangdongcuoc==2){this.thanhtoanform.controls.thanhtoan2.setValue(true)} 
-      if(this.thangdongcuoc==3){this.thanhtoanform.controls.thanhtoan3.setValue(true)} 
-      if(this.thangdongcuoc==4){this.thanhtoanform.controls.thanhtoan4.setValue(true)} 
-      if(this.thangdongcuoc==5){this.thanhtoanform.controls.thanhtoan5.setValue(true)} 
-      if(this.thangdongcuoc==6){this.thanhtoanform.controls.thanhtoan6.setValue(true)} 
-      if(this.thangdongcuoc==7){this.thanhtoanform.controls.thanhtoan7.setValue(true)} 
-      if(this.thangdongcuoc==8){this.thanhtoanform.controls.thanhtoan8.setValue(true)} 
-      if(this.thangdongcuoc==9){this.thanhtoanform.controls.thanhtoan9.setValue(true)} 
-      if(this.thangdongcuoc==10){this.thanhtoanform.controls.thanhtoan10.setValue(true)} 
-      if(this.thangdongcuoc==11){this.thanhtoanform.controls.thanhtoan11.setValue(true)} 
-      if(this.thangdongcuoc==12){this.thanhtoanform.controls.thanhtoan12.setValue(true)} 
+      if (this.thangdongcuoc == 1) { this.thanhtoanform.controls.thanhtoan1.setValue(true) }
+      if (this.thangdongcuoc == 2) { this.thanhtoanform.controls.thanhtoan2.setValue(true) }
+      if (this.thangdongcuoc == 3) { this.thanhtoanform.controls.thanhtoan3.setValue(true) }
+      if (this.thangdongcuoc == 4) { this.thanhtoanform.controls.thanhtoan4.setValue(true) }
+      if (this.thangdongcuoc == 5) { this.thanhtoanform.controls.thanhtoan5.setValue(true) }
+      if (this.thangdongcuoc == 6) { this.thanhtoanform.controls.thanhtoan6.setValue(true) }
+      if (this.thangdongcuoc == 7) { this.thanhtoanform.controls.thanhtoan7.setValue(true) }
+      if (this.thangdongcuoc == 8) { this.thanhtoanform.controls.thanhtoan8.setValue(true) }
+      if (this.thangdongcuoc == 9) { this.thanhtoanform.controls.thanhtoan9.setValue(true) }
+      if (this.thangdongcuoc == 10) { this.thanhtoanform.controls.thanhtoan10.setValue(true) }
+      if (this.thangdongcuoc == 11) { this.thanhtoanform.controls.thanhtoan11.setValue(true) }
+      if (this.thangdongcuoc == 12) { this.thanhtoanform.controls.thanhtoan12.setValue(true) }
     }
   }
 
@@ -107,9 +112,9 @@ export class UserComponent implements OnInit {
         this.hoten = res.hoten,
         this.ghichu = res.ghichu,
         this.facebook = res.facebook,
-        this.trangthai = res.trangthai?1:0
+        this.trangthai = res.trangthai ? 1 : 0
 
-        console.log("userform:", res)
+      console.log("userform:", res)
     });
     this.thanhtoanform.valueChanges.subscribe(res => {
 
@@ -127,42 +132,58 @@ export class UserComponent implements OnInit {
       this.thanhtoan_array.push(res.thanhtoan12)
 
       console.log("thanhtoanform:", this.thanhtoan_array)
-for(let i=11;i>0;i--){
-  if(this.thanhtoan_array[i]==true){
-    this.thangdongcuoc=i+1
-    break;
-  }
-}
+      for (let i = 11; i > 0; i--) {
+        if (this.thanhtoan_array[i] == true) {
+          this.thangdongcuoc = i + 1
+          break;
+        }
+      }
     });
   }
 
   submit() {
+
+    // this.luudata = {
+    //   "MaWiFi": this.data.mawifi,
+    //   "SDTSim": this.data.sdtsim,
+    //   "MaSim": this.data.masim,
+    //   "NgayThue": this.data.ngaythue,
+    //   "NgayTra": this.data.ngaytra,
+    //   "ThangDongCuoc": this.thangdongcuoc,
+    //   "GiaCuoc": this.data.giacuoc,
+    //   "Facebook": this.data.facebook,
+    //   "TrangThai": this.trangthai,
+    //   "DiaChi": this.data.diachi,
+    //   "Hoten": this.hoten,
+    //   "ghichu": this.ghichu,
+    // }
+    this.luudata = [
+      this.data.mawifi,
+      this.data.sdtsim,
+      this.data.masim,
+      this.data.ngaythue,
+      this.data.ngaytra,
+       this.thangdongcuoc,
+       this.data.giacuoc,
+      this.data.facebook,
+      this.trangthai,
+      this.data.diachi,
+       this.hoten,
+      this.ghichu,
+    ]
     
-    this.luudata = {
-      "MaWiFi": this.data.mawifi,
-      "SDTSim": this.data.sdtsim,
-      "MaSim": this.data.masim,
-      "NgayThue": this.data.ngaythue,
-      "NgayTra": this.data.ngaytra,
-      "ThangDongCuoc": this.thangdongcuoc,
-      "GiaCuoc": this.data.giacuoc,
-      "Facebook": this.data.facebook,
-      "TrangThai": this.trangthai,
-      "DiaChi":  this.data.diachi,
-      "Hoten": this.hoten,
-      "ghichu":this.ghichu,
-    }
     console.log(JSON.stringify(this.luudata))
-    this.networkserviceService.postAllUser(JSON.stringify(this.luudata)).subscribe(
-      data  => {
+    this.networkserviceService.postAllUser(this.luudata).subscribe(
+      data => {
         alert("Lưu Thành Công");
-      console.log("POST Request is successful ", data);
+        this.router.navigateByUrl('dashboard')
+        console.log("POST Request is successful ", data);
       },
-      error  => {
-      
-      console.log("Error", error);
-      
+      error => {
+
+        console.log("Error", error);
+
       })
-    
-    }
+
+  }
 }
