@@ -19,6 +19,7 @@ export class UserComponent implements OnInit {
   thanhtoan_array = []
   thangdongcuoc: any
   luudata: any
+  updatedata: any
   trangthai: any
   editData: any
   input1: any
@@ -29,7 +30,7 @@ export class UserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private networkserviceService: NetworkserviceService,
-    private router:Router
+    private router: Router
   ) {
     this.initForm();
     this.onFormChanges();
@@ -48,15 +49,18 @@ export class UserComponent implements OnInit {
       this.userform.controls.hoten.setValue(this.editData.hoten)
       this.userform.controls.facebook.setValue(this.editData.facebook)
 
+      if (this.editData.ngaythue) {
+        this.userform.controls.ngaythue.setValue(new Date(this.editData.ngaythue))
+      }
 
-      this.userform.controls.ngaythue.setValue(new Date(this.editData.ngaythue))
-      if(this.editData.ngaytra){
+      if (this.editData.ngaytra) {
         this.userform.controls.ngaytra.setValue(new Date(this.editData.ngaytra))
       }
-      
+
       this.userform.controls.diachi.setValue(this.editData.diachi)
       this.userform.controls.giacuoc.setValue(this.editData.giacuoc)
       this.userform.controls.trangthai.setValue(this.editData.trangthai)
+      this.checked = this.editData.trangthai
       this.userform.controls.ghichu.setValue(this.editData.ghichu)
       this.thangdongcuoc = this.editData.thangdongcuoc
       if (this.thangdongcuoc == 1) { this.thanhtoanform.controls.thanhtoan1.setValue(true) }
@@ -112,10 +116,13 @@ export class UserComponent implements OnInit {
         this.hoten = res.hoten,
         this.ghichu = res.ghichu,
         this.facebook = res.facebook,
-        this.trangthai = res.trangthai ? 1 : 0
-
+        this.trangthai = res.trangthai 
+     
+    
       console.log("userform:", res)
     });
+   
+   
     this.thanhtoanform.valueChanges.subscribe(res => {
 
       this.thanhtoan_array.push(res.thanhtoan1)
@@ -163,27 +170,67 @@ export class UserComponent implements OnInit {
       this.data.masim,
       this.data.ngaythue,
       this.data.ngaytra,
-       this.thangdongcuoc,
-       this.data.giacuoc,
+      this.thangdongcuoc,
+      this.data.giacuoc,
       this.data.facebook,
       this.trangthai,
       this.data.diachi,
-       this.hoten,
+      this.hoten,
       this.ghichu,
     ]
-    
+
+    this.updatedata = [
+      this.data.ngaythue,
+      this.data.ngaytra,
+      this.thangdongcuoc,
+      this.data.giacuoc,
+      this.data.facebook,
+      this.trangthai,
+      this.data.diachi,
+      this.hoten,
+      this.ghichu,
+      this.data.mawifi,
+    ]
+
     console.log(JSON.stringify(this.luudata))
-    this.networkserviceService.postAllUser(this.luudata).subscribe(
-      data => {
-        alert("Lưu Thành Công");
-        this.router.navigateByUrl('dashboard')
-        console.log("POST Request is successful ", data);
-      },
-      error => {
+    if (this.editData.mawifi){
+      this.networkserviceService.updateAllUser(this.updatedata).subscribe(
+        data => {
+          alert("Lưu Thành Công");
+          this.router.navigateByUrl('dashboard')
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+  
+          console.log("Error", error);
+  
+        })
+    }
+    else{
+      this.networkserviceService.postAllUser(this.luudata).subscribe(
+        data => {
+          alert("Lưu Thành Công");
+          this.router.navigateByUrl('dashboard')
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+  
+          console.log("Error", error);
+  
+        })
+    }
+    
 
-        console.log("Error", error);
+      
+  
 
-      })
+  }
 
+  onClick(val){
+    if(this.checked==false)
+    this.userform.controls.ngaytra.setValue(new Date())
+    else
+    this.userform.controls.ngaytra.setValue(null)
+    console.log(this.checked)
   }
 }

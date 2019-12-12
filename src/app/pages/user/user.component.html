@@ -82,7 +82,7 @@
               <div class=" form-group">
                 <label>Trạng Thái</label>
                 <div class="slider">
-                  <p-inputSwitch formControlName="trangthai"  [(ngModel)]="checked"></p-inputSwitch>
+                  <p-inputSwitch formControlName="trangthai"  [(ngModel)]="checked" (click)="onClick($event)"></p-inputSwitch>
                 </div>
               </div>
             </div>

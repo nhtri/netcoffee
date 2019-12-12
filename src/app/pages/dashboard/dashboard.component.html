@@ -9,13 +9,13 @@
         <div class=" card-body">
           <div class=" table-responsive">
             <p-table  #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="8" [tableStyle]="{'table-layout':'auto'}" >
-                <ng-template pTemplate="caption">
+                <!-- <ng-template pTemplate="caption">
                     <div style="text-align: left">  
                         <input  type="text" pInputText  placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:40%">
                           
                         <i class="fa fa-search" style="margin:4px 4px 4px 4px"></i>
                     </div>
-                </ng-template>
+                </ng-template> -->
               <ng-template pTemplate="header" let-columns class=" text-primary">
                   <tr >
                       <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
@@ -23,6 +23,15 @@
                       </th>
                       <th></th>
                   </tr>
+                  <tr >
+                    <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}" [ngSwitch]="col.field">
+                      <input *ngSwitchCase="'mawifi'" pInputText type="text" (input)="tt.filter($event.target.value, col.field, 'contains')">
+                      <input *ngSwitchCase="'sdtsim'" pInputText type="text" (input)="tt.filter($event.target.value, col.field, 'contains')">
+                      <input *ngSwitchCase="'masim'" pInputText type="text" (input)="tt.filter($event.target.value, col.field, 'contains')">
+               
+                    </th>
+                    <th></th>
+                </tr>
               </ng-template>
               <ng-template pTemplate="body" let-rowData let-columns="columns" >
                   <tr>
