@@ -124,7 +124,7 @@ export class UserComponent implements OnInit {
    
    
     this.thanhtoanform.valueChanges.subscribe(res => {
-
+      this.thanhtoan_array=[]
       this.thanhtoan_array.push(res.thanhtoan1)
       this.thanhtoan_array.push(res.thanhtoan2)
       this.thanhtoan_array.push(res.thanhtoan3)
