@@ -47,13 +47,20 @@
             <div class=" col-md-6 pr-md-1">
               <div class=" form-group">
                 <label> Ngày Thuê </label>
-                <input type="date" class="form-control" formControlName="ngaythue" [(ngModel)]="input1">
+                <!-- <input type="date" class="form-control" formControlName="ngaythue" [(ngModel)]="input1"> -->
+                <div>
+                  <p-calendar [(ngModel)]="date1" formControlName="ngaythue" [showIcon]="true" dateFormat="dd.mm.yy">
+                  </p-calendar>
+                </div>
               </div>
             </div>
             <div class=" col-md-6 pl-md-1">
               <div class=" form-group">
                 <label>Ngày Trả</label>
-                <input type="date" class="form-control" formControlName="ngaytra" [(ngModel)]="input2">
+                <!-- <input type="date" class="form-control" formControlName="ngaytra" [(ngModel)]="input2"> -->
+                <div>
+                  <p-calendar [(ngModel)]="date2" formControlName="ngaytra" [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
+                </div>
               </div>
             </div>
           </div>
@@ -77,7 +84,7 @@
               <div class=" form-group">
                 <label>Trạng Thái</label>
                 <div class="slider">
-                  <p-inputSwitch  formControlName="trangthai"></p-inputSwitch>
+                  <p-inputSwitch formControlName="trangthai"></p-inputSwitch>
                 </div>
               </div>
             </div>
@@ -99,8 +106,7 @@
                   <tbody>
                     <tr [formGroup]="thanhtoanform">
                       <td *ngFor="let column of cols">
-                        <input type="checkbox" class="form-check-input-monthly"
-                          formControlName="thanhtoan{{column}}">
+                        <input type="checkbox" class="form-check-input-monthly" formControlName="thanhtoan{{column}}">
                       </td>
 
                     </tr>
@@ -144,12 +150,12 @@ dsahdjskahdsjakdhsajkdhjksahdsakjdhskajhwueyuqyewqewqewq
 
           </div>
           <div class=" card-description">
-           Ghi Chú: {{ghichu}}
+            Ghi Chú: {{ghichu}}
           </div>
         </div>
         <div class=" card-footer">
           <div class=" button-container">
-            <button class=" btn btn-icon btn-round btn-facebook" >
+            <button class=" btn btn-icon btn-round btn-facebook">
               <a class=" fab fa-facebook" href="{{facebook}}"> </a>
             </button>
 
