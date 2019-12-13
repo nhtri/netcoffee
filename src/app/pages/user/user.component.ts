@@ -116,15 +116,15 @@ export class UserComponent implements OnInit {
         this.hoten = res.hoten,
         this.ghichu = res.ghichu,
         this.facebook = res.facebook,
-        this.trangthai = res.trangthai 
-     
-    
+        this.trangthai = res.trangthai
+
+
       console.log("userform:", res)
     });
-   
-   
+
+
     this.thanhtoanform.valueChanges.subscribe(res => {
-      this.thanhtoan_array=[]
+      this.thanhtoan_array = []
       this.thanhtoan_array.push(res.thanhtoan1)
       this.thanhtoan_array.push(res.thanhtoan2)
       this.thanhtoan_array.push(res.thanhtoan3)
@@ -193,7 +193,7 @@ export class UserComponent implements OnInit {
     ]
 
     console.log(JSON.stringify(this.luudata))
-    if (this.editData.mawifi){
+    if (this.editData.mawifi) {
       this.networkserviceService.updateAllUser(this.updatedata).subscribe(
         data => {
           alert("Lưu Thành Công");
@@ -201,36 +201,41 @@ export class UserComponent implements OnInit {
           console.log("POST Request is successful ", data);
         },
         error => {
-  
-          console.log("Error", error);
-  
-        })
-    }
-    else{
-      this.networkserviceService.postAllUser(this.luudata).subscribe(
-        data => {
-          alert("Lưu Thành Công");
-          this.router.navigateByUrl('dashboard')
-          console.log("POST Request is successful ", data);
-        },
-        error => {
-  
-          console.log("Error", error);
-  
-        })
-    }
-    
 
-      
-  
+          console.log("Error", error);
+
+        })
+    }
+    else {
+      if (this.data.mawifi && this.data.masim && this.data.sdtsim && this.data.hoten) {
+        this.networkserviceService.postAllUser(this.luudata).subscribe(
+          data => {
+            alert("Lưu Thành Công");
+            this.router.navigateByUrl('dashboard')
+            console.log("POST Request is successful ", data);
+          },
+          error => {
+
+            console.log("Error", error);
+
+          })
+      }
+      else{
+        alert("Điền thông tin vào ô * trống");
+      }
+    }
+
+
+
+
 
   }
 
-  onClick(val){
-    if(this.checked==false)
-    this.userform.controls.ngaytra.setValue(new Date())
+  onClick(val) {
+    if (this.checked == false)
+      this.userform.controls.ngaytra.setValue(new Date())
     else
-    this.userform.controls.ngaytra.setValue(null)
+      this.userform.controls.ngaytra.setValue(null)
     console.log(this.checked)
   }
 }

@@ -47,7 +47,7 @@ form {
     max-width:350px;
     border-radius: 5px;
     /* background-color: #FF4500; */
-    background-image: linear-gradient(to bottom left, #fd5d93, #ec250d, #fd5d93);
+    background-image: linear-gradient(to right, rgba(29, 140, 248, 0.6) 0%, rgba(29, 140, 248, 0) 100%);
   }
   
   /* Add a hover effect for buttons */

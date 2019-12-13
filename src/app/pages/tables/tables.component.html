@@ -35,11 +35,11 @@
                           </ng-container>
   
                           <ng-container *ngIf="[col.field]=='trangthai'">
-                              <ng-container *ngIf="rowData[col.field]==0">
+                              <ng-container *ngIf="rowData[col.field]==false">
                                 
                                   <span><i class="fa fa-circle icon icon-blue" style="color: grey;"></i></span>
                               </ng-container>
-                              <ng-container *ngIf="rowData[col.field]==1">
+                              <ng-container *ngIf="rowData[col.field]==true">
                                 
                                   <span><i class="fa fa-circle icon icon-blue" style="color: green;"></i></span>
                               </ng-container>

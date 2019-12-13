@@ -22,6 +22,7 @@ export class TablesComponent implements OnInit {
       { field: 'mawifi', header: 'Mã WiFi' },
       { field: 'sdtsim', header: 'SDT Sim' },
       { field: 'masim', header: 'Mã Sim' },
+      { field: 'hoten', header: 'Họ Tên' },
       { field: 'giacuoc', header: 'Giá Cước' },
       { field: 'thangdongcuoc', header: 'Tháng' },
       { field: 'trangthai', header: 'Trạng Thái' },
@@ -38,7 +39,7 @@ export class TablesComponent implements OnInit {
   }
 
   isActive(val) {
-    if (val == 0) {
+    if (val == true) {
       '<span><i class="fa fa-circle icon icon-green"></i></span>'
     }
   }
