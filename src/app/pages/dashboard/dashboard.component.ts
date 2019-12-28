@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import Chart from 'chart.js';
 import { NetworkserviceService } from 'src/app/services/networkservice.service';
 import { network } from 'src/app/components/model/network';
+import { from } from 'rxjs';
 
 @Component({
   selector: "app-dashboard",
@@ -22,14 +23,13 @@ export class DashboardComponent implements OnInit {
       { field: 'hoten', header: 'Họ Tên' },      
       { field: 'giacuoc', header: 'Giá Cước' },
       { field: 'thangdongcuoc', header: 'Tháng' },
-      { field: 'facebook', header: 'Facebook' },
+      { field: 'facebook', header: 'Fb' },
 
     
 
 
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val)
-
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val=>val.hoten!=null))
 
 
   }
@@ -37,9 +37,5 @@ export class DashboardComponent implements OnInit {
     console.log(value)
   }
 
-  isActive(val) {
-    if (val == 0) {
-      '<span><i class="fa fa-circle icon icon-green"></i></span>'
-    }
-  }
+  
 }

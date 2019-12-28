@@ -18,6 +18,7 @@ import { ComponentsModule } from "./components/components.module";
 import { TableModule  } from 'primeng/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,

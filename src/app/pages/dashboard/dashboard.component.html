@@ -1,4 +1,3 @@
-
 <div class=" content">
   <div class=" row">
     <div class=" col-md-12">
@@ -18,7 +17,7 @@
                 </ng-template> -->
               <ng-template pTemplate="header" let-columns class=" text-primary">
                   <tr >
-                      <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                      <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}" [pSortableColumn]="col.field">
                           {{col.header}}
                         
                           <ng-container *ngIf="[col.field]=='mawifi'">
@@ -39,21 +38,19 @@
               <ng-template pTemplate="body" let-rowData let-columns="columns" >
                   <tr>
                       <td *ngFor="let col of columns">
-                          <ng-container *ngIf="[col.field]=='ngaythue' || [col.field]=='ngaytra'">
-                          {{rowData[col.field] | date: 'dd/MM/yyyy'}}
-                        </ng-container>
+                         
                         
-                        <ng-container *ngIf="[col.field]!='ngaythue'&&[col.field]!='ngaytra' &&[col.field]!='facebook'">
+                        <ng-container *ngIf="[col.field]!='facebook' ">
                             {{rowData[col.field]}}
                         </ng-container>
 
                         <ng-container *ngIf="[col.field]=='facebook'">
-                          <a class=" fab fa-facebook" href="{{rowData[col.field]}}" target="_blank"> </a>
+                          <a class=" fab fa-facebook" href="{{rowData[col.field]}}" target="_blank" style="font-size:20px"> </a>
                           
                         </ng-container>
                       </td>
                       <td>
-                          <a (click)="selectNetWithButton(rowData)" routerLink="/user" [state]="(rowData)"><i class="fa fa-edit"></i></a>
+                          <a (click)="selectNetWithButton(rowData)" routerLink="/user" [state]="(rowData)"><i class="fa fa-edit" style="font-size:20px"></i></a>
                       </td>
                      
                   </tr>
