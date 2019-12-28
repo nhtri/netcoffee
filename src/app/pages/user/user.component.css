@@ -1,3 +1,9 @@
 .table_monthly{
     width: 90%;
 }
+
+.form-check-input-monthly 
+    .ng-pristine .ng-valid .ng-touched { 
+    width: 25x !important; 
+    height: 25px !important; 
+}

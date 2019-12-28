@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class UserComponent implements OnInit {
   userform: FormGroup | any;
   thanhtoanform: FormGroup | any;
-  cols: any[]
+  cols1: any[]
+  cols2: any[]
   hoten = ""
   ghichu = ""
   facebook = ""
@@ -38,7 +39,8 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cols = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+    this.cols1 = ['1', '2', '3', '4', '5', '6']
+    this.cols2 = ['7', '8', '9', '10', '11', '12']
     this.editData = window.history.state
     this.checked = true
     if (this.editData.mawifi) {
@@ -150,20 +152,6 @@ export class UserComponent implements OnInit {
 
   submit() {
 
-    // this.luudata = {
-    //   "MaWiFi": this.data.mawifi,
-    //   "SDTSim": this.data.sdtsim,
-    //   "MaSim": this.data.masim,
-    //   "NgayThue": this.data.ngaythue,
-    //   "NgayTra": this.data.ngaytra,
-    //   "ThangDongCuoc": this.thangdongcuoc,
-    //   "GiaCuoc": this.data.giacuoc,
-    //   "Facebook": this.data.facebook,
-    //   "TrangThai": this.trangthai,
-    //   "DiaChi": this.data.diachi,
-    //   "Hoten": this.hoten,
-    //   "ghichu": this.ghichu,
-    // }
     this.luudata = [
       this.data.mawifi,
       this.data.sdtsim,

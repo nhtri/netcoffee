@@ -95,7 +95,7 @@
 
                   <thead class=" text-primary" style="border-bottom:1px solid #344675 ;">
 
-                    <th *ngFor="let column of cols" style="color: #ec250d">
+                    <th *ngFor="let column of cols1" style="color: #ec250d">
                       {{column}}
 
                     </th>
@@ -103,8 +103,29 @@
                   </thead>
                   <tbody>
                     <tr [formGroup]="thanhtoanform">
-                      <td *ngFor="let column of cols">
-                        <input type="checkbox" class="form-check-input-monthly" formControlName="thanhtoan{{column}}">
+                      <td *ngFor="let column of cols1">
+                        <input type="checkbox" class="form-check-input-monthly" style="width: 22px !important;height: 22px !important; margin-top: 4px;" formControlName="thanhtoan{{column}}">
+                      </td>
+
+                    </tr>
+
+                  </tbody>
+                </table>
+<br/>
+                <table class="table_monthly">
+
+                  <thead class=" text-primary" style="border-bottom:1px solid #344675 ;">
+
+                    <th *ngFor="let column of cols2" style="color: #ec250d">
+                      {{column}}
+
+                    </th>
+
+                  </thead>
+                  <tbody>
+                    <tr [formGroup]="thanhtoanform">
+                      <td *ngFor="let column of cols2">
+                        <input type="checkbox" class="form-check-input-monthly" style="width: 22px !important;height: 22px !important; margin-top: 4px;" formControlName="thanhtoan{{column}}">
                       </td>
 
                     </tr>
@@ -119,7 +140,7 @@
               <div class=" form-group">
                 <label> Ghi Chú </label>
                 <textarea class=" form-control" cols="80" placeholder="Ghi Chú" rows="4" formControlName="ghichu">
-dsahdjskahdsjakdhsajkdhjksahdsakjdhskajhwueyuqyewqewqewq
+
 </textarea>
               </div>
             </div>
