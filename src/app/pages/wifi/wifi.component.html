@@ -61,7 +61,7 @@
                             </ng-template>
                         </p-cellEditor>
                         </td>
-                        <td>
+                        <td style="text-align:center">
                             <a (click)="selectNetWithButton(rowData)" routerLink="/user" [state]="(rowData)"><i class="fas fa-address-card"  style="font-size:20px"></i></a>
                         </td>
                         <td style="text-align:center">
@@ -83,8 +83,8 @@
                 <p-footer>
                     <div class="ui-dialog-buttonpane ui-helper-clearfix">
                         
-                        <button type="button" pButton (click)="save()" label="Save"></button>
-                        <button type="button" pButton  (click)="delete()" label="Cancel" style="background:rgba(224, 46, 22, 0.6)"></button>
+                        <button  type="button" pButton (click)="save()" label="Save"></button>
+                        <button  type="button" pButton  (click)="delete()" label="Cancel" style="background:rgba(224, 46, 22, 0.6)"></button>
                     </div>
                 </p-footer>
             </p-dialog>

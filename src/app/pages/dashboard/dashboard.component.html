@@ -45,12 +45,12 @@
                         </ng-container>
 
                         <ng-container *ngIf="[col.field]=='facebook'">
-                          <a class=" fab fa-facebook" href="{{rowData[col.field]}}" target="_blank" style="font-size:20px"> </a>
+                          <a class=" fab fa-facebook" href="{{rowData[col.field]}}" target="_blank" style="font-size:20px;text-align: center;"> </a>
                           
                         </ng-container>
                       </td>
                       <td>
-                          <a (click)="selectNetWithButton(rowData)" routerLink="/user" [state]="(rowData)"><i class="fa fa-edit" style="font-size:20px"></i></a>
+                          <a (click)="selectNetWithButton(rowData)" routerLink="/user" [state]="(rowData)"><i class="fa fa-edit" style="font-size:20px;text-align: center;"></i></a>
                       </td>
                      
                   </tr>
