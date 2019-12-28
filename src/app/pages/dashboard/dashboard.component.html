@@ -20,18 +20,21 @@
                   <tr >
                       <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
                           {{col.header}}
+                        
+                          <ng-container *ngIf="[col.field]=='mawifi'">
+                            <p-sortIcon [field]="col.field" ></p-sortIcon>
+                          </ng-container>
                       </th>
                       <th></th>
                   </tr>
-                  <tr >
+                  <!-- <tr >
                     <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}" [ngSwitch]="col.field">
                       <input *ngSwitchCase="'mawifi'" pInputText type="text" (input)="tt.filter($event.target.value, col.field, 'contains')">
-                      <input *ngSwitchCase="'sdtsim'" pInputText type="text" (input)="tt.filter($event.target.value, col.field, 'contains')">
-                      <input *ngSwitchCase="'masim'" pInputText type="text" (input)="tt.filter($event.target.value, col.field, 'contains')">
+                     
                
                     </th>
                     <th></th>
-                </tr>
+                </tr> -->
               </ng-template>
               <ng-template pTemplate="body" let-rowData let-columns="columns" >
                   <tr>
@@ -40,19 +43,13 @@
                           {{rowData[col.field] | date: 'dd/MM/yyyy'}}
                         </ng-container>
                         
-                        <ng-container *ngIf="[col.field]!='ngaythue'&&[col.field]!='ngaytra' &&[col.field]!='trangthai'">
+                        <ng-container *ngIf="[col.field]!='ngaythue'&&[col.field]!='ngaytra' &&[col.field]!='facebook'">
                             {{rowData[col.field]}}
                         </ng-container>
 
-                        <ng-container *ngIf="[col.field]=='trangthai'">
-                            <ng-container *ngIf="rowData[col.field]==false">
-                              
-                                <span><i class="fa fa-circle icon icon-blue" style="color: grey;"></i></span>
-                            </ng-container>
-                            <ng-container *ngIf="rowData[col.field]==true">
-                              
-                                <span><i class="fa fa-circle icon icon-blue" style="color: green;"></i></span>
-                            </ng-container>
+                        <ng-container *ngIf="[col.field]=='facebook'">
+                          <a class=" fab fa-facebook" href="{{rowData[col.field]}}" target="_blank"> </a>
+                          
                         </ng-container>
                       </td>
                       <td>
