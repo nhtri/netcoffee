@@ -1,0 +1,98 @@
+
+<div class=" content">
+    <div class=" row">
+      <div class=" col-md-12">
+        <div class=" card">
+          <div class=" card-header">
+            <h4 class=" card-title">Table</h4>
+           
+                <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+          
+          </div>
+          <div class=" card-body">
+            
+            <div class=" table-responsive">
+                
+              <p-table  #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="8" [tableStyle]="{'table-layout':'auto'}" editMode="row">
+                  <!-- <ng-template pTemplate="caption">
+                      <div style="text-align: left">  
+                          <input  type="text" pInputText  placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:40%">
+                            
+                          <i class="fa fa-search" style="margin:4px 4px 4px 4px"></i>
+                      </div>
+                  </ng-template> -->
+                <ng-template pTemplate="header" let-columns class=" text-primary">
+                    
+                    <tr >
+                        <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}" [pSortableColumn]="col.field">
+                            {{col.header}}
+                          
+                            <ng-container *ngIf="[col.field]=='mawifi'">
+                              <p-sortIcon [field]="col.field" ></p-sortIcon>
+                            </ng-container>
+                        </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <!-- <tr >
+                      <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}" [ngSwitch]="col.field">
+                        <input *ngSwitchCase="'mawifi'" pInputText type="text" (input)="tt.filter($event.target.value, col.field, 'contains')">
+                       
+                 
+                      </th>
+                      <th></th>
+                  </tr> -->
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+                    <tr [pEditableRow]="rowData">
+                        <td *ngFor="let col of columns">
+                           
+                          
+                          <!-- <ng-container *ngIf="[col.field]!='facebook' ">
+                              {{rowData[col.field]}}
+                          </ng-container>
+   -->
+                          <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="rowData[col.field]" required>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData[col.field]}}
+                            </ng-template>
+                        </p-cellEditor>
+                        </td>
+                        <td>
+                            <a (click)="selectNetWithButton(rowData)" routerLink="/user" [state]="(rowData)"><i class="fas fa-address-card"  style="font-size:20px"></i></a>
+                        </td>
+                        <td style="text-align:center">
+                            <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(rowData)" style="width: 20px !important;height: 20px !important;"></button>
+                            <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" (click)="onRowEditSave(rowData)" style="width: 20px !important;height: 20px !important; margin-right: 4px;"></button>
+                            <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(rowData,ri)" style="width: 20px !important;height: 20px !important; margin-right: 4px;"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+            <p-dialog header="WiFi" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '400px'}">
+                <label style="margin-top: 10px;"> Mã WiFi</label> 
+                <input class=" form-control" placeholder="Mã WiFi" type="text" />
+                <label  style="margin-top: 10px;"> SDT SIM</label> 
+                <input class=" form-control" placeholder="SDT SIM" type="text" />
+                <label  style="margin-top: 10px;"> Mã SIM</label> 
+                <input class=" form-control" placeholder="Mã SIM" type="text" />
+                <p-footer>
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                        
+                        <button type="button" pButton (click)="save()" label="Save"></button>
+                        <button type="button" pButton  (click)="delete()" label="Cancel" style="background:rgba(224, 46, 22, 0.6)"></button>
+                    </div>
+                </p-footer>
+            </p-dialog>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  

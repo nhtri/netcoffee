@@ -20,6 +20,8 @@ import { TableModule } from 'primeng/table';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { DialogModule } from 'primeng/dialog';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     TableModule,
     CalendarModule,
     ReactiveFormsModule,
-    InputSwitchModule
+    InputSwitchModule,
+    DialogModule
   ],
   declarations: [
     DashboardComponent,
