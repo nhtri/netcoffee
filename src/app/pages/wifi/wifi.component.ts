@@ -13,11 +13,13 @@ import { Router } from '@angular/router';
 })
 export class WifiComponent implements OnInit {
   data: network[] = [];
+ 
   wifiform: FormGroup | any;
   cols: any[];
 wifidata:any
 luuwifidata:any
-  clonedData: {} = {};
+wifidataupdate:any
+  clonedData: {[s: string]: network;} = {};
   displayDialog: boolean;
 
   constructor(
@@ -31,6 +33,7 @@ luuwifidata:any
 
   ngOnInit() {
     this.cols = [
+     
       { field: 'mawifi', header: 'Mã WiFi' },
       { field: 'sdtsim', header: 'SDT SIM' },      
       { field: 'masim', header: 'Mã SIM' },
@@ -39,7 +42,7 @@ luuwifidata:any
 
 
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val=>val.hoten==null))
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val=>val.hoten==null || val.hoten==''))
 console.log(this.data)
 
   }
@@ -71,12 +74,54 @@ console.log(this.data)
 }
 
 onRowEditSave(val) {
+  this.wifidataupdate = [
+    null,
+    null,
+    null,
+    null,
+    true,
+    null,
+    null,
+    null,
+    null,
+    val.sdtsim,
+    val.masim,
+    val.mawifi,
+  ]
+  this.networkserviceService.updateAllUser(this.wifidataupdate).subscribe(
+    data => {
+      alert("Lưu Thành Công");
+     
+      console.log("POST Request is successful ", data);
+    },
+    error => {
+
+      console.log("Error", error);
+
+    })
   console.log(val)
 }
 
 onRowEditCancel(val,index) {
   this.data[index] = this.clonedData[val];
   delete this.clonedData[val];
+console.log(val,index)
+}
+
+onRowDelete(val) {
+
+  this.networkserviceService.deleteUser(val.mawifi).subscribe(
+    data => {
+      alert("Xóa Thành Công");
+     this.ngOnInit();
+      console.log("POST Request is successful ", data);
+    },
+    error => {
+
+      console.log("Error", error);
+
+    })
+
 console.log(val)
 }
 
@@ -90,12 +135,14 @@ save(){
     this.luuwifidata = [
       this.wifidata.mawifi,
       this.wifidata.sdtsim,
-      this.wifidata.masim
+      this.wifidata.masim,
+      , null, null, null, null, true, null, null, null
     ]
     this.networkserviceService.postAllUser(this.luuwifidata).subscribe(
       data => {
         alert("Lưu Thành Công");
         this.router.navigateByUrl('wifi')
+        location.reload();
         console.log("POST Request is successful ", data);
       },
       error => {

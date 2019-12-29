@@ -177,6 +177,8 @@ export class UserComponent implements OnInit {
       this.data.diachi,
       this.hoten,
       this.ghichu,
+      this.data.sdtsim,
+      this.data.masim,
       this.data.mawifi,
     ]
 
@@ -225,5 +227,9 @@ export class UserComponent implements OnInit {
     else
       this.userform.controls.ngaytra.setValue(null)
     console.log(this.checked)
+  }
+
+  cancel(){
+    this.router.navigateByUrl('dashboard')
   }
 }

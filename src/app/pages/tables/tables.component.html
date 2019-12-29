@@ -20,21 +20,20 @@
                         <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
                             {{col.header}}
                         </th>
-                        <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns" >
                     <tr>
                         <td *ngFor="let col of columns">
-                            <ng-container *ngIf="[col.field]=='ngaythue' || [col.field]=='ngaytra'">
+                            <!-- <ng-container *ngIf="[col.field]=='ngaythue' || [col.field]=='ngaytra'">
                             {{rowData[col.field] | date: 'dd/MM/yyyy'}}
                           </ng-container>
                           
                           <ng-container *ngIf="[col.field]!='ngaythue'&&[col.field]!='ngaytra' &&[col.field]!='trangthai'">
                               {{rowData[col.field]}}
-                          </ng-container>
+                          </ng-container> -->
   
-                          <ng-container *ngIf="[col.field]=='trangthai'">
+                          <!-- <ng-container *ngIf="[col.field]=='trangthai'">
                               <ng-container *ngIf="rowData[col.field]==false">
                                 
                                   <span><i class="fa fa-circle icon icon-blue" style="color: grey;"></i></span>
@@ -43,11 +42,17 @@
                                 
                                   <span><i class="fa fa-circle icon icon-blue" style="color: green;"></i></span>
                               </ng-container>
-                          </ng-container>
+                          </ng-container> -->
+                          <ng-container *ngIf="[col.field]!='facebook' ">
+                            {{rowData[col.field]}}
+                        </ng-container>
+
+                        <ng-container *ngIf="[col.field]=='facebook'">
+                          <a class=" fab fa-facebook" href="{{rowData[col.field]}}" target="_blank" style="font-size:20px;text-align: center;"> </a>
+                          
+                        </ng-container>
                         </td>
-                        <td>
-                            <a (click)="selectNetWithButton(rowData)" routerLink="/user" [state]="(rowData)"><i class="fa fa-edit"></i></a>
-                        </td>
+                       
                        
                     </tr>
                 </ng-template>

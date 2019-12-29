@@ -19,13 +19,10 @@ export class TablesComponent implements OnInit {
 
   ngOnInit() {
     this.cols = [
-      { field: 'mawifi', header: 'Mã WiFi' },
-      { field: 'sdtsim', header: 'SDT Sim' },
-      { field: 'masim', header: 'Mã Sim' },
+     
       { field: 'hoten', header: 'Họ Tên' },
-      { field: 'giacuoc', header: 'Giá Cước' },
-      { field: 'thangdongcuoc', header: 'Tháng' },
-      { field: 'trangthai', header: 'Trạng Thái' },
+      { field: 'facebook', header: 'FaceBook' },
+   
 
 
     ];

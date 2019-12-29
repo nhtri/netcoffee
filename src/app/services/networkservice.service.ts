@@ -46,6 +46,11 @@ export class NetworkserviceService {
     return this.httpClient.post<any>(postAllUserAPI, data,this.httpOptions)  
   }
 
+  deleteUser(data): Observable<any>  {
+    const deleteUserAPI = `${NETWORK.API.WiFi}/${data}`;
+    return this.httpClient.delete(deleteUserAPI)  
+  }
+
   updateAllUser(data): Observable<any>  {
     const updateAllUserAPI = `${NETWORK.API.WiFi}`;
     return this.httpClient.put<any>(updateAllUserAPI, data,this.httpOptions)  

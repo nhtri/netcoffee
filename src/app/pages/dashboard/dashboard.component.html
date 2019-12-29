@@ -23,6 +23,10 @@
                           <ng-container *ngIf="[col.field]=='mawifi'">
                             <p-sortIcon [field]="col.field" ></p-sortIcon>
                           </ng-container>
+                          <ng-container *ngIf="[col.header]=='Thanh Toan'">
+                            <p-sortIcon [field]="col.field" ></p-sortIcon>
+                          </ng-container>
+                          
                       </th>
                       <th></th>
                   </tr>
@@ -40,9 +44,21 @@
                       <td *ngFor="let col of columns">
                          
                         
-                        <ng-container *ngIf="[col.field]!='facebook' ">
+                        <ng-container *ngIf="[col.field]!='facebook' && [col.header]!='Thanh Toan' ">
                             {{rowData[col.field]}}
                         </ng-container>
+
+                        <ng-container *ngIf="[col.header]=='Thanh Toan' ">
+                          
+                          <ng-container *ngIf="rowData[col.field] < month ">
+                                
+                            <span><i class="fa fa-circle icon icon-blue" style="color: red;"></i></span>
+                        </ng-container>
+                        <ng-container *ngIf="rowData[col.field] >= month ">
+                          
+                            <span><i class="fa fa-circle icon icon-blue" style="color: green;"></i></span>
+                        </ng-container>
+                      </ng-container>
 
                         <ng-container *ngIf="[col.field]=='facebook'">
                           <a class=" fab fa-facebook" href="{{rowData[col.field]}}" target="_blank" style="font-size:20px;text-align: center;"> </a>
