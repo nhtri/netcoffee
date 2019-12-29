@@ -73,20 +73,22 @@
                 </ng-template>
             </p-table>
 
-            <p-dialog header="WiFi" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '400px'}">
-                <label style="margin-top: 10px;"> Mã WiFi</label> 
-                <input class=" form-control" placeholder="Mã WiFi" type="text" />
-                <label  style="margin-top: 10px;"> SDT SIM</label> 
-                <input class=" form-control" placeholder="SDT SIM" type="text" />
-                <label  style="margin-top: 10px;"> Mã SIM</label> 
-                <input class=" form-control" placeholder="Mã SIM" type="text" />
+            <p-dialog header="WiFi" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '400px'}" [formGroup]="wifiform">
+
+                <label style="margin-top: 10px;"> Mã WiFi</label>  <label style="color: #ec250d;"> *</label>
+                <input class=" form-control" placeholder="Mã WiFi" type="text" formControlName="mawifi"/>
+                <label  style="margin-top: 10px;"> SDT SIM</label>  <label style="color: #ec250d;"> *</label>
+                <input class=" form-control" placeholder="SDT SIM" type="text" formControlName="sdtsim"/>
+                <label  style="margin-top: 10px;"> Mã SIM</label>  <label style="color: #ec250d;"> *</label>
+                <input class=" form-control" placeholder="Mã SIM" type="text" formControlName="masim"/>
                 <p-footer>
                     <div class="ui-dialog-buttonpane ui-helper-clearfix">
                         
                         <button  type="button" pButton (click)="save()" label="Save"></button>
-                        <button  type="button" pButton  (click)="delete()" label="Cancel" style="background:rgba(224, 46, 22, 0.6)"></button>
+                        <button  type="button" pButton  (click)="cancel()" label="Cancel" style="background:rgba(224, 46, 22, 0.6)"></button>
                     </div>
                 </p-footer>
+       
             </p-dialog>
             </div>
           </div>
