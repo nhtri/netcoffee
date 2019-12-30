@@ -28,6 +28,8 @@ export class UserComponent implements OnInit {
   checked: boolean
   ngaythue: Date
   ngaytra: Date
+ olduser:any
+
   constructor(
     private formBuilder: FormBuilder,
     private networkserviceService: NetworkserviceService,
@@ -46,8 +48,11 @@ export class UserComponent implements OnInit {
     if (this.editData.mawifi) {
 
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
+      this.userform.controls.mawifi.disable()
       this.userform.controls.sdtsim.setValue(this.editData.sdtsim)
+      this.userform.controls.sdtsim.disable()
       this.userform.controls.masim.setValue(this.editData.masim)
+      this.userform.controls.masim.disable()
       this.userform.controls.hoten.setValue(this.editData.hoten)
       this.userform.controls.facebook.setValue(this.editData.facebook)
 
@@ -125,6 +130,7 @@ export class UserComponent implements OnInit {
     });
 
 
+
     this.thanhtoanform.valueChanges.subscribe(res => {
       this.thanhtoan_array = []
       this.thanhtoan_array.push(res.thanhtoan1)
@@ -152,6 +158,9 @@ export class UserComponent implements OnInit {
 
   submit() {
 
+    this.userform.controls.mawifi.enable();
+    this.userform.controls.sdtsim.enable();
+    this.userform.controls.masim.enable();
     this.luudata = [
       this.data.mawifi,
       this.data.sdtsim,
@@ -182,6 +191,20 @@ export class UserComponent implements OnInit {
       this.data.mawifi,
     ]
 
+    this.olduser = [
+      1,
+      1,
+      1,
+      this.editData.ngaythue,
+      this.editData.ngaytra,
+      null,
+      null,
+      this.editData.facebook,
+      null,
+      this.editData.diachi,
+      this.editData.hoten,
+      this.editData.ghichu,
+    ]
     console.log(JSON.stringify(this.luudata))
     if (this.editData.mawifi) {
       this.networkserviceService.updateAllUser(this.updatedata).subscribe(
@@ -195,6 +218,19 @@ export class UserComponent implements OnInit {
           console.log("Error", error);
 
         })
+        if(this.checked == false){
+          this.networkserviceService.postAllUser(this.olduser).subscribe(
+            data => {
+              alert("Lưu Khách Hàng cũ Thành Công");
+              this.router.navigateByUrl('dashboard')
+              console.log("POST Request is successful ", data);
+            },
+            error => {
+    
+              console.log("Error", error);
+    
+            })
+        }
     }
     else {
       if (this.data.mawifi && this.data.masim && this.data.sdtsim && this.data.hoten) {
@@ -215,15 +251,18 @@ export class UserComponent implements OnInit {
       }
     }
 
-
-
-
-
   }
 
   onClick(val) {
-    if (this.checked == false)
+    if (this.checked == false){
       this.userform.controls.ngaytra.setValue(new Date())
+      this.userform.controls.hoten.setValue(null)
+      this.userform.controls.facebook.setValue(null)
+      this.userform.controls.diachi.setValue(null)
+      this.userform.controls.giacuoc.setValue(null)
+      this.userform.controls.ghichu.setValue(null)
+      console.log('editData',this.editData)
+    }
     else
       this.userform.controls.ngaytra.setValue(null)
     console.log(this.checked)

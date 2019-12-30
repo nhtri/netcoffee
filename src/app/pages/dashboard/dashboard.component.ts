@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
 
 
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != ''))
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.mawifi !='1'))
     this.date = new Date().getDate()
     if (this.date >= 25) {
       this.month = new Date().getMonth() + 1

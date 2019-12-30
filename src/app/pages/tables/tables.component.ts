@@ -22,11 +22,13 @@ export class TablesComponent implements OnInit {
      
       { field: 'hoten', header: 'Họ Tên' },
       { field: 'facebook', header: 'FaceBook' },
+      {field: 'diachi', header: 'Địa Chỉ' }
    
 
 
     ];
-    this.networkserviceService.getOldWiFi().subscribe(val => this.data = val)
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.mawifi == '1'))
+
 
 
 

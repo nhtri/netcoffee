@@ -13,38 +13,36 @@ import { Router } from '@angular/router';
 })
 export class WifiComponent implements OnInit {
   data: network[] = [];
- 
+  dataAll: any
   wifiform: FormGroup | any;
   cols: any[];
-wifidata:any
-luuwifidata:any
-wifidataupdate:any
-  clonedData: {[s: string]: network;} = {};
+  wifidata: any
+  luuwifidata: any
+  wifidataupdate: any
+  clonedData: { [s: string]: network; } = {};
   displayDialog: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private networkserviceService: NetworkserviceService,
     private router: Router
-  ) { 
+  ) {
     this.initForm();
     this.onFormChanges();
   }
 
   ngOnInit() {
     this.cols = [
-     
+
       { field: 'mawifi', header: 'Mã WiFi' },
-      { field: 'sdtsim', header: 'SDT SIM' },      
+      { field: 'sdtsim', header: 'SDT SIM' },
       { field: 'masim', header: 'Mã SIM' },
 
-    
-
-
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val=>val.hoten==null || val.hoten==''))
-console.log(this.data)
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten == null || val.hoten == ''))
+    console.log(this.data)
 
+    this.networkserviceService.getAllWiFi().subscribe(val => this.dataAll = val)
   }
 
   initForm() {
@@ -52,97 +50,48 @@ console.log(this.data)
       mawifi: new FormControl(null),
       sdtsim: new FormControl(null),
       masim: new FormControl(null),
-     
-    })}
 
-    onFormChanges() {
-      this.wifiform.valueChanges.subscribe(res => {
- 
-       this.wifidata=res
-        console.log("wifiform:", res)
-      });
-  
-     }
+    })
+  }
+
+  onFormChanges() {
+    this.wifiform.valueChanges.subscribe(res => {
+
+      this.wifidata = res
+      console.log("wifiform:", res)
+
+    });
+
+  }
 
   selectNetWithButton(value) {
     console.log(value)
   }
 
   onRowEditInit(val) {
-    this.clonedData[val] = {...val};
+    this.clonedData[val] = { ...val };
     console.log(this.clonedData[val])
-}
+  }
 
-onRowEditSave(val) {
-  this.wifidataupdate = [
-    null,
-    null,
-    null,
-    null,
-    true,
-    null,
-    null,
-    null,
-    null,
-    val.sdtsim,
-    val.masim,
-    val.mawifi,
-  ]
-  this.networkserviceService.updateAllUser(this.wifidataupdate).subscribe(
-    data => {
-      alert("Lưu Thành Công");
-     
-      console.log("POST Request is successful ", data);
-    },
-    error => {
-
-      console.log("Error", error);
-
-    })
-  console.log(val)
-}
-
-onRowEditCancel(val,index) {
-  this.data[index] = this.clonedData[val];
-  delete this.clonedData[val];
-console.log(val,index)
-}
-
-onRowDelete(val) {
-
-  this.networkserviceService.deleteUser(val.mawifi).subscribe(
-    data => {
-      alert("Xóa Thành Công");
-     this.ngOnInit();
-      console.log("POST Request is successful ", data);
-    },
-    error => {
-
-      console.log("Error", error);
-
-    })
-
-console.log(val)
-}
-
-showDialogToAdd() {
-
-  this.displayDialog = true;
-}
-
-save(){
-  if (this.wifidata.mawifi && this.wifidata.masim && this.wifidata.sdtsim ) {
-    this.luuwifidata = [
-      this.wifidata.mawifi,
-      this.wifidata.sdtsim,
-      this.wifidata.masim,
-      , null, null, null, null, true, null, null, null
+  onRowEditSave(val) {
+    this.wifidataupdate = [
+      null,
+      null,
+      null,
+      null,
+      true,
+      null,
+      null,
+      null,
+      null,
+      val.sdtsim,
+      val.masim,
+      val.mawifi,
     ]
-    this.networkserviceService.postAllUser(this.luuwifidata).subscribe(
+    this.networkserviceService.updateAllUser(this.wifidataupdate).subscribe(
       data => {
         alert("Lưu Thành Công");
-        this.router.navigateByUrl('wifi')
-        location.reload();
+
         console.log("POST Request is successful ", data);
       },
       error => {
@@ -150,11 +99,77 @@ save(){
         console.log("Error", error);
 
       })
+    console.log(val)
   }
-  else{
-    alert("Điền thông tin vào ô * trống");
-  }
-}
 
+  onRowEditCancel(val, index) {
+    this.data[index] = this.clonedData[val];
+    delete this.clonedData[val];
+    console.log(val, index)
+  }
+
+  onRowDelete(val) {
+
+    this.networkserviceService.deleteUser(val.mawifi).subscribe(
+      data => {
+        alert("Xóa Thành Công");
+        this.ngOnInit();
+        console.log("POST Request is successful ", data);
+      },
+      error => {
+
+        console.log("Error", error);
+
+      })
+
+    console.log(val)
+  }
+
+  showDialogToAdd() {
+
+    this.displayDialog = true;
+  }
+
+  save() {
+
+    let isDup = false
+    for (let i = 0; i < this.dataAll.length; i++) {
+      if (this.dataAll[i].mawifi === this.wifidata.mawifi) {
+        isDup = true
+        break;
+      }
+    }
+    if (isDup == false) {
+      if (this.wifidata.mawifi && this.wifidata.masim && this.wifidata.sdtsim) {
+        this.luuwifidata = [
+          this.wifidata.mawifi,
+          this.wifidata.sdtsim,
+          this.wifidata.masim,
+          , null, null, null, null, true, null, null, null
+        ]
+        this.networkserviceService.postAllUser(this.luuwifidata).subscribe(
+          data => {
+            alert("Lưu Thành Công");
+            this.router.navigateByUrl('wifi')
+            location.reload();
+            console.log("POST Request is successful ", data);
+          },
+          error => {
+
+            console.log("Error", error);
+
+          })
+      }
+      else {
+        alert("Điền thông tin vào ô * trống");
+      }
+    }
+    else {
+      alert("Mã WiFi đã tồn tại")
+    }
+  }
+  cancel(){
+    location.reload();
+  }
 
 }
