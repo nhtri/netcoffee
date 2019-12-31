@@ -3,11 +3,13 @@ import Chart from 'chart.js';
 import { NetworkserviceService } from 'src/app/services/networkservice.service';
 import { network } from 'src/app/components/model/network';
 import { from } from 'rxjs';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: "app-dashboard",
   templateUrl: "dashboard.component.html",
-
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
   data: network[] = [];
@@ -26,7 +28,7 @@ export class DashboardComponent implements OnInit {
       { field: 'thangdongcuoc', header: 'Tháng' },
 
       { field: 'facebook', header: 'Fb' },
-      { field: 'thangdongcuoc', header: 'Thanh Toan' },
+      { field: 'thangdongcuoc', header: 'Thanh Toán' },
 
 
 
@@ -57,4 +59,24 @@ export class DashboardComponent implements OnInit {
       return true
     }
   }
+
+  exportExcel() {
+  
+    const worksheet = XLSX.utils.json_to_sheet(this.data);
+    const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, "DanhSachKH_SUDUNG");
+
+}
+
+saveAsExcelFile(buffer: any, fileName: string): void {
+
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+        type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+
+}
 }

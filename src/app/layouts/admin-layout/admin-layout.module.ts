@@ -13,7 +13,7 @@ import { UserComponent } from "../../pages/user/user.component";
 import { TablesComponent } from "../../pages/tables/tables.component";
 import { TypographyComponent } from "../../pages/typography/typography.component";
 import { WifiComponent } from "../../pages/wifi/wifi.component"
-// import { RtlComponent } from "../../pages/rtl/rtl.component";
+ import { RtlComponent } from "../../pages/rtl/rtl.component";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { TableModule } from 'primeng/table';
@@ -21,6 +21,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DialogModule } from 'primeng/dialog';
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { DialogModule } from 'primeng/dialog';
     CalendarModule,
     ReactiveFormsModule,
     InputSwitchModule,
-    DialogModule
+    DialogModule,
+    DropdownModule
   ],
   declarations: [
     DashboardComponent,
@@ -44,7 +46,7 @@ import { DialogModule } from 'primeng/dialog';
     NotificationsComponent,
     WifiComponent,
 
-    // RtlComponent
+     RtlComponent
   ]
 })
 export class AdminLayoutModule { }

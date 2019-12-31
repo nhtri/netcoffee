@@ -3,11 +3,12 @@
     <div class=" col-md-12">
       <div class=" card">
         <div class=" card-header">
-          <h4 class=" card-title">Table</h4>
+          <h4 class=" card-title">DS KH Sử Dụng
+          </h4>
         </div>
         <div class=" card-body">
           <div class=" table-responsive">
-            <p-table  #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="8" [tableStyle]="{'table-layout':'auto'}" >
+            <p-table  #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="30" [tableStyle]="{'table-layout':'auto'}" >
                 <!-- <ng-template pTemplate="caption">
                     <div style="text-align: left">  
                         <input  type="text" pInputText  placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:40%">
@@ -15,6 +16,12 @@
                         <i class="fa fa-search" style="margin:4px 4px 4px 4px"></i>
                     </div>
                 </ng-template> -->
+                <ng-template pTemplate="caption">
+                  <div style="text-align: left">  
+                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+        
+                  </div>
+              </ng-template>
               <ng-template pTemplate="header" let-columns class=" text-primary">
                   <tr >
                       <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}" [pSortableColumn]="col.field">
@@ -30,25 +37,26 @@
                       </th>
                       <th></th>
                   </tr>
-                  <!-- <tr >
-                    <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}" [ngSwitch]="col.field">
-                      <input *ngSwitchCase="'mawifi'" pInputText type="text" (input)="tt.filter($event.target.value, col.field, 'contains')">
-                     
+                  <tr >
+                    <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}" [ngSwitch]="col.header">
+                      <input *ngSwitchCase="'Mã WiFi'" pInputText type="text" (input)="tt.filter($event.target.value, col.field, 'contains')">
+                      <p-dropdown *ngSwitchCase="'Thanh Toán'" style="height: 25px;" [style]="{'width':'30%'}"  [options]="trangthaikh" (onChange)="onchange()"></p-dropdown>
+
                
                     </th>
                     <th></th>
-                </tr> -->
+                </tr>
               </ng-template>
               <ng-template pTemplate="body" let-rowData let-columns="columns" >
                   <tr>
                       <td *ngFor="let col of columns">
                          
                         
-                        <ng-container *ngIf="[col.field]!='facebook' && [col.header]!='Thanh Toan' ">
+                        <ng-container *ngIf="[col.field]!='facebook' && [col.header]!='Thanh Toán' ">
                             {{rowData[col.field]}}
                         </ng-container>
 
-                        <ng-container *ngIf="[col.header]=='Thanh Toan' ">
+                        <ng-container *ngIf="[col.header]=='Thanh Toán' ">
                           
                           <ng-container *ngIf="rowData[col.field] < month ">
                                 

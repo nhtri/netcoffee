@@ -1,8 +1,15 @@
 export class network{
-    MaWiFi:string;
-    SDTSim:string;
-    NgayThue:string;
-    NgayTra:string;
-    GiaCuoc:string;
-    Facebook:string;
+  mawifi:string;
+  sdtsim:string;
+  masim:string;
+  ngaythue:Date;
+  ngaytra:Date;
+  thangdongcuoc:string;
+  giacuoc:string;
+  facebook:string;
+  trangthai:boolean;
+  diachi:string;
+  hoten:string;
+  ghichu:string;
+  trangthai_kh:string
   }

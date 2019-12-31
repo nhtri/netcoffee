@@ -21,15 +21,15 @@ export class UserComponent implements OnInit {
   thangdongcuoc: any
   luudata: any
   updatedata: any
-  trangthai: any
+  trangthai_kh: any
   editData: any
   input1: any
   input2: any
-  checked: boolean
+  // checked: boolean
   ngaythue: Date
   ngaytra: Date
- olduser:any
-
+  olduser: any
+  trangthaikh: any
   constructor(
     private formBuilder: FormBuilder,
     private networkserviceService: NetworkserviceService,
@@ -37,14 +37,19 @@ export class UserComponent implements OnInit {
   ) {
     this.initForm();
     this.onFormChanges();
-
+    this.trangthaikh = [
+      {label:'Sử Dụng', value:'sudung'},
+      {label:'Hủy', value:'huy'},
+      {label:'Trả Lại', value:'tralai'},
+     
+  ];
   }
 
   ngOnInit() {
     this.cols1 = ['1', '2', '3', '4', '5', '6']
     this.cols2 = ['7', '8', '9', '10', '11', '12']
     this.editData = window.history.state
-    this.checked = true
+    this.userform.trangthaikhdd = 'sudung'
     if (this.editData.mawifi) {
 
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
@@ -66,8 +71,8 @@ export class UserComponent implements OnInit {
 
       this.userform.controls.diachi.setValue(this.editData.diachi)
       this.userform.controls.giacuoc.setValue(this.editData.giacuoc)
-      this.userform.controls.trangthai.setValue(this.editData.trangthai)
-      this.checked = this.editData.trangthai
+      this.userform.controls.trangthaikhdd.setValue(this.editData.trangthai_kh)
+      // this.checked = this.editData.trangthai
       this.userform.controls.ghichu.setValue(this.editData.ghichu)
       this.thangdongcuoc = this.editData.thangdongcuoc
       if (this.thangdongcuoc == 1) { this.thanhtoanform.controls.thanhtoan1.setValue(true) }
@@ -83,6 +88,10 @@ export class UserComponent implements OnInit {
       if (this.thangdongcuoc == 11) { this.thanhtoanform.controls.thanhtoan11.setValue(true) }
       if (this.thangdongcuoc == 12) { this.thanhtoanform.controls.thanhtoan12.setValue(true) }
     }
+    else{
+      this.userform.controls.trangthaikhdd.setValue('sudung')
+      this.userform.controls.trangthaikhdd.disable()
+    }
   }
 
   initForm() {
@@ -96,7 +105,7 @@ export class UserComponent implements OnInit {
       ngaytra: new FormControl(null),
       diachi: new FormControl(null),
       giacuoc: new FormControl(null),
-      trangthai: new FormControl(null),
+      trangthaikhdd: new FormControl('sudung'),
       ghichu: new FormControl(null),
     })
     this.thanhtoanform = this.formBuilder.group({
@@ -123,10 +132,11 @@ export class UserComponent implements OnInit {
         this.hoten = res.hoten,
         this.ghichu = res.ghichu,
         this.facebook = res.facebook,
-        this.trangthai = res.trangthai
+        this.trangthai_kh = res.trangthaikhdd
 
 
       console.log("userform:", res)
+      console.log("trangthai_kh:", this.trangthai_kh)
     });
 
 
@@ -158,9 +168,14 @@ export class UserComponent implements OnInit {
 
   submit() {
 
+    
     this.userform.controls.mawifi.enable();
     this.userform.controls.sdtsim.enable();
     this.userform.controls.masim.enable();
+    if(this.trangthai_kh == null){
+      this.trangthai_kh = 'sudung'
+      console.log('trites',this.trangthai_kh)
+    }
     this.luudata = [
       this.data.mawifi,
       this.data.sdtsim,
@@ -170,10 +185,11 @@ export class UserComponent implements OnInit {
       this.thangdongcuoc,
       this.data.giacuoc,
       this.data.facebook,
-      this.trangthai,
+      true,
       this.data.diachi,
       this.hoten,
       this.ghichu,
+      this.trangthai_kh
     ]
 
     this.updatedata = [
@@ -182,12 +198,13 @@ export class UserComponent implements OnInit {
       this.thangdongcuoc,
       this.data.giacuoc,
       this.data.facebook,
-      this.trangthai,
+      true,
       this.data.diachi,
       this.hoten,
       this.ghichu,
       this.data.sdtsim,
       this.data.masim,
+      'sudung',
       this.data.mawifi,
     ]
 
@@ -204,6 +221,7 @@ export class UserComponent implements OnInit {
       this.editData.diachi,
       this.editData.hoten,
       this.editData.ghichu,
+      this.trangthai_kh,
     ]
     console.log(JSON.stringify(this.luudata))
     if (this.editData.mawifi) {
@@ -218,19 +236,19 @@ export class UserComponent implements OnInit {
           console.log("Error", error);
 
         })
-        if(this.checked == false){
-          this.networkserviceService.postAllUser(this.olduser).subscribe(
-            data => {
-              alert("Lưu Khách Hàng cũ Thành Công");
-              this.router.navigateByUrl('dashboard')
-              console.log("POST Request is successful ", data);
-            },
-            error => {
-    
-              console.log("Error", error);
-    
-            })
-        }
+      if (this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai') {
+        this.networkserviceService.postAllUser(this.olduser).subscribe(
+          data => {
+            alert("Lưu Khách Hàng cũ Thành Công");
+            this.router.navigateByUrl('dashboard')
+            console.log("POST Request is successful ", data);
+          },
+          error => {
+
+            console.log("Error", error);
+
+          })
+      }
     }
     else {
       if (this.data.mawifi && this.data.masim && this.data.sdtsim && this.data.hoten) {
@@ -246,29 +264,31 @@ export class UserComponent implements OnInit {
 
           })
       }
-      else{
+      else {
         alert("Điền thông tin vào ô * trống");
       }
     }
 
   }
 
-  onClick(val) {
-    if (this.checked == false){
+  onchange() {
+    if (this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai') {
       this.userform.controls.ngaytra.setValue(new Date())
       this.userform.controls.hoten.setValue(null)
       this.userform.controls.facebook.setValue(null)
       this.userform.controls.diachi.setValue(null)
       this.userform.controls.giacuoc.setValue(null)
       this.userform.controls.ghichu.setValue(null)
-      console.log('editData',this.editData)
+      this.thanhtoanform.reset()
+      
+      console.log('editData', this.editData)
     }
     else
       this.userform.controls.ngaytra.setValue(null)
-    console.log(this.checked)
+    console.log(this.trangthai_kh)
   }
 
-  cancel(){
+  cancel() {
     this.router.navigateByUrl('dashboard')
   }
 }

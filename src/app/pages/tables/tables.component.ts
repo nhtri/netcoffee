@@ -11,7 +11,7 @@ import * as FileSaver from 'file-saver';
 })
 export class TablesComponent implements OnInit {
   data: network[] = [];
-
+ 
   cols: any[];
   constructor(
     private networkserviceService: NetworkserviceService,
@@ -27,9 +27,8 @@ export class TablesComponent implements OnInit {
 
 
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.mawifi == '1'))
-
-
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.mawifi == '1' && val.trangthai_kh =='huy'))
+    // this.dskhhuy = this.data.map(({ hoten, facebook,diachi }) => ({hoten, facebook,diachi}));
 
 
   }
@@ -48,7 +47,7 @@ export class TablesComponent implements OnInit {
         const worksheet = XLSX.utils.json_to_sheet(this.data);
         const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
         const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-        this.saveAsExcelFile(excelBuffer, "DanhSachKHcu");
+        this.saveAsExcelFile(excelBuffer, "DanhSachKH_HUY");
   
 }
 
