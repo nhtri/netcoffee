@@ -16,9 +16,17 @@ export class DashboardComponent implements OnInit {
   month: any
   date: any
   cols: any[];
+  trangthaitt: any
+
   constructor(
     private networkserviceService: NetworkserviceService,
-  ) { }
+  ) {
+    this.trangthaitt = [
+      { label: 'All', value: 'all' },
+      { label: 'Đã Thanh Toán', value: 'dathanhtoan' },
+      { label: 'Chưa Thanh Toán', value: 'chuathanhtoan' }
+    ]
+  }
 
   ngOnInit() {
     this.cols = [
@@ -34,7 +42,7 @@ export class DashboardComponent implements OnInit {
 
 
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.mawifi !='1'))
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.mawifi != '1'))
     this.date = new Date().getDate()
     if (this.date >= 25) {
       this.month = new Date().getMonth() + 1
@@ -61,22 +69,37 @@ export class DashboardComponent implements OnInit {
   }
 
   exportExcel() {
-  
+
     const worksheet = XLSX.utils.json_to_sheet(this.data);
     const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, "DanhSachKH_SUDUNG");
 
-}
+  }
 
-saveAsExcelFile(buffer: any, fileName: string): void {
+  saveAsExcelFile(buffer: any, fileName: string): void {
 
     let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     let EXCEL_EXTENSION = '.xlsx';
     const data: Blob = new Blob([buffer], {
-        type: EXCEL_TYPE
+      type: EXCEL_TYPE
     });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
 
-}
+  }
+
+
+  onchange(value) {
+    if(value == 'dathanhtoan'){
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.mawifi != '1' && val.thangdongcuoc>=this.month))
+    }
+    else if(value == 'chuathanhtoan'){
+      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.mawifi != '1' && val.thangdongcuoc<this.month))
+    }
+    else if(value == 'all'){
+      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.mawifi != '1' ))
+
+    }
+    console.log('value', value)
+  }
 }
