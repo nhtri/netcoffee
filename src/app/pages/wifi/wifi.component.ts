@@ -109,18 +109,21 @@ export class WifiComponent implements OnInit {
   }
 
   onRowDelete(val) {
-
-    this.networkserviceService.deleteUser(val.mawifi).subscribe(
-      data => {
-        alert("Xóa Thành Công");
-        this.ngOnInit();
-        console.log("POST Request is successful ", data);
-      },
-      error => {
-
-        console.log("Error", error);
-
-      })
+    let isDel = confirm("Bạn có muốn xóa WiFi này không?");
+    if(isDel==true){
+      this.networkserviceService.deleteUser(val.mawifi).subscribe(
+        data => {
+          alert("Xóa Thành Công");
+          this.ngOnInit();
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+  
+          console.log("Error", error);
+  
+        })
+    }
+   
 
     console.log(val)
   }

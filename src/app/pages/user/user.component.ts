@@ -30,11 +30,14 @@ export class UserComponent implements OnInit {
   ngaytra: Date
   olduser: any
   trangthaikh: any
+  namthanhtoan:any
+  isDisable:boolean
   constructor(
     private formBuilder: FormBuilder,
     private networkserviceService: NetworkserviceService,
     private router: Router
   ) {
+    this.isDisable = false
     this.initForm();
     this.onFormChanges();
     this.trangthaikh = [
@@ -43,6 +46,10 @@ export class UserComponent implements OnInit {
       {label:'Trả Lại', value:'tralai'},
      
   ];
+  this.namthanhtoan=[
+    {label:new Date().getFullYear(),value:new Date().getFullYear()},
+    {label:new Date().getFullYear() + 1,value:new Date().getFullYear()+1},
+  ]
   }
 
   ngOnInit() {
@@ -50,7 +57,7 @@ export class UserComponent implements OnInit {
     this.cols2 = ['7', '8', '9', '10', '11', '12']
     this.editData = window.history.state
     this.userform.trangthaikhdd = 'sudung'
-    if (this.editData.mawifi) {
+    if (this.editData.mawifi && this.editData.trangthai_kh =='sudung') {
 
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
       this.userform.controls.mawifi.disable()
@@ -88,6 +95,46 @@ export class UserComponent implements OnInit {
       if (this.thangdongcuoc == 11) { this.thanhtoanform.controls.thanhtoan11.setValue(true) }
       if (this.thangdongcuoc == 12) { this.thanhtoanform.controls.thanhtoan12.setValue(true) }
     }
+    else if (this.editData.trangthai_kh == 'huy' || this.editData.trangthai_kh == 'tralai'){
+      this.isDisable=true
+      console.log('isDisable',this.isDisable)
+      this.userform.controls.mawifi.setValue(this.editData.mawifi)
+      
+      this.userform.controls.sdtsim.setValue(this.editData.sdtsim)
+     
+      this.userform.controls.masim.setValue(this.editData.masim)
+     
+      this.userform.controls.hoten.setValue(this.editData.hoten)
+      this.userform.controls.facebook.setValue(this.editData.facebook)
+
+      if (this.editData.ngaythue) {
+        this.userform.controls.ngaythue.setValue(new Date(this.editData.ngaythue))
+      }
+
+      if (this.editData.ngaytra) {
+        this.userform.controls.ngaytra.setValue(new Date(this.editData.ngaytra))
+      }
+
+      this.userform.controls.diachi.setValue(this.editData.diachi)
+      this.userform.controls.giacuoc.setValue(this.editData.giacuoc)
+      this.userform.controls.trangthaikhdd.setValue(this.editData.trangthai_kh)
+      // this.checked = this.editData.trangthai
+      this.userform.controls.ghichu.setValue(this.editData.ghichu)
+      this.thangdongcuoc = this.editData.thangdongcuoc
+      if (this.thangdongcuoc == 1) { this.thanhtoanform.controls.thanhtoan1.setValue(true) }
+      if (this.thangdongcuoc == 2) { this.thanhtoanform.controls.thanhtoan2.setValue(true) }
+      if (this.thangdongcuoc == 3) { this.thanhtoanform.controls.thanhtoan3.setValue(true) }
+      if (this.thangdongcuoc == 4) { this.thanhtoanform.controls.thanhtoan4.setValue(true) }
+      if (this.thangdongcuoc == 5) { this.thanhtoanform.controls.thanhtoan5.setValue(true) }
+      if (this.thangdongcuoc == 6) { this.thanhtoanform.controls.thanhtoan6.setValue(true) }
+      if (this.thangdongcuoc == 7) { this.thanhtoanform.controls.thanhtoan7.setValue(true) }
+      if (this.thangdongcuoc == 8) { this.thanhtoanform.controls.thanhtoan8.setValue(true) }
+      if (this.thangdongcuoc == 9) { this.thanhtoanform.controls.thanhtoan9.setValue(true) }
+      if (this.thangdongcuoc == 10) { this.thanhtoanform.controls.thanhtoan10.setValue(true) }
+      if (this.thangdongcuoc == 11) { this.thanhtoanform.controls.thanhtoan11.setValue(true) }
+      if (this.thangdongcuoc == 12) { this.thanhtoanform.controls.thanhtoan12.setValue(true) }
+     
+    }
     else{
       this.userform.controls.trangthaikhdd.setValue('sudung')
       this.userform.controls.trangthaikhdd.disable()
@@ -107,6 +154,8 @@ export class UserComponent implements OnInit {
       giacuoc: new FormControl(null),
       trangthaikhdd: new FormControl('sudung'),
       ghichu: new FormControl(null),
+      namthanhtoan:new FormControl(null),
+    
     })
     this.thanhtoanform = this.formBuilder.group({
       thanhtoan1: new FormControl(null),
@@ -135,8 +184,7 @@ export class UserComponent implements OnInit {
         this.trangthai_kh = res.trangthaikhdd
 
 
-      console.log("userform:", res)
-      console.log("trangthai_kh:", this.trangthai_kh)
+     
     });
 
 
@@ -174,7 +222,7 @@ export class UserComponent implements OnInit {
     this.userform.controls.masim.enable();
     if(this.trangthai_kh == null){
       this.trangthai_kh = 'sudung'
-      console.log('trites',this.trangthai_kh)
+     
     }
     this.luudata = [
       this.data.mawifi,
@@ -209,13 +257,13 @@ export class UserComponent implements OnInit {
     ]
 
     this.olduser = [
-      1,
-      1,
-      1,
+      this.data.mawifi,
+      this.data.sdtsim,
+      this.data.masim,
       this.editData.ngaythue,
       this.editData.ngaytra,
-      null,
-      null,
+      this.thangdongcuoc,
+      this.data.giacuoc,
       this.editData.facebook,
       null,
       this.editData.diachi,

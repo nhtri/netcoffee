@@ -13,8 +13,7 @@
 
         </div>
         <br/>
-            <p-table  #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="30" [tableStyle]="{'table-layout':'auto'}" > 
-              
+            <p-table  #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="30" [tableStyle]="{'table-layout':'auto'}" >
             
             
               <!-- <ng-template pTemplate="caption">
@@ -32,7 +31,7 @@
               </ng-template> -->
               <ng-template pTemplate="header" let-columns class=" text-primary">
                   <tr >
-                      <th *ngFor="let col of columns"  [pSortableColumn]="col.field">
+                      <th *ngFor="let col of columns"  [pSortableColumn]="col.field"  >
                           {{col.header}}
                         
                           <ng-container *ngIf="[col.field]=='mawifi'">
@@ -46,9 +45,11 @@
                       <th></th>
                   </tr>
                   <tr >
-                    <th *ngFor="let col of columns"  [ngSwitch]="col.header">
-                      <input *ngSwitchCase="'Mã WiFi'" pInputText type="text"  (input)="tt.filter($event.target.value, col.field, 'contains')">
-                      <p-dropdown *ngSwitchCase="'Thanh Toán'" style="height: 25px;" [style]="{'width':'100%'}"  [options]="trangthaitt" (onChange)="onchange($event.value)"></p-dropdown>
+                    <th *ngFor="let col of columns"  [ngSwitch]="col.header" >
+                      <input *ngSwitchCase="'Mã WiFi'" pInputText type="text"   (input)="tt.filter($event.target.value, col.field, 'contains')">
+                      <input *ngSwitchCase="'Họ Tên'" pInputText type="text"   (input)="tt.filter($event.target.value, col.field, 'contains')">
+                      
+                      <p-dropdown *ngSwitchCase="'Thanh Toán'" style="height: 25px;" [style]="{'width':'80%'}"  [options]="trangthaitt" (onChange)="onchange($event.value)"></p-dropdown>
 
                
                     </th>
@@ -57,7 +58,7 @@
               </ng-template>
               <ng-template pTemplate="body" let-rowData let-columns="columns" >
                   <tr>
-                      <td *ngFor="let col of columns">
+                      <td *ngFor="let col of columns" >
                          
                         
                         <ng-container *ngIf="[col.field]!='facebook' && [col.header]!='Thanh Toán' ">

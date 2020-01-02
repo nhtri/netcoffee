@@ -94,7 +94,12 @@
           <div class=" row">
             <div class=" col-md-12">
               <div class=" form-group">
-                <label> Thanh Toán</label>
+                <label   style="margin-right: 10px;"> Thanh Toán</label>
+            
+           
+                <p-dropdown  [options]="namthanhtoan" formControlName="namthanhtoan" (onChange)="onchange()"></p-dropdown>
+             
+                
                 <table class="table_monthly">
 
                   <thead class=" text-primary" style="border-bottom:1px solid #344675 ;">
@@ -155,10 +160,10 @@
           </div>
 
         </div>
-        <div class=" card-footer">
-          <button class=" btn btn-fill btn-danger" type="submit" (click)="submit()">Save</button>
+        <div class=" card-footer" [hidden]="isDisable">
+          <button class=" btn btn-fill btn-danger" type="submit" (click)="submit()" [hidden]="isDisable">Save</button>
 
-          <button class=" btn " style="background:rgba(224, 46, 22, 0.6)" (click)="cancel()">Cancel</button>
+          <button class=" btn " style="background:rgba(224, 46, 22, 0.6)" (click)="cancel()" [hidden]="isDisable">Cancel</button>
         </div>
       </div>
     </div>
