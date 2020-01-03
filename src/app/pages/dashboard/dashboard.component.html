@@ -61,9 +61,23 @@
                       <td *ngFor="let col of columns" >
                          
                         
-                        <ng-container *ngIf="[col.field]!='facebook' && [col.header]!='Thanh Toán' && [col.header]!='' ">
+                        <ng-container *ngIf="[col.field]!='facebook' && [col.header]!='Thanh Toán' && [col.header]!='' && [col.header]!='Tháng'">
                             {{rowData[col.field]}}
                         </ng-container>
+
+                        <ng-container *ngIf="[col.header]=='Tháng' ">
+                          <ng-container *ngIf="rowData[col.field] > 12 ">
+
+                          {{rowData[col.field]- 12}} 
+                        </ng-container>
+                      </ng-container>
+
+                      <ng-container *ngIf="[col.header]=='Tháng' ">
+                        <ng-container *ngIf="rowData[col.field] < 13 ">
+
+                        {{rowData[col.field]}}
+                      </ng-container>
+                    </ng-container>
 
                         <ng-container *ngIf="[col.header]=='Thanh Toán' ">
                           
