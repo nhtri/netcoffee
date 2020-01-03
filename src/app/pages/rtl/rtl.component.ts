@@ -21,14 +21,15 @@ export class RtlComponent implements OnInit {
   ngOnInit() {
     this.cols = [
      
+      { field: 'mawifi', header: 'Mã WiFi' },
       { field: 'hoten', header: 'Họ Tên' },
       { field: 'facebook', header: 'FaceBook' },
-      {field: 'diachi', header: 'Địa Chỉ' }
+      {field: 'ngaytra', header: 'Ngày Hủy' }
    
 
 
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.mawifi == '1' && val.trangthai_kh == 'tralai'))
+    this.networkserviceService.getAllAccount().subscribe(val => this.data = val.filter(val => val.trangthai_kh == 'tralai'))
 
 
 

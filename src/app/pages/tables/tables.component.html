@@ -26,13 +26,14 @@
                 <ng-template pTemplate="body" let-rowData let-columns="columns" >
                     <tr>
                         <td *ngFor="let col of columns">
-                            <!-- <ng-container *ngIf="[col.field]=='ngaythue' || [col.field]=='ngaytra'">
+                            <ng-container *ngIf="[col.field]=='ngaytra'">
+                            
                             {{rowData[col.field] | date: 'dd/MM/yyyy'}}
                           </ng-container>
                           
-                          <ng-container *ngIf="[col.field]!='ngaythue'&&[col.field]!='ngaytra' &&[col.field]!='trangthai'">
+                          <!-- <ng-container *ngIf="[col.field]!='ngaythue'&&[col.field]!='ngaytra' &&[col.field]!='trangthai'">
                               {{rowData[col.field]}}
-                          </ng-container> -->
+                          </ng-container>  -->
   
                           <!-- <ng-container *ngIf="[col.field]=='trangthai'">
                               <ng-container *ngIf="rowData[col.field]==false">
@@ -44,7 +45,7 @@
                                   <span><i class="fa fa-circle icon icon-blue" style="color: green;"></i></span>
                               </ng-container>
                           </ng-container> -->
-                          <ng-container *ngIf="[col.field]!='facebook' ">
+                          <ng-container *ngIf="[col.field]!='facebook' && [col.field]!='ngaytra' ">
                             {{rowData[col.field]}}
                         </ng-container>
 

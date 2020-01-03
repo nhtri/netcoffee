@@ -22,12 +22,12 @@ export class TablesComponent implements OnInit {
       { field: 'mawifi', header: 'Mã WiFi' },
       { field: 'hoten', header: 'Họ Tên' },
       { field: 'facebook', header: 'FaceBook' },
-      {field: 'diachi', header: 'Địa Chỉ' }
+      {field: 'ngaytra', header: 'Ngày Hủy' }
    
 
 
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.mawifi == '1' && val.trangthai_kh =='huy'))
+    this.networkserviceService.getAllAccount().subscribe(val => this.data = val.filter(val => val.trangthai_kh =='huy'))
     // this.dskhhuy = this.data.map(({ hoten, facebook,diachi }) => ({hoten, facebook,diachi}));
 
 

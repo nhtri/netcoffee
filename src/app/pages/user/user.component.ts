@@ -31,6 +31,7 @@ export class UserComponent implements OnInit {
   olduser: any
   trangthaikh: any
   namthanhtoan:any
+  namdongcuoc:any
   isDisable:boolean
   constructor(
     private formBuilder: FormBuilder,
@@ -79,6 +80,7 @@ export class UserComponent implements OnInit {
       this.userform.controls.diachi.setValue(this.editData.diachi)
       this.userform.controls.giacuoc.setValue(this.editData.giacuoc)
       this.userform.controls.trangthaikhdd.setValue(this.editData.trangthai_kh)
+      this.userform.controls.namthanhtoan.setValue(this.editData.namdongcuoc)
       // this.checked = this.editData.trangthai
       this.userform.controls.ghichu.setValue(this.editData.ghichu)
       this.thangdongcuoc = this.editData.thangdongcuoc
@@ -118,6 +120,7 @@ export class UserComponent implements OnInit {
       this.userform.controls.diachi.setValue(this.editData.diachi)
       this.userform.controls.giacuoc.setValue(this.editData.giacuoc)
       this.userform.controls.trangthaikhdd.setValue(this.editData.trangthai_kh)
+      this.userform.controls.namthanhtoan.setValue(this.editData.namdongcuoc)
       // this.checked = this.editData.trangthai
       this.userform.controls.ghichu.setValue(this.editData.ghichu)
       this.thangdongcuoc = this.editData.thangdongcuoc
@@ -182,7 +185,7 @@ export class UserComponent implements OnInit {
         this.ghichu = res.ghichu,
         this.facebook = res.facebook,
         this.trangthai_kh = res.trangthaikhdd
-
+this.namdongcuoc =res.namthanhtoan
 
      
     });
@@ -216,6 +219,9 @@ export class UserComponent implements OnInit {
 
   submit() {
 
+    if(this.namdongcuoc>new Date().getFullYear()){
+this.thangdongcuoc = this.thangdongcuoc + 12
+    }
     
     this.userform.controls.mawifi.enable();
     this.userform.controls.sdtsim.enable();
@@ -237,7 +243,8 @@ export class UserComponent implements OnInit {
       this.data.diachi,
       this.hoten,
       this.ghichu,
-      this.trangthai_kh
+      this.trangthai_kh,
+      this.namdongcuoc,
     ]
 
     this.updatedata = [
@@ -253,6 +260,7 @@ export class UserComponent implements OnInit {
       this.data.sdtsim,
       this.data.masim,
       'sudung',
+      this.namdongcuoc,
       this.data.mawifi,
     ]
 
@@ -261,7 +269,7 @@ export class UserComponent implements OnInit {
       this.data.sdtsim,
       this.data.masim,
       this.editData.ngaythue,
-      this.editData.ngaytra,
+      this.data.ngaytra,
       this.thangdongcuoc,
       this.data.giacuoc,
       this.editData.facebook,
@@ -270,6 +278,7 @@ export class UserComponent implements OnInit {
       this.editData.hoten,
       this.editData.ghichu,
       this.trangthai_kh,
+      this.namdongcuoc
     ]
     console.log(JSON.stringify(this.luudata))
     if (this.editData.mawifi) {
@@ -285,7 +294,7 @@ export class UserComponent implements OnInit {
 
         })
       if (this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai') {
-        this.networkserviceService.postAllUser(this.olduser).subscribe(
+        this.networkserviceService.postAllAccount(this.olduser).subscribe(
           data => {
             alert("Lưu Khách Hàng cũ Thành Công");
             this.router.navigateByUrl('dashboard')
@@ -339,4 +348,9 @@ export class UserComponent implements OnInit {
   cancel() {
     this.router.navigateByUrl('dashboard')
   }
+
+  onchangenamthanhtoan(){
+    
+  }
+  
 }

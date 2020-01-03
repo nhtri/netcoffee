@@ -31,6 +31,11 @@ export class NetworkserviceService {
     return this.httpClient.get<any>(getAllWiFiAPI);    
   }
 
+  getAllAccount() {
+    const getAllAccountAPI = `${NETWORK.API.ACCOUNT}`;
+    return this.httpClient.get<any>(getAllAccountAPI);    
+  }
+
   getOldWiFi() {
     const getOldWiFiAPI = `${NETWORK.API.Old}`;
     return this.httpClient.get<any>(getOldWiFiAPI);    
@@ -41,9 +46,16 @@ export class NetworkserviceService {
     return this.httpClient.get<any>(getAllUserAPI);    
   }
 
+  
+
   postAllUser(data): Observable<any>  {
     const postAllUserAPI = `${NETWORK.API.WiFi}`;
     return this.httpClient.post<any>(postAllUserAPI, data,this.httpOptions)  
+  }
+
+  postAllAccount(data): Observable<any>  {
+    const postAllAccountAPI = `${NETWORK.API.ACCOUNT}`;
+    return this.httpClient.post<any>(postAllAccountAPI, data,this.httpOptions)  
   }
 
   deleteUser(data): Observable<any>  {

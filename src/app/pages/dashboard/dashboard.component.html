@@ -7,12 +7,10 @@
           </h4>
         </div>
         <div class=" card-body">
-          <div class=" table-responsive">
-            <div style="text-align: left">  
-              <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+          <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em; margin-bottom: 15px;" class="ui-button-success"></button>
 
-        </div>
-        <br/>
+          <div class=" table-responsive">
+            
             <p-table  #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="30" [tableStyle]="{'table-layout':'auto'}" >
             
             
@@ -32,7 +30,9 @@
               <ng-template pTemplate="header" let-columns class=" text-primary">
                   <tr >
                       <th *ngFor="let col of columns"  [pSortableColumn]="col.field"  >
-                          {{col.header}}
+                          
+                         
+                            {{col.header}}
                         
                           <ng-container *ngIf="[col.field]=='mawifi'">
                             <p-sortIcon [field]="col.field" ></p-sortIcon>
@@ -61,7 +61,7 @@
                       <td *ngFor="let col of columns" >
                          
                         
-                        <ng-container *ngIf="[col.field]!='facebook' && [col.header]!='Thanh Toán' ">
+                        <ng-container *ngIf="[col.field]!='facebook' && [col.header]!='Thanh Toán' && [col.header]!='' ">
                             {{rowData[col.field]}}
                         </ng-container>
 

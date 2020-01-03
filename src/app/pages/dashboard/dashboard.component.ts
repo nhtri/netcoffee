@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   data: network[] = [];
   month: any
   date: any
+  year:any
   cols: any[];
   trangthaitt: any
 
@@ -40,10 +41,11 @@ export class DashboardComponent implements OnInit {
 
 
 
-
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.mawifi != '1'))
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh =='sudung'))
     this.date = new Date().getDate()
+    this.year = new Date().getFullYear()
+
     if (this.date >= 25) {
       this.month = new Date().getMonth() + 1
       if (new Date().getMonth() + 1 == 1) {
@@ -91,13 +93,13 @@ export class DashboardComponent implements OnInit {
 
   onchange(value) {
     if(value == 'dathanhtoan'){
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.mawifi != '1' && val.thangdongcuoc>=this.month))
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.thangdongcuoc>=this.month || val.namdongcuoc > this.year))
     }
     else if(value == 'chuathanhtoan'){
-      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.mawifi != '1' && val.thangdongcuoc<this.month))
+      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.thangdongcuoc<this.month))
     }
     else if(value == 'all'){
-      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.mawifi != '1' ))
+      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' ))
 
     }
     console.log('value', value)

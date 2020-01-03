@@ -78,7 +78,7 @@
               </div>
             </div>
 
-            <div class=" col-md-4 pl-md-1">
+            <div class=" col-md-6 pl-md-1">
               <div class=" form-group">
                 <label>Trạng Thái KH</label>
                 <!-- <div class="slider">
@@ -86,7 +86,7 @@
                   </p-inputSwitch>
                 </div> -->
             <div>
-                  <p-dropdown  [options]="trangthaikh" formControlName="trangthaikhdd" (onChange)="onchange()"></p-dropdown>
+                  <p-dropdown   [options]="trangthaikh" formControlName="trangthaikhdd" (onChange)="onchange()"></p-dropdown>
                 </div>
               </div>
             </div>
@@ -96,9 +96,9 @@
               <div class=" form-group">
                 <label   style="margin-right: 10px;"> Thanh Toán</label>
             
-           
-                <p-dropdown  [options]="namthanhtoan" formControlName="namthanhtoan" (onChange)="onchange()"></p-dropdown>
-             
+           <div style="margin-bottom: 10px;">
+                <p-dropdown  [options]="namthanhtoan" formControlName="namthanhtoan" (onChange)="onchangenamthanhtoan()"></p-dropdown>
+              </div>
                 
                 <table class="table_monthly">
 

@@ -10,3 +10,7 @@
 .ui-dropdown-label-container{
     height: 35px !important;
 }
+
+.ui-dropdown{
+    height: 38px !important;
+}
