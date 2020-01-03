@@ -59,7 +59,9 @@ export class UserComponent implements OnInit {
     this.editData = window.history.state
     this.userform.trangthaikhdd = 'sudung'
     if (this.editData.mawifi && this.editData.trangthai_kh =='sudung') {
-
+if(this.editData.thangdongcuoc>12){
+  this.editData.thangdongcuoc = this.editData.thangdongcuoc -12
+}
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
       this.userform.controls.mawifi.disable()
       this.userform.controls.sdtsim.setValue(this.editData.sdtsim)
@@ -108,7 +110,9 @@ export class UserComponent implements OnInit {
      
       this.userform.controls.hoten.setValue(this.editData.hoten)
       this.userform.controls.facebook.setValue(this.editData.facebook)
-
+      if(this.editData.thangdongcuoc>12){
+        this.editData.thangdongcuoc = this.editData.thangdongcuoc -12
+      }
       if (this.editData.ngaythue) {
         this.userform.controls.ngaythue.setValue(new Date(this.editData.ngaythue))
       }
@@ -350,7 +354,7 @@ this.thangdongcuoc = this.thangdongcuoc + 12
   }
 
   onchangenamthanhtoan(){
-    
+
   }
   
 }

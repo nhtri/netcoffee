@@ -62,20 +62,20 @@
                          
                         
                         <ng-container *ngIf="[col.field]!='facebook' && [col.header]!='Thanh Toán' && [col.header]!='' && [col.header]!='Tháng'">
-                            {{rowData[col.field]}}
+                            {{rowData[col.field]}} 
                         </ng-container>
 
                         <ng-container *ngIf="[col.header]=='Tháng' ">
                           <ng-container *ngIf="rowData[col.field] > 12 ">
 
-                          {{rowData[col.field]- 12}} 
+                          {{rowData[col.field]- 12}} / {{year + 1}}
                         </ng-container>
                       </ng-container>
 
                       <ng-container *ngIf="[col.header]=='Tháng' ">
                         <ng-container *ngIf="rowData[col.field] < 13 ">
 
-                        {{rowData[col.field]}}
+                        {{rowData[col.field]}} / {{year}}
                       </ng-container>
                     </ng-container>
 

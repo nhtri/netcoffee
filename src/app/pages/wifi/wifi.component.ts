@@ -5,6 +5,8 @@ import { network } from 'src/app/components/model/network';
 import { from } from 'rxjs';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-wifi',
@@ -176,5 +178,24 @@ export class WifiComponent implements OnInit {
   cancel(){
     location.reload();
   }
+  exportExcel() {
+  
+    const worksheet = XLSX.utils.json_to_sheet(this.data);
+    const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, "DanhSachKH_HUY");
+
+}
+
+saveAsExcelFile(buffer: any, fileName: string): void {
+
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+        type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+
+}
 
 }
