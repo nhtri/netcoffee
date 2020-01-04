@@ -60,19 +60,19 @@ export class WifiComponent implements OnInit {
     this.wifiform.valueChanges.subscribe(res => {
 
       this.wifidata = res
-      console.log("wifiform:", res)
+  
 
     });
 
   }
 
   selectNetWithButton(value) {
-    console.log(value)
+
   }
 
   onRowEditInit(val) {
     this.clonedData[val] = { ...val };
-    console.log(this.clonedData[val])
+    
   }
 
   onRowEditSave(val) {
@@ -90,6 +90,7 @@ export class WifiComponent implements OnInit {
       val.masim,
       'sudung',
       null,
+      null,
       val.mawifi,
     ]
     this.networkserviceService.updateAllUser(this.wifidataupdate).subscribe(
@@ -103,13 +104,13 @@ export class WifiComponent implements OnInit {
         console.log("Error", error);
 
       })
-    console.log(val)
+ 
   }
 
   onRowEditCancel(val, index) {
     this.data[index] = this.clonedData[val];
     delete this.clonedData[val];
-    console.log(val, index)
+
   }
 
   onRowDelete(val) {
@@ -129,7 +130,6 @@ export class WifiComponent implements OnInit {
     }
    
 
-    console.log(val)
   }
 
   showDialogToAdd() {
@@ -152,7 +152,7 @@ export class WifiComponent implements OnInit {
           this.wifidata.mawifi,
           this.wifidata.sdtsim,
           this.wifidata.masim,
-          , null, null, null, null, null, true, null, null,'sudung',null
+          , null, null, null, null, null, true, null, null,'sudung',null,null
         ]
         this.networkserviceService.postAllUser(this.luuwifidata).subscribe(
           data => {

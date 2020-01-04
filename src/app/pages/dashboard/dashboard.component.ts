@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   year:any
   cols: any[];
   trangthaitt: any
+  trangthaikh:any
 
   constructor(
     private networkserviceService: NetworkserviceService,
@@ -27,6 +28,14 @@ export class DashboardComponent implements OnInit {
       { label: 'Đã Thanh Toán', value: 'dathanhtoan' },
       { label: 'Chưa Thanh Toán', value: 'chuathanhtoan' }
     ]
+
+    this.trangthaikh = [
+      {label:'Sử Dụng', value:'sudung'},
+      {label:'Tạm Ngưng', value:'tamngung'},
+      {label:'Hủy', value:'huy'},
+      {label:'Trả Lại', value:'tralai'},
+     
+  ];
   }
 
   ngOnInit() {
@@ -38,8 +47,8 @@ export class DashboardComponent implements OnInit {
 
       { field: 'facebook', header: 'Fb' },
       { field: 'thangdongcuoc', header: 'Thanh Toán' },
-
-
+     
+      { field: 'thanhtoan', header: 'thanhtoan' },
 
     ];
     this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh =='sudung'))

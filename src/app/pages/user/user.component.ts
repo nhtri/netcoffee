@@ -30,9 +30,10 @@ export class UserComponent implements OnInit {
   ngaytra: Date
   olduser: any
   trangthaikh: any
-  namthanhtoan:any
-  namdongcuoc:any
-  isDisable:boolean
+  namthanhtoan: any
+  namdongcuoc: any
+  isDisable: boolean
+  thanhtoan: any
   constructor(
     private formBuilder: FormBuilder,
     private networkserviceService: NetworkserviceService,
@@ -42,15 +43,16 @@ export class UserComponent implements OnInit {
     this.initForm();
     this.onFormChanges();
     this.trangthaikh = [
-      {label:'Sử Dụng', value:'sudung'},
-      {label:'Hủy', value:'huy'},
-      {label:'Trả Lại', value:'tralai'},
-     
-  ];
-  this.namthanhtoan=[
-    {label:new Date().getFullYear(),value:new Date().getFullYear()},
-    {label:new Date().getFullYear() + 1,value:new Date().getFullYear()+1},
-  ]
+      { label: 'Sử Dụng', value: 'sudung' },
+      { label: 'Tạm Ngưng', value: 'tamngung' },
+      { label: 'Hủy', value: 'huy' },
+      { label: 'Trả Lại', value: 'tralai' },
+
+    ];
+    this.namthanhtoan = [
+      { label: new Date().getFullYear(), value: new Date().getFullYear() },
+      { label: new Date().getFullYear() + 1, value: new Date().getFullYear() + 1 },
+    ]
   }
 
   ngOnInit() {
@@ -58,10 +60,10 @@ export class UserComponent implements OnInit {
     this.cols2 = ['7', '8', '9', '10', '11', '12']
     this.editData = window.history.state
     this.userform.trangthaikhdd = 'sudung'
-    if (this.editData.mawifi && this.editData.trangthai_kh =='sudung') {
-if(this.editData.thangdongcuoc>12){
-  this.editData.thangdongcuoc = this.editData.thangdongcuoc -12
-}
+    if (this.editData.mawifi && this.editData.trangthai_kh == 'sudung') {
+      if (this.editData.thangdongcuoc > 12) {
+        this.editData.thangdongcuoc = this.editData.thangdongcuoc - 12
+      }
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
       this.userform.controls.mawifi.disable()
       this.userform.controls.sdtsim.setValue(this.editData.sdtsim)
@@ -83,6 +85,7 @@ if(this.editData.thangdongcuoc>12){
       this.userform.controls.giacuoc.setValue(this.editData.giacuoc)
       this.userform.controls.trangthaikhdd.setValue(this.editData.trangthai_kh)
       this.userform.controls.namthanhtoan.setValue(this.editData.namdongcuoc)
+      this.userform.controls.thanhtoanctrl.setValue(new Date(this.editData.thanhtoan))
       // this.checked = this.editData.trangthai
       this.userform.controls.ghichu.setValue(this.editData.ghichu)
       this.thangdongcuoc = this.editData.thangdongcuoc
@@ -99,19 +102,19 @@ if(this.editData.thangdongcuoc>12){
       if (this.thangdongcuoc == 11) { this.thanhtoanform.controls.thanhtoan11.setValue(true) }
       if (this.thangdongcuoc == 12) { this.thanhtoanform.controls.thanhtoan12.setValue(true) }
     }
-    else if (this.editData.trangthai_kh == 'huy' || this.editData.trangthai_kh == 'tralai'){
-      this.isDisable=true
-      console.log('isDisable',this.isDisable)
+    else if (this.editData.trangthai_kh == 'huy' || this.editData.trangthai_kh == 'tralai') {
+      this.isDisable = true
+      console.log('isDisable', this.isDisable)
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
-      
+
       this.userform.controls.sdtsim.setValue(this.editData.sdtsim)
-     
+
       this.userform.controls.masim.setValue(this.editData.masim)
-     
+
       this.userform.controls.hoten.setValue(this.editData.hoten)
       this.userform.controls.facebook.setValue(this.editData.facebook)
-      if(this.editData.thangdongcuoc>12){
-        this.editData.thangdongcuoc = this.editData.thangdongcuoc -12
+      if (this.editData.thangdongcuoc > 12) {
+        this.editData.thangdongcuoc = this.editData.thangdongcuoc - 12
       }
       if (this.editData.ngaythue) {
         this.userform.controls.ngaythue.setValue(new Date(this.editData.ngaythue))
@@ -140,9 +143,9 @@ if(this.editData.thangdongcuoc>12){
       if (this.thangdongcuoc == 10) { this.thanhtoanform.controls.thanhtoan10.setValue(true) }
       if (this.thangdongcuoc == 11) { this.thanhtoanform.controls.thanhtoan11.setValue(true) }
       if (this.thangdongcuoc == 12) { this.thanhtoanform.controls.thanhtoan12.setValue(true) }
-     
+
     }
-    else{
+    else {
       this.userform.controls.trangthaikhdd.setValue('sudung')
       this.userform.controls.trangthaikhdd.disable()
     }
@@ -161,8 +164,9 @@ if(this.editData.thangdongcuoc>12){
       giacuoc: new FormControl(null),
       trangthaikhdd: new FormControl('sudung'),
       ghichu: new FormControl(null),
-      namthanhtoan:new FormControl(null),
-    
+      namthanhtoan: new FormControl(null),
+      thanhtoanctrl: new FormControl(null)
+
     })
     this.thanhtoanform = this.formBuilder.group({
       thanhtoan1: new FormControl(null),
@@ -189,9 +193,10 @@ if(this.editData.thangdongcuoc>12){
         this.ghichu = res.ghichu,
         this.facebook = res.facebook,
         this.trangthai_kh = res.trangthaikhdd
-this.namdongcuoc =res.namthanhtoan
+      this.namdongcuoc = res.namthanhtoan
+      this.thanhtoan = res.thanhtoanctrl
 
-     
+
     });
 
 
@@ -223,16 +228,19 @@ this.namdongcuoc =res.namthanhtoan
 
   submit() {
 
-    if(this.namdongcuoc>new Date().getFullYear()){
-this.thangdongcuoc = this.thangdongcuoc + 12
+    if (this.namdongcuoc > new Date().getFullYear()) {
+      this.thangdongcuoc = this.thangdongcuoc + 12
     }
-    
+console.log(this.thanhtoan)
+console.log(new Date().setDate(this.thanhtoan.getDate()+1))
+    this.thanhtoan = new Date().setDate(this.thanhtoan.getDate()+1)
+    console.log(this.thanhtoan)
     this.userform.controls.mawifi.enable();
     this.userform.controls.sdtsim.enable();
     this.userform.controls.masim.enable();
-    if(this.trangthai_kh == null){
+    if (this.trangthai_kh == null) {
       this.trangthai_kh = 'sudung'
-     
+
     }
     this.luudata = [
       this.data.mawifi,
@@ -240,6 +248,7 @@ this.thangdongcuoc = this.thangdongcuoc + 12
       this.data.masim,
       this.data.ngaythue,
       this.data.ngaytra,
+
       this.thangdongcuoc,
       this.data.giacuoc,
       this.data.facebook,
@@ -249,11 +258,14 @@ this.thangdongcuoc = this.thangdongcuoc + 12
       this.ghichu,
       this.trangthai_kh,
       this.namdongcuoc,
+      this.thanhtoan
     ]
 
     this.updatedata = [
-      this.data.ngaythue,
-      this.data.ngaytra,
+      // this.data.ngaythue,
+      // this.data.ngaytra,
+      null,
+      null,
       this.thangdongcuoc,
       this.data.giacuoc,
       this.data.facebook,
@@ -265,6 +277,7 @@ this.thangdongcuoc = this.thangdongcuoc + 12
       this.data.masim,
       'sudung',
       this.namdongcuoc,
+      this.thanhtoan,
       this.data.mawifi,
     ]
 
@@ -282,7 +295,8 @@ this.thangdongcuoc = this.thangdongcuoc + 12
       this.editData.hoten,
       this.editData.ghichu,
       this.trangthai_kh,
-      this.namdongcuoc
+      this.namdongcuoc,
+      this.thanhtoan
     ]
     console.log(JSON.stringify(this.luudata))
     if (this.editData.mawifi) {
@@ -335,13 +349,14 @@ this.thangdongcuoc = this.thangdongcuoc + 12
   onchange() {
     if (this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai') {
       this.userform.controls.ngaytra.setValue(new Date())
+      this.userform.controls.ngaythue.setValue(null)
       this.userform.controls.hoten.setValue(null)
       this.userform.controls.facebook.setValue(null)
       this.userform.controls.diachi.setValue(null)
       this.userform.controls.giacuoc.setValue(null)
       this.userform.controls.ghichu.setValue(null)
       this.thanhtoanform.reset()
-      
+
       console.log('editData', this.editData)
     }
     else
@@ -353,8 +368,8 @@ this.thangdongcuoc = this.thangdongcuoc + 12
     this.router.navigateByUrl('dashboard')
   }
 
-  onchangenamthanhtoan(){
+  onchangenamthanhtoan() {
 
   }
-  
+
 }

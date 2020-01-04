@@ -42,6 +42,7 @@
                           </ng-container>
                           
                       </th>
+                      <th>Trạng Thái</th>
                       <th></th>
                   </tr>
                   <tr >
@@ -53,6 +54,7 @@
 
                
                     </th>
+                    <th></th>
                     <th></th>
                 </tr>
               </ng-template>
@@ -95,6 +97,12 @@
                           <a class=" fab fa-facebook" href="{{rowData[col.field]}}" target="_blank" style="font-size:20px;text-align: center;"> </a>
                           
                         </ng-container>
+                        
+                         
+                      </td>
+                      <td>
+                        <p-dropdown   [options]="trangthaikh" (onChange)="onchange()"></p-dropdown>
+             
                       </td>
                       <td>
                           <a (click)="selectNetWithButton(rowData)" routerLink="/user" [state]="(rowData)"><i class="fa fa-edit" style="font-size:20px;text-align: center;"></i></a>

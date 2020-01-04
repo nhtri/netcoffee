@@ -95,12 +95,15 @@
             <div class=" col-md-12">
               <div class=" form-group">
                 <label   style="margin-right: 10px;"> Thanh Toán</label>
+                <div>
+                  <p-calendar formControlName="thanhtoanctrl"  view="month" dateFormat="mm/yy" [showIcon]="true" [yearNavigator]="true" yearRange="2019:2030"></p-calendar>
+                </div>
             
-           <div style="margin-bottom: 10px;">
+           <!-- <div style="margin-bottom: 10px;">
                 <p-dropdown  [options]="namthanhtoan" formControlName="namthanhtoan" (onChange)="onchangenamthanhtoan()"></p-dropdown>
-              </div>
+              </div> -->
                 
-                <table class="table_monthly">
+                <!-- <table class="table_monthly">
 
                   <thead class=" text-primary" style="border-bottom:1px solid #344675 ;">
 
@@ -121,8 +124,8 @@
                     </tr>
 
                   </tbody>
-                </table>
-                <br />
+                </table> -->
+                <!-- <br />
                 <table class="table_monthly">
 
                   <thead class=" text-primary" style="border-bottom:1px solid #344675 ;">
@@ -144,7 +147,7 @@
                     </tr>
 
                   </tbody>
-                </table>
+                </table> -->
               </div>
             </div>
           </div>
