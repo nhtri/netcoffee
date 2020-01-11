@@ -19,10 +19,14 @@ export class DashboardComponent implements OnInit {
   cols: any[];
   trangthaitt: any
   trangthaikh:any
-
+  ispayment:any
+  selthanhtoan:any
+  clonedData: { [s: string]: network; } = {};
   constructor(
     private networkserviceService: NetworkserviceService,
   ) {
+    this.ispayment = false
+    console.log(this.ispayment)
     this.trangthaitt = [
       { label: 'All', value: 'all' },
       { label: 'Đã Thanh Toán', value: 'dathanhtoan' },
@@ -43,7 +47,7 @@ export class DashboardComponent implements OnInit {
       { field: 'mawifi', header: 'Mã WiFi' },
       { field: 'hoten', header: 'Họ Tên' },
       { field: 'giacuoc', header: 'Giá Cước' },
-      { field: 'thangdongcuoc', header: 'Tháng' },
+    
 
       { field: 'facebook', header: 'Fb' },
       { field: 'thangdongcuoc', header: 'Thanh Toán' },
@@ -113,4 +117,14 @@ export class DashboardComponent implements OnInit {
     }
     console.log('value', value)
   }
+
+  onselect(val){
+    this.ispayment=true
+    this.selthanhtoan=val
+    console.log('aaaa',val)
+  }
+  onRowEditInit(val) {
+    this.clonedData[val] = { ...val };
+    console.log('val',val)
+}
 }

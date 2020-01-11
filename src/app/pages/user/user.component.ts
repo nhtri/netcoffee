@@ -228,16 +228,13 @@ export class UserComponent implements OnInit {
 
   submit() {
 
-    if (this.namdongcuoc > new Date().getFullYear()) {
-      this.thangdongcuoc = this.thangdongcuoc + 12
-    }
-console.log(this.thanhtoan)
-console.log(new Date().setDate(this.thanhtoan.getDate()+1))
-    this.thanhtoan = new Date().setDate(this.thanhtoan.getDate()+1)
-    console.log(this.thanhtoan)
+    
+
+  
     this.userform.controls.mawifi.enable();
     this.userform.controls.sdtsim.enable();
     this.userform.controls.masim.enable();
+    this.thanhtoan.setDate(this.thanhtoan.getDate() + 1)
     if (this.trangthai_kh == null) {
       this.trangthai_kh = 'sudung'
 
@@ -262,10 +259,10 @@ console.log(new Date().setDate(this.thanhtoan.getDate()+1))
     ]
 
     this.updatedata = [
-      // this.data.ngaythue,
-      // this.data.ngaytra,
-      null,
-      null,
+      this.data.ngaythue,
+      this.data.ngaytra,
+      // null,
+      // null,
       this.thangdongcuoc,
       this.data.giacuoc,
       this.data.facebook,

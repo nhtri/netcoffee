@@ -11,7 +11,7 @@
 
           <div class=" table-responsive">
             
-            <p-table  #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="30" [tableStyle]="{'table-layout':'auto'}" >
+            <p-table  dataKey="mawifi" editMode="row" #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="30" [tableStyle]="{'table-layout':'auto'}" >
             
             
               <!-- <ng-template pTemplate="caption">
@@ -58,8 +58,8 @@
                     <th></th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-rowData let-columns="columns" >
-                  <tr>
+              <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+                  <tr [pEditableRow]="rowData"> 
                       <td *ngFor="let col of columns" >
                          
                         
@@ -100,6 +100,19 @@
                         
                          
                       </td>
+                      <td >
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                              <p-calendar view="month" dateFormat="mm/yy"  [yearNavigator]="true" yearRange="2019:2030" (onSelect)="onselect($event)"></p-calendar>
+                            </ng-template>
+                            <ng-template   pTemplate="output">
+                                {{rowData.thanhtoan | date:'MM/yyyy'}}
+                          
+                           
+                            </ng-template>
+                            
+                        </p-cellEditor>
+                    </td>
                       <td>
                         <p-dropdown   [options]="trangthaikh" (onChange)="onchange()"></p-dropdown>
              
@@ -107,7 +120,11 @@
                       <td>
                           <a (click)="selectNetWithButton(rowData)" routerLink="/user" [state]="(rowData)"><i class="fa fa-edit" style="font-size:20px;text-align: center;"></i></a>
                       </td>
-                     
+                      <td style="text-align:center">
+                        <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(rowData)"></button>
+                        <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-right: .5em" ></button>
+                        <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" ></button>
+                    </td>
                   </tr>
               </ng-template>
           </p-table>
