@@ -5,8 +5,15 @@
                 <div class=" card-header">
                     <h4 class=" card-title">DS WIFI</h4>
 
+                    <div>
                     <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
 
+                
+                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-left: 15px;" class="ui-button-success"></button>
+        
+                        <input pInputText type="text" placeholder="Mã WiFi" style="margin-left: 15px; height: 30px; margin-bottom: 15px;"  (input)="tt.filter($event.target.value, 'mawifi', 'contains')">
+           
+                </div>
                 </div>
                 <div class=" card-body">
 
@@ -21,12 +28,12 @@
                           <i class="fa fa-search" style="margin:4px 4px 4px 4px"></i>
                       </div>
                   </ng-template> -->
-                  <ng-template pTemplate="caption">
+                  <!-- <ng-template pTemplate="caption">
                     <div style="text-align: left">  
                           <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
           
                     </div>
-                </ng-template>
+                </ng-template> -->
                             <ng-template pTemplate="header" let-columns class=" text-primary">
 
                                 <tr>
@@ -35,9 +42,9 @@
                                         [pSortableColumn]="col.field">
                                         {{col.header}}
 
-                                        <ng-container *ngIf="[col.field]=='mawifi'">
+                                        <!-- <ng-container *ngIf="[col.field]=='mawifi'">
                                             <p-sortIcon [field]="col.field"></p-sortIcon>
-                                        </ng-container>
+                                        </ng-container> -->
                                     </th>
                                     <th></th>
                                     <th></th>

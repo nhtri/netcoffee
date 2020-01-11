@@ -9,7 +9,7 @@ import * as FileSaver from 'file-saver';
 @Component({
   selector: "app-dashboard",
   templateUrl: "dashboard.component.html",
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   data: network[] = [];
@@ -44,15 +44,17 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.cols = [
+      // { field: 'thangdongcuoc', header: '' },
       { field: 'mawifi', header: 'Mã WiFi' },
       { field: 'hoten', header: 'Họ Tên' },
       { field: 'giacuoc', header: 'Giá Cước' },
     
 
       { field: 'facebook', header: 'Fb' },
-      { field: 'thangdongcuoc', header: 'Thanh Toán' },
+      
      
-      { field: 'thanhtoan', header: 'thanhtoan' },
+      { field: 'thanhtoan', header: 'Thanh Toán' },
+      { field: 'trangthai_kh', header: 'Trạng Thái' },
 
     ];
     this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh =='sudung'))

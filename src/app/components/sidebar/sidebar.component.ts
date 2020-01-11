@@ -50,6 +50,14 @@ export const ROUTES: RouteInfo[] = [
     icon: "icon-single-02",
     class: ""
   },
+
+  {
+    path: "/typography",
+    title: "DS Khách Hàng Tạm Ngưng",
+    // rtlTitle: "طباعة",
+    icon: "icon-align-center",
+    class: ""
+  },
   {
     path: "/tables",
     title: "DS Khách Hàng Hủy",
@@ -57,13 +65,7 @@ export const ROUTES: RouteInfo[] = [
     icon: "icon-puzzle-10",
     class: ""
   },
-  // {
-  //   path: "/typography",
-  //   title: "Typography",
-  //   rtlTitle: "طباعة",
-  //   icon: "icon-align-center",
-  //   class: ""
-  // },
+  
   {
     path: "/rtl",
     title: "DS Khách Hàng Trả Lại",

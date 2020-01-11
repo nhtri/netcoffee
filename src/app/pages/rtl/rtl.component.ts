@@ -24,7 +24,7 @@ export class RtlComponent implements OnInit {
       { field: 'mawifi', header: 'Mã WiFi' },
       { field: 'hoten', header: 'Họ Tên' },
       { field: 'facebook', header: 'FaceBook' },
-      {field: 'ngaytra', header: 'Ngày Hủy' }
+      {field: 'ngaytra', header: 'Ngày Trả' }
    
 
 
