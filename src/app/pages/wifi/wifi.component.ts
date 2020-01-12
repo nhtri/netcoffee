@@ -157,8 +157,8 @@ export class WifiComponent implements OnInit {
         this.networkserviceService.postAllUser(this.luuwifidata).subscribe(
           data => {
             alert("Lưu Thành Công");
-            this.router.navigateByUrl('wifi')
-            location.reload();
+            this.displayDialog=false
+            this.ngOnInit()
             console.log("POST Request is successful ", data);
           },
           error => {
@@ -176,7 +176,7 @@ export class WifiComponent implements OnInit {
     }
   }
   cancel(){
-    location.reload();
+    this.displayDialog=false
   }
   exportExcel() {
   

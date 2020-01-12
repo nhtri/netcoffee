@@ -20,14 +20,13 @@ export class UserComponent implements OnInit {
   updatedata: any
   trangthai_kh: any
   editData: any
-  input1: any
-  input2: any
+  
 
   ngaythue: Date
   ngaytra: Date
   olduser: any
   trangthaikh: any
-
+trangthaikhluudata:any
   isDisable: boolean
   thanhtoan: any
   constructor(
@@ -51,7 +50,7 @@ export class UserComponent implements OnInit {
 
     this.editData = window.history.state
     this.userform.trangthaikhdd = 'sudung'
-    if (this.editData.mawifi && this.editData.trangthai_kh == 'sudung') {
+    if ((this.editData.mawifi && this.editData.trangthai_kh == 'sudung')||(this.editData.mawifi && this.editData.trangthai_kh == 'tamngung')) {
 
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
       this.userform.controls.mawifi.disable()
@@ -65,6 +64,9 @@ export class UserComponent implements OnInit {
       if (this.editData.ngaythue) {
         this.userform.controls.ngaythue.setValue(new Date(this.editData.ngaythue))
       }
+      else{
+        this.userform.controls.ngaythue.setValue(new Date())
+      }
 
       if (this.editData.ngaytra) {
         this.userform.controls.ngaytra.setValue(new Date(this.editData.ngaytra))
@@ -75,6 +77,9 @@ export class UserComponent implements OnInit {
       this.userform.controls.trangthaikhdd.setValue(this.editData.trangthai_kh)
 
       this.userform.controls.thanhtoanctrl.setValue(new Date(this.editData.thanhtoan))
+      if(this.editData.thanhtoan == null){
+        this.userform.controls.thanhtoanctrl.setValue(new Date())
+      }
 
       this.userform.controls.ghichu.setValue(this.editData.ghichu)
     }
@@ -106,6 +111,7 @@ export class UserComponent implements OnInit {
     else {
       this.userform.controls.trangthaikhdd.setValue('sudung')
       this.userform.controls.trangthaikhdd.disable()
+      this.userform.controls.thanhtoanctrl.setValue(new Date())
     }
   }
 
@@ -151,9 +157,12 @@ export class UserComponent implements OnInit {
     this.userform.controls.sdtsim.enable();
     this.userform.controls.masim.enable();
     this.thanhtoan.setDate(this.thanhtoan.getDate() + 1)
-    if (this.trangthai_kh == null) {
-      this.trangthai_kh = 'sudung'
+    if (this.trangthai_kh == null || this.trangthai_kh == 'huy' ||this.trangthai_kh == 'tralai') {
+      this.trangthaikhluudata = 'sudung'
 
+    }
+    else{
+      this.trangthaikhluudata=this.trangthai_kh
     }
     this.luudata = [
       this.data.mawifi,
@@ -168,7 +177,7 @@ export class UserComponent implements OnInit {
       this.data.diachi,
       this.hoten,
       this.ghichu,
-      this.trangthai_kh,
+      this.trangthaikhluudata,
       null,
       this.thanhtoan
     ]
@@ -186,7 +195,7 @@ export class UserComponent implements OnInit {
       this.data.sdtsim,
       this.data.masim,
       //'sudung',
-      this.trangthai_kh,
+      this.trangthaikhluudata,
       null,
       this.thanhtoan,
       this.data.mawifi,

@@ -5,6 +5,7 @@ import { network } from 'src/app/components/model/network';
 import { from } from 'rxjs';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: "app-dashboard",
@@ -21,10 +22,25 @@ export class DashboardComponent implements OnInit {
   trangthaikh:any
   ispayment:any
   selthanhtoan:any
-  clonedData: { [s: string]: network; } = {};
+  
+  displayDialog=false
+  updatedata:any
+  updatedatawifi:any
+  olduser:any
+  editmawifi:any
+  edithoten:any
+  editthanhtoan:any
+  edittrangthai:any
+  editdata:any
+  userform: FormGroup | any;
+
   constructor(
     private networkserviceService: NetworkserviceService,
+    private formBuilder: FormBuilder,
   ) {
+
+    this.initForm();
+    this.onFormChanges();
     this.ispayment = false
     console.log(this.ispayment)
     this.trangthaitt = [
@@ -54,27 +70,62 @@ export class DashboardComponent implements OnInit {
       
      
       { field: 'thanhtoan', header: 'Thanh Toán' },
-      { field: 'trangthai_kh', header: 'Trạng Thái' },
+      
 
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh =='sudung'))
+    this.networkserviceService.getAllWiFi().subscribe(val => 
+      
+      this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh =='sudung')
+      
+      )
     this.date = new Date().getDate()
     this.year = new Date().getFullYear()
 
+    // if (this.date >= 25) {
+    //   this.month = new Date().getMonth() + 1
+    //   if (new Date().getMonth() + 1 == 1) {
+    //     this.month = 13
+    //   }
+    // }
+    // if (this.date < 25) {
+    //   if (new Date().getMonth() == 0) {
+    //     this.month = 12
+    //   }
+    // }
+
+    
     if (this.date >= 25) {
-      this.month = new Date().getMonth() + 1
-      if (new Date().getMonth() + 1 == 1) {
-        this.month = 13
-      }
+      this.month = new Date().getMonth() + 2
+    
     }
     if (this.date < 25) {
-      if (new Date().getMonth() == 0) {
-        this.month = 12
-      }
+      this.month = new Date().getMonth() + 1
     }
 
     console.log(this.date, this.month)
   }
+
+  initForm() {
+    this.userform = this.formBuilder.group({
+
+      trangthaikhdd: new FormControl(null),
+      thanhtoanctrl: new FormControl(null)
+
+    })
+
+
+  }
+
+  onFormChanges() {
+
+    this.userform.valueChanges.subscribe(res => {
+      this.edittrangthai = res.trangthaikhdd
+      this.editthanhtoan = res.thanhtoanctrl
+
+    });
+
+  }
+  
   selectNetWithButton(value) {
     console.log(value)
   }
@@ -107,11 +158,17 @@ export class DashboardComponent implements OnInit {
 
 
   onchange(value) {
+    console.log((new Date('2020-02-29T00:00:00.000Z')).getMonth())
     if(value == 'dathanhtoan'){
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.thangdongcuoc>=this.month || val.namdongcuoc > this.year))
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => 
+    
+      val.hoten != null && val.hoten != '' && ( (new Date(val.thanhtoan)).getMonth() >= this.month && (new Date(val.thanhtoan)).getFullYear() == this.year)) || (new Date(val.thanhtoan)).getFullYear() > this.year)
     }
     else if(value == 'chuathanhtoan'){
-      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.thangdongcuoc<this.month))
+      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => 
+        val.hoten != null && val.hoten != '' && 
+        (new Date(val.thanhtoan).getMonth() < this.month || 
+        new Date(val.thanhtoan).getFullYear() < this.year)))
     }
     else if(value == 'all'){
       this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' ))
@@ -120,13 +177,128 @@ export class DashboardComponent implements OnInit {
     console.log('value', value)
   }
 
-  onselect(val){
-    this.ispayment=true
-    this.selthanhtoan=val
-    console.log('aaaa',val)
-  }
+  
   onRowEditInit(val) {
-    this.clonedData[val] = { ...val };
-    console.log('val',val)
-}
+    this.editdata=val
+    this.displayDialog = true;
+    this.editmawifi = val.mawifi
+    this.edithoten = val.hoten
+    this.editthanhtoan = val.thanhtoan
+    this.userform.controls.thanhtoanctrl.setValue(new Date(val.thanhtoan))
+  }
+
+  cancel() {
+    this.displayDialog = false;
+  }
+
+  save() {
+
+    if(this.edittrangthai==null){
+      this.edittrangthai='sudung'
+    }
+    this.updatedata = [
+      this.editdata.ngaythue,
+      this.editdata.ngaytra,
+      null,
+      this.editdata.giacuoc,
+      this.editdata.facebook,
+      true,
+      this.editdata.diachi,
+      this.editdata.hoten,
+      this.editdata.ghichu,
+      this.editdata.sdtsim,
+      this.editdata.masim,
+      //'sudung',
+      this.edittrangthai,
+      null,
+      this.editthanhtoan,
+      this.editdata.mawifi,
+    ]
+
+    this.updatedatawifi = [
+      null,
+      null,
+      null,
+      null,
+      null,
+      true,
+      null,
+      null,
+      null,
+      this.editdata.sdtsim,
+      this.editdata.masim,
+      //'sudung',
+      'sudung',
+      null,
+      null,
+      this.editdata.mawifi,
+    ]
+
+    this.olduser = [
+      this.editdata.mawifi,
+      this.editdata.sdtsim,
+      this.editdata.masim,
+      this.editdata.ngaythue,
+      this.editdata.ngaytra,
+      null,
+      this.editdata.giacuoc,
+      this.editdata.facebook,
+      null,
+      this.editdata.diachi,
+      this.editdata.hoten,
+      this.editdata.ghichu,
+      this.edittrangthai,
+      null,
+      this.editthanhtoan
+    ]
+
+
+    if (this.edittrangthai =='tamngung' || this.edittrangthai == 'sudung' ) {
+      this.networkserviceService.updateAllUser(this.updatedata).subscribe(
+        data => {
+          alert("Lưu Thành Công");
+          this.displayDialog = false;
+        this.ngOnInit()
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+
+          console.log("Error", error);
+
+        })
+      }
+
+      if (this.edittrangthai =='huy' || this.edittrangthai == 'tralai' ) {
+
+        this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
+          data => {
+            alert("Lưu Thành Công");
+            this.displayDialog = false;
+          this.ngOnInit()
+            console.log("POST Request is successful ", data);
+          },
+          error => {
+  
+            console.log("Error", error);
+  
+          })
+
+
+
+        this.networkserviceService.postAllAccount(this.olduser).subscribe(
+          data => {
+            alert("Lưu Khách Hàng cũ Thành Công");
+            this.ngOnInit()
+            console.log("POST Request is successful ", data);
+          },
+          error => {
+
+            console.log("Error", error);
+
+          })
+        }
+
+
+
+    }
 }
