@@ -21,13 +21,17 @@ export class TypographyComponent implements OnInit {
     this.cols = [
       { field: 'mawifi', header: 'Mã WiFi' },
       { field: 'hoten', header: 'Họ Tên' },
-      { field: 'facebook', header: 'FaceBook' },
-      {field: 'ngaytra', header: 'Ngày Tạm Ngưng' }
-   
+      { field: 'giacuoc', header: 'Giá Cước' },
+    
 
+      { field: 'facebook', header: 'Fb' },
+      
+     
+      { field: 'thanhtoan', header: 'Thanh Toán' },
+      { field: 'trangthai_kh', header: 'Trạng Thái' },
 
     ];
-    this.networkserviceService.getAllAccount().subscribe(val => this.data = val.filter(val => val.trangthai_kh =='tamngung'))
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.trangthai_kh =='tamngung'))
     // this.dskhhuy = this.data.map(({ hoten, facebook,diachi }) => ({hoten, facebook,diachi}));
 
 

@@ -1,74 +1,105 @@
-
 <div class=" content">
   <div class=" row">
     <div class=" col-md-12">
       <div class=" card">
         <div class=" card-header">
-          <h4 class=" card-title">Danh Sách KH Tạm Ngưng</h4>
-
-          <div style="text-align: left">  
-            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 15px;" class="ui-button-success"></button>
-            <input pInputText type="text" placeholder="Mã WiFi" style="margin-right: 15px; height: 30px; margin-bottom: 15px;"  (input)="tt.filter($event.target.value, 'mawifi', 'contains')">
-               
-            <input pInputText type="text"  placeholder="Họ Tên" style="margin-right: 15px; height: 30px; margin-bottom: 15px;" (input)="tt.filter($event.target.value, 'hoten', 'contains')">
-   
-      </div>
-      
+          <h4 class=" card-title">DS KH Tạm Ngưng
+          </h4>
         </div>
-        
         <div class=" card-body">
+          <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 15px; margin-bottom: 15px;" class="ui-button-success"></button>
           
-          <div class=" table-responsive">
-            <p-table  #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="20" [tableStyle]="{'table-layout':'auto'}" >
-                <!-- <ng-template pTemplate="caption">
-                   
-                </ng-template> -->
+          
+          
+          <input pInputText type="text" placeholder="Mã WiFi" style="margin-right: 15px; height: 30px; margin-bottom: 15px;"  (input)="tt.filter($event.target.value, 'mawifi', 'contains')">
+                 
+          <input pInputText type="text"  placeholder="Họ Tên" style="margin-right: 15px; height: 30px; margin-bottom: 15px;" (input)="tt.filter($event.target.value, 'hoten', 'contains')">
+           
+          <div class=" table-responsive" style="margin-top: 15px;">
+            
+            <p-table  dataKey="mawifi" editMode="row" #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="30" [tableStyle]="{'table-layout':'auto'}" >
+            
+            
+           
               <ng-template pTemplate="header" let-columns class=" text-primary">
                   <tr >
-                      <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
-                          {{col.header}}
+                      <th *ngFor="let col of columns"  [pSortableColumn]="col.field"  >
+                          
+                         
+                            {{col.header}}
+                        
+                      
+                          
                       </th>
+                   
+                      <th></th>
                       <th></th>
                   </tr>
+                  
               </ng-template>
-              <ng-template pTemplate="body" let-rowData let-columns="columns" >
-                  <tr>
-                      <td *ngFor="let col of columns">
-                          <ng-container *ngIf="[col.field]=='ngaytra'">
+              <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+                  <tr [pEditableRow]="rowData"> 
+                      <td *ngFor="let col of columns" >
+                         
+                        
+                        <ng-container *ngIf="[col.field]!='facebook' && [col.header]!=''  && [col.header]!='Tháng' && [col.field]!='thanhtoan' && [col.field]!='trangthai_kh'">
+                            {{rowData[col.field]}} 
+                        </ng-container>
+                        <ng-container *ngIf="[col.field]=='thanhtoan'">
+                          <p-cellEditor>
+                            <ng-template pTemplate="input">
+                              <p-calendar view="month" dateFormat="mm/yy"  [yearNavigator]="true" yearRange="2019:2030" (onSelect)="onselect($event)"></p-calendar>
+                            </ng-template>
+                            <ng-template   pTemplate="output">
+                                {{rowData.thanhtoan | date:'MM/yyyy'}}
                           
-                          {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+                           
+                            </ng-template>
+                            
+                        </p-cellEditor>
+                      </ng-container>
+
+                      <ng-container *ngIf="[col.field]=='trangthai_kh'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <p-dropdown   [options]="trangthaikh" (onChange)="onchange()"></p-dropdown>
+                               </ng-template>
+                          <ng-template   pTemplate="output">
+                           
+                        
+                            Tạm Ngưng
+                          </ng-template>
+                          
+                      </p-cellEditor>
+                    </ng-container>
+
+                        
+
+                        <ng-container *ngIf="[col.field]=='facebook'">
+                          <a class=" fab fa-facebook" href="{{rowData[col.field]}}" target="_blank" style="font-size:20px;text-align: center;"> </a>
+                          
                         </ng-container>
                         
-                        <!-- <ng-container *ngIf="[col.field]!='ngaythue'&&[col.field]!='ngaytra' &&[col.field]!='trangthai'">
-                            {{rowData[col.field]}}
-                        </ng-container>  -->
-
-                        <!-- <ng-container *ngIf="[col.field]=='trangthai'">
-                            <ng-container *ngIf="rowData[col.field]==false">
-                              
-                                <span><i class="fa fa-circle icon icon-blue" style="color: grey;"></i></span>
-                            </ng-container>
-                            <ng-container *ngIf="rowData[col.field]==true">
-                              
-                                <span><i class="fa fa-circle icon icon-blue" style="color: green;"></i></span>
-                            </ng-container>
-                        </ng-container> -->
-                        <ng-container *ngIf="[col.field]!='facebook' && [col.field]!='ngaytra' ">
-                          {{rowData[col.field]}}
-                      </ng-container>
-
-                      <ng-container *ngIf="[col.field]=='facebook'">
-                        <a class=" fab fa-facebook" href="{{rowData[col.field]}}" target="_blank" style="font-size:20px;text-align: center;"> </a>
-                        
-                      </ng-container>
+                         
+                      </td>
                       
+                    
+                      <td>
+                          <a (click)="selectNetWithButton(rowData)" routerLink="/user" [state]="(rowData)"><i class="fa fa-user" style="font-size:20px;text-align: center;"></i></a>
                       </td>
                       <td style="text-align:center">
-                        <a (click)="selectNetWithButton(rowData)" routerLink="/user"
-                            [state]="(rowData)"><i class="fas fa-address-card"
-                                style="font-size:20px"></i></a>
+                        <button *ngIf="!editing" pButton type="button" pInitEditableRow
+                            icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(rowData)"
+                            style="width: 20px !important;height: 20px !important;"></button>
+                        <button *ngIf="editing" pButton type="button" pSaveEditableRow
+                            icon="pi pi-check" class="ui-button-success"
+                            (click)="onRowEditSave(rowData)"
+                            style="width: 20px !important;height: 20px !important; margin-right: 4px;"></button>
+                        <button *ngIf="editing" pButton type="button" pCancelEditableRow
+                            icon="pi pi-times" class="ui-button-danger"
+                            (click)="onRowEditCancel(rowData,ri)"
+                            style="width: 20px !important;height: 20px !important; margin-right: 4px;"></button>
                     </td>
-                     
                   </tr>
               </ng-template>
           </p-table>
