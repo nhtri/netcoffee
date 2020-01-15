@@ -166,8 +166,10 @@ console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate
     
       val.hoten != null && val.trangthai_kh == 'sudung' && val.hoten != '' &&  
       
-        new Date(val.thanhtoan).getMonth() == this.month 
-        && new Date(val.thanhtoan).getFullYear() == this.year
+        (new Date(val.thanhtoan).getMonth() >= this.month 
+        && new Date(val.thanhtoan).getFullYear() == this.year)
+        || new Date(val.thanhtoan).getFullYear() > this.year
+
         )
         )
     }
