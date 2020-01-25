@@ -33,17 +33,11 @@ export class TypographyComponent implements OnInit {
     this.initForm();
     this.onFormChanges();
 
-    this.trangthaikh = [
-      { label: 'Tạm Ngưng', value: 'tamngung' },
-      { label: 'Sử Dụng', value: 'sudung' },
-
-      { label: 'Hủy', value: 'huy' },
-      { label: 'Trả Lại', value: 'tralai' },
-
-    ];
+   
   }
 
   ngOnInit() {
+    
     this.cols = [
       { field: 'mawifi', header: 'Mã WiFi' },
       { field: 'hoten', header: 'Họ Tên' },
@@ -63,13 +57,21 @@ export class TypographyComponent implements OnInit {
   }
 
   initForm() {
+    this.trangthaikh = [
+      { label: 'Tạm Ngưng', value: 'tamngung' },
+      { label: 'Sử Dụng', value: 'sudung' },
+
+      { label: 'Hủy', value: 'huy' },
+      { label: 'Trả Lại', value: 'tralai' },
+
+    ];
     this.userform = this.formBuilder.group({
 
       trangthaikhdd: new FormControl(null),
       thanhtoanctrl: new FormControl(null)
 
     })
-
+   
 
   }
 
@@ -78,6 +80,7 @@ export class TypographyComponent implements OnInit {
     this.userform.valueChanges.subscribe(res => {
       this.edittrangthai = res.trangthaikhdd
       this.editthanhtoan = res.thanhtoanctrl
+      new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate() + 1))
 console.log(res)
     });
 
@@ -179,7 +182,7 @@ console.log(res)
       this.editdata.sdtsim,
       this.editdata.masim,
       this.editdata.ngaythue,
-      this.editdata.ngaytra,
+      new Date(),
       null,
       this.editdata.giacuoc,
       this.editdata.facebook,
@@ -199,6 +202,7 @@ console.log(res)
           alert("Lưu Thành Công");
           this.displayDialog = false;
         this.ngOnInit()
+        this.userform.controls.trangthaikhdd.setValue(null)
           console.log("POST Request is successful ", data);
         },
         error => {
@@ -215,6 +219,7 @@ console.log(res)
             alert("Lưu Thành Công");
             this.displayDialog = false;
           this.ngOnInit()
+          this.userform.controls.trangthaikhdd.setValue(null)
             console.log("POST Request is successful ", data);
           },
           error => {

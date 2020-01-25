@@ -156,7 +156,8 @@ trangthaikhluudata:any
     this.userform.controls.mawifi.enable();
     this.userform.controls.sdtsim.enable();
     this.userform.controls.masim.enable();
-    this.thanhtoan.setDate(this.thanhtoan.getDate() + 1)
+    // this.thanhtoan.setDate(this.thanhtoan.getDate() + 1)
+    new Date(this.thanhtoan.setDate(this.thanhtoan.getDate() + 1))
     if (this.trangthai_kh == null || this.trangthai_kh == 'huy' ||this.trangthai_kh == 'tralai') {
       this.trangthaikhluudata = 'sudung'
 

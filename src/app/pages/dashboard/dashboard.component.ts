@@ -81,28 +81,28 @@ export class DashboardComponent implements OnInit {
     this.date = new Date().getDate()
     this.year = new Date().getFullYear()
 
-    // if (this.date >= 25) {
+    // if (this.date > 24) {
     //   this.month = new Date().getMonth() + 1
     //   if (new Date().getMonth() + 1 == 1) {
     //     this.month = 13
     //   }
     // }
-    // if (this.date < 25) {
+    // if (this.date <= 24) {
     //   if (new Date().getMonth() == 0) {
     //     this.month = 12
     //   }
     // }
 
     
-    if (this.date >= 25) {
-      this.month = new Date().getMonth() + 2
+    if (this.date > 24) {
+      this.month = new Date().getMonth() + 1
     
     }
-    if (this.date < 25) {
-      this.month = new Date().getMonth() + 1
+    if (this.date <= 24) {
+      this.month = new Date().getMonth() 
     }
 
-    console.log(this.date, this.month)
+    console.log(this.date, this.month,new Date(), new Date("2020-03-02T00:00:00.000Z").getMonth())
   }
 
   initForm() {
@@ -121,7 +121,8 @@ export class DashboardComponent implements OnInit {
     this.userform.valueChanges.subscribe(res => {
       this.edittrangthai = res.trangthaikhdd
       this.editthanhtoan = res.thanhtoanctrl
-
+      new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate() + 1))
+console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate() + 1)))
     });
 
   }
@@ -158,21 +159,35 @@ export class DashboardComponent implements OnInit {
 
 
   onchange(value) {
-    console.log((new Date('2020-02-29T00:00:00.000Z')).getMonth())
+  
     if(value == 'dathanhtoan'){
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => 
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
+      (val => 
     
-      val.hoten != null && val.hoten != '' && ( (new Date(val.thanhtoan)).getMonth() >= this.month && (new Date(val.thanhtoan)).getFullYear() == this.year)) || (new Date(val.thanhtoan)).getFullYear() > this.year)
+      val.hoten != null && val.trangthai_kh == 'sudung' && val.hoten != '' &&  
+      
+        new Date(val.thanhtoan).getMonth() == this.month 
+        && new Date(val.thanhtoan).getFullYear() == this.year
+        )
+        )
     }
     else if(value == 'chuathanhtoan'){
       this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => 
-        val.hoten != null && val.hoten != '' && 
+        val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'&&
         (new Date(val.thanhtoan).getMonth() < this.month || 
         new Date(val.thanhtoan).getFullYear() < this.year)))
     }
     else if(value == 'all'){
-      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten != null && val.hoten != '' ))
-
+      this.networkserviceService.getAllWiFi().subscribe(val => 
+        
+        this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh =='sudung'
+        
+        
+        )
+       
+        
+        )
+    
     }
     console.log('value', value)
   }
@@ -239,7 +254,7 @@ export class DashboardComponent implements OnInit {
       this.editdata.sdtsim,
       this.editdata.masim,
       this.editdata.ngaythue,
-      this.editdata.ngaytra,
+      new Date(),
       null,
       this.editdata.giacuoc,
       this.editdata.facebook,
@@ -259,6 +274,7 @@ export class DashboardComponent implements OnInit {
           alert("Lưu Thành Công");
           this.displayDialog = false;
         this.ngOnInit()
+        this.userform.controls.trangthaikhdd.setValue(null)
           console.log("POST Request is successful ", data);
         },
         error => {
@@ -275,6 +291,7 @@ export class DashboardComponent implements OnInit {
             alert("Lưu Thành Công");
             this.displayDialog = false;
           this.ngOnInit()
+          this.userform.controls.trangthaikhdd.setValue(null)
             console.log("POST Request is successful ", data);
           },
           error => {
