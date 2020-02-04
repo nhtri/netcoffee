@@ -62,6 +62,8 @@ export class DashboardComponent implements OnInit {
     this.cols = [
       // { field: 'thangdongcuoc', header: '' },
       { field: 'mawifi', header: 'Mã WiFi' },
+      { field: 'masim', header: 'Mã SIM' },
+      { field: 'sodtsim', header: 'DT SIM' },
       { field: 'hoten', header: 'Họ Tên' },
       { field: 'giacuoc', header: 'Giá Cước' },
     
