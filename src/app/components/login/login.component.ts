@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 
         this.networkserviceService.getAllUser().subscribe(data => {
             console.log("data: ", data[0].username);
-            if (this.f.username.value === data[0].username && this.f.password.value === data[0].password) {
+            if ((this.f.username.value === data[0].username && this.f.password.value === data[0].password)||(this.f.username.value === data[1].username && this.f.password.value === data[1].password)) {
                 console.log("ok")
                 this.router.navigate([this.returnUrl]);
                 localStorage.setItem('auth','sucessful')
