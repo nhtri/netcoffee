@@ -37,7 +37,7 @@
                             <ng-template pTemplate="header" let-columns class=" text-primary">
 
                                 <tr>
-                                   
+                                    <th></th>
                                     <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}"
                                         [pSortableColumn]="col.field">
                                         {{col.header}}
@@ -60,8 +60,9 @@
                   </tr> -->
                             </ng-template>
                             <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing"
-                                let-ri="rowIndex">
+                                let-ri="rowIndex" let-i="rowIndex">
                                 <tr [pEditableRow]="rowData">
+                                    <td>{{i+1}}</td>
   
                                     <td>
 
