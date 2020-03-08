@@ -43,11 +43,7 @@ export class DashboardComponent implements OnInit {
     this.onFormChanges();
     this.ispayment = false
     console.log(this.ispayment)
-    this.trangthaitt = [
-      { label: 'All', value: 'all' },
-      { label: 'Đã Thanh Toán', value: 'dathanhtoan' },
-      { label: 'Chưa Thanh Toán', value: 'chuathanhtoan' }
-    ]
+    
 
     this.trangthaikh = [
       {label:'Sử Dụng', value:'sudung'},
@@ -103,7 +99,11 @@ export class DashboardComponent implements OnInit {
     if (this.date <= 24) {
       this.month = new Date().getMonth() 
     }
-
+    this.trangthaitt = [
+      { label: 'All', value: 'all' },
+      { label: 'Đã Thanh Toán', value: 'dathanhtoan' },
+      { label: 'Chưa Thanh Toán', value: 'chuathanhtoan' }
+    ]
     console.log(this.date, this.month,new Date(), new Date("2020-03-02T00:00:00.000Z").getMonth())
   }
 
