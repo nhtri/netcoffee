@@ -277,8 +277,8 @@ console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate
         data => {
           alert("Lưu Thành Công");
           this.displayDialog = false;
-        this.ngOnInit()
-        this.userform.controls.trangthaikhdd.setValue(null)
+          location.reload();
+      
           console.log("POST Request is successful ", data);
         },
         error => {
@@ -294,8 +294,9 @@ console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate
           data => {
             alert("Lưu Thành Công");
             this.displayDialog = false;
-          this.ngOnInit()
-          this.userform.controls.trangthaikhdd.setValue(null)
+            location.reload();
+     
+         
             console.log("POST Request is successful ", data);
           },
           error => {
@@ -309,7 +310,7 @@ console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate
         this.networkserviceService.postAllAccount(this.olduser).subscribe(
           data => {
             alert("Lưu Khách Hàng cũ Thành Công");
-            this.ngOnInit()
+            location.reload();
             console.log("POST Request is successful ", data);
           },
           error => {
