@@ -20,13 +20,13 @@ export class UserComponent implements OnInit {
   updatedata: any
   trangthai_kh: any
   editData: any
-  
+
 
   ngaythue: Date
   ngaytra: Date
   olduser: any
   trangthaikh: any
-trangthaikhluudata:any
+  trangthaikhluudata: any
   isDisable: boolean
   thanhtoan: any
   constructor(
@@ -50,7 +50,7 @@ trangthaikhluudata:any
 
     this.editData = window.history.state
     this.userform.trangthaikhdd = 'sudung'
-    if ((this.editData.mawifi && this.editData.trangthai_kh == 'sudung')||(this.editData.mawifi && this.editData.trangthai_kh == 'tamngung')) {
+    if ((this.editData.mawifi && this.editData.trangthai_kh == 'sudung') || (this.editData.mawifi && this.editData.trangthai_kh == 'tamngung')) {
 
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
       this.userform.controls.mawifi.disable()
@@ -64,7 +64,7 @@ trangthaikhluudata:any
       if (this.editData.ngaythue) {
         this.userform.controls.ngaythue.setValue(new Date(this.editData.ngaythue))
       }
-      else{
+      else {
         this.userform.controls.ngaythue.setValue(new Date())
       }
 
@@ -77,13 +77,13 @@ trangthaikhluudata:any
       this.userform.controls.trangthaikhdd.setValue(this.editData.trangthai_kh)
 
       this.userform.controls.thanhtoanctrl.setValue(new Date(this.editData.thanhtoan))
-      if(this.editData.thanhtoan == null){
+      if (this.editData.thanhtoan == null) {
         this.userform.controls.thanhtoanctrl.setValue(new Date())
       }
 
       this.userform.controls.ghichu.setValue(this.editData.ghichu)
     }
-    else if (this.editData.trangthai_kh == 'huy' || this.editData.trangthai_kh == 'tralai'|| this.editData.trangthai_kh == 'chuatracoc') {
+    else if (this.editData.trangthai_kh == 'huy' || this.editData.trangthai_kh == 'tralai' || this.editData.trangthai_kh == 'chuatracoc') {
       this.isDisable = true
       console.log('isDisable', this.isDisable)
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
@@ -128,7 +128,6 @@ trangthaikhluudata:any
       giacuoc: new FormControl(null),
       trangthaikhdd: new FormControl('sudung'),
       ghichu: new FormControl(null),
-
       thanhtoanctrl: new FormControl(null)
 
     })
@@ -158,12 +157,12 @@ trangthaikhluudata:any
     this.userform.controls.masim.enable();
     // this.thanhtoan.setDate(this.thanhtoan.getDate() + 1)
     new Date(this.thanhtoan.setDate(this.thanhtoan.getDate() + 1))
-    if (this.trangthai_kh == null || this.trangthai_kh == 'huy' ||this.trangthai_kh == 'tralai' ||this.trangthai_kh == 'chuatracoc') {
+    if (this.trangthai_kh == null || this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai' || this.trangthai_kh == 'chuatracoc') {
       this.trangthaikhluudata = 'sudung'
 
     }
-    else{
-      this.trangthaikhluudata=this.trangthai_kh
+    else {
+      this.trangthaikhluudata = this.trangthai_kh
     }
     this.luudata = [
       this.data.mawifi,
@@ -232,7 +231,7 @@ trangthaikhluudata:any
           console.log("Error", error);
 
         })
-      if (this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai' ||this.trangthai_kh == 'chuatracoc') {
+      if (this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai' || this.trangthai_kh == 'chuatracoc') {
         this.networkserviceService.postAllAccount(this.olduser).subscribe(
           data => {
             alert("Lưu Khách Hàng cũ Thành Công");
@@ -268,7 +267,7 @@ trangthaikhluudata:any
   }
 
   onchange() {
-    if (this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai' ||this.trangthai_kh == 'chuatracoc') {
+    if (this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai' || this.trangthai_kh == 'chuatracoc') {
       this.userform.controls.ngaytra.setValue(new Date())
       this.userform.controls.ngaythue.setValue(null)
       this.userform.controls.hoten.setValue(null)
