@@ -51,6 +51,7 @@ export class DashboardComponent implements OnInit {
       {label:'Hủy', value:'huy'},
       {label:'Trả Lại', value:'tralai'},
      
+      { label: 'Trả Lại - Chưa Trả Cọc', value: 'chuatracoc' }
   ];
   }
 
@@ -288,7 +289,7 @@ console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate
         })
       }
 
-      if (this.edittrangthai =='huy' || this.edittrangthai == 'tralai' ) {
+      if (this.edittrangthai =='huy' || this.edittrangthai == 'tralai' || this.edittrangthai == 'chuatracoc') {
 
         this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
           data => {

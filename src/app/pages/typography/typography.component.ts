@@ -41,6 +41,7 @@ export class TypographyComponent implements OnInit {
     this.cols = [
       { field: 'mawifi', header: 'Mã WiFi' },
       { field: 'hoten', header: 'Họ Tên' },
+      { field: 'sdtsim', header: 'SĐT Sim' },
       { field: 'giacuoc', header: 'Giá Cước' },
 
 
@@ -64,6 +65,7 @@ export class TypographyComponent implements OnInit {
       { label: 'Hủy', value: 'huy' },
       { label: 'Trả Lại', value: 'tralai' },
 
+      { label: 'Trả Lại - Chưa Trả Cọc', value: 'chuatracoc' }
     ];
     this.userform = this.formBuilder.group({
 
@@ -212,7 +214,7 @@ console.log(res)
         })
       }
 
-      if (this.edittrangthai =='huy' || this.edittrangthai == 'tralai' ) {
+      if (this.edittrangthai =='huy' || this.edittrangthai == 'tralai' || this.edittrangthai == 'chuatracoc' ) {
 
         this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
           data => {

@@ -72,6 +72,22 @@ export const ROUTES: RouteInfo[] = [
     //rtlTitle: "ار تي ال",
     icon: "icon-world",
     class: ""
+  },
+
+  {
+    path: "/chuatracoc",
+    title: "DS KH Chưa Trả Cọc",
+    //rtlTitle: "ار تي ال",
+    icon: "icon-pin",
+    class: ""
+  },
+
+  {
+    path: "/congtacvien",
+    title: "DANH SÁCH CỘNG TÁC VIÊN",
+    //rtlTitle: "ار تي ال",
+    icon: "icon-bell-55",
+    class: ""
   }
 ];
 

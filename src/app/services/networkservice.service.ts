@@ -31,6 +31,11 @@ export class NetworkserviceService {
     return this.httpClient.get<any>(getAllWiFiAPI);    
   }
 
+  getAllCongtacvien() {
+    const getAllCongtacvienAPI = `${NETWORK.API.Congtacvien}`;
+    return this.httpClient.get<any>(getAllCongtacvienAPI);    
+  }
+
   getAllAccount() {
     const getAllAccountAPI = `${NETWORK.API.ACCOUNT}`;
     return this.httpClient.get<any>(getAllAccountAPI);    
@@ -58,14 +63,28 @@ export class NetworkserviceService {
     return this.httpClient.post<any>(postAllAccountAPI, data,this.httpOptions)  
   }
 
+  postAllCongtacvien(data): Observable<any>  {
+    const postAllCongtacviebAPI = `${NETWORK.API.Congtacvien}`;
+    return this.httpClient.post<any>(postAllCongtacviebAPI, data,this.httpOptions)  
+  }
+
   deleteUser(data): Observable<any>  {
     const deleteUserAPI = `${NETWORK.API.WiFi}/${data}`;
     return this.httpClient.delete(deleteUserAPI)  
   }
 
+  deleteCongtacvien(data): Observable<any>  {
+    const deleteCongtacvienAPI = `${NETWORK.API.Congtacvien}/${data}`;
+    return this.httpClient.delete(deleteCongtacvienAPI)  
+  }
+
   updateAllUser(data): Observable<any>  {
     const updateAllUserAPI = `${NETWORK.API.WiFi}`;
     return this.httpClient.put<any>(updateAllUserAPI, data,this.httpOptions)  
+  }
+  updateAllCongtacvien(data): Observable<any>  {
+    const updateAllCongtacvienAPI = `${NETWORK.API.Congtacvien}`;
+    return this.httpClient.put<any>(updateAllCongtacvienAPI, data,this.httpOptions)  
   }
 
  

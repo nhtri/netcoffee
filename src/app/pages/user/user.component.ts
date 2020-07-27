@@ -42,7 +42,7 @@ trangthaikhluudata:any
       { label: 'Tạm Ngưng', value: 'tamngung' },
       { label: 'Hủy', value: 'huy' },
       { label: 'Trả Lại', value: 'tralai' },
-
+      { label: 'Trả Lại - Chưa Trả Cọc', value: 'chuatracoc' },
     ];
   }
 
@@ -83,7 +83,7 @@ trangthaikhluudata:any
 
       this.userform.controls.ghichu.setValue(this.editData.ghichu)
     }
-    else if (this.editData.trangthai_kh == 'huy' || this.editData.trangthai_kh == 'tralai') {
+    else if (this.editData.trangthai_kh == 'huy' || this.editData.trangthai_kh == 'tralai'|| this.editData.trangthai_kh == 'chuatracoc') {
       this.isDisable = true
       console.log('isDisable', this.isDisable)
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
@@ -158,7 +158,7 @@ trangthaikhluudata:any
     this.userform.controls.masim.enable();
     // this.thanhtoan.setDate(this.thanhtoan.getDate() + 1)
     new Date(this.thanhtoan.setDate(this.thanhtoan.getDate() + 1))
-    if (this.trangthai_kh == null || this.trangthai_kh == 'huy' ||this.trangthai_kh == 'tralai') {
+    if (this.trangthai_kh == null || this.trangthai_kh == 'huy' ||this.trangthai_kh == 'tralai' ||this.trangthai_kh == 'chuatracoc') {
       this.trangthaikhluudata = 'sudung'
 
     }
@@ -232,7 +232,7 @@ trangthaikhluudata:any
           console.log("Error", error);
 
         })
-      if (this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai') {
+      if (this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai' ||this.trangthai_kh == 'chuatracoc') {
         this.networkserviceService.postAllAccount(this.olduser).subscribe(
           data => {
             alert("Lưu Khách Hàng cũ Thành Công");
@@ -268,7 +268,7 @@ trangthaikhluudata:any
   }
 
   onchange() {
-    if (this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai') {
+    if (this.trangthai_kh == 'huy' || this.trangthai_kh == 'tralai' ||this.trangthai_kh == 'chuatracoc') {
       this.userform.controls.ngaytra.setValue(new Date())
       this.userform.controls.ngaythue.setValue(null)
       this.userform.controls.hoten.setValue(null)
