@@ -100,7 +100,7 @@ export class CongtacvienComponent implements OnInit {
   onRowDelete(val) {
     let isDel = confirm("Bạn có muốn xóa Cong tac vien này không?");
     if (isDel == true) {
-      this.networkserviceService.deleteCongtacvien(val.sdt).subscribe(
+      this.networkserviceService.deleteCongtacvien(val.hoten).subscribe(
         data => {
           alert("Xóa Thành Công");
           this.ngOnInit();
