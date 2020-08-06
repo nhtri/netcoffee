@@ -9,8 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  
+  dsCongtacvien=[]
   userform: FormGroup | any;
-
+congtacvien:any
   hoten = ""
   ghichu = ""
   facebook = ""
@@ -21,11 +23,11 @@ export class UserComponent implements OnInit {
   trangthai_kh: any
   editData: any
 
-
   ngaythue: Date
   ngaytra: Date
   olduser: any
   trangthaikh: any
+  trangthaicongtacvien:any
   trangthaikhluudata: any
   isDisable: boolean
   thanhtoan: any
@@ -44,10 +46,17 @@ export class UserComponent implements OnInit {
       { label: 'Trả Lại', value: 'tralai' },
       { label: 'Trả Lại - Chưa Trả Cọc', value: 'chuatracoc' },
     ];
+
+   
+    
   }
 
   ngOnInit() {
-
+    
+    this.dsCongtacvien=[{label:'Khách Lẻ',value:'khachle'}]
+    this.networkserviceService.getAllCongtacvien().subscribe(val => val.forEach(el=> {
+      this.dsCongtacvien.push({label:el.hoten,value:el.hoten})
+    
     this.editData = window.history.state
     this.userform.trangthaikhdd = 'sudung'
     if ((this.editData.mawifi && this.editData.trangthai_kh == 'sudung') || (this.editData.mawifi && this.editData.trangthai_kh == 'tamngung')) {
@@ -60,7 +69,6 @@ export class UserComponent implements OnInit {
       this.userform.controls.masim.disable()
       this.userform.controls.hoten.setValue(this.editData.hoten)
       this.userform.controls.facebook.setValue(this.editData.facebook)
-
       if (this.editData.ngaythue) {
         this.userform.controls.ngaythue.setValue(new Date(this.editData.ngaythue))
       }
@@ -81,6 +89,7 @@ export class UserComponent implements OnInit {
         this.userform.controls.thanhtoanctrl.setValue(new Date())
       }
 
+      this.userform.controls.congtacviencontrol.setValue(this.editData.congtacvien)
       this.userform.controls.ghichu.setValue(this.editData.ghichu)
     }
     else if (this.editData.trangthai_kh == 'huy' || this.editData.trangthai_kh == 'tralai' || this.editData.trangthai_kh == 'chuatracoc') {
@@ -113,6 +122,7 @@ export class UserComponent implements OnInit {
       this.userform.controls.trangthaikhdd.disable()
       this.userform.controls.thanhtoanctrl.setValue(new Date())
     }
+  }))
   }
 
   initForm() {
@@ -128,8 +138,8 @@ export class UserComponent implements OnInit {
       giacuoc: new FormControl(null),
       trangthaikhdd: new FormControl('sudung'),
       ghichu: new FormControl(null),
-      thanhtoanctrl: new FormControl(null)
-
+      thanhtoanctrl: new FormControl(null),
+      congtacviencontrol:new FormControl(null)
     })
 
 
@@ -144,7 +154,7 @@ export class UserComponent implements OnInit {
         this.facebook = res.facebook,
         this.trangthai_kh = res.trangthaikhdd
       this.thanhtoan = res.thanhtoanctrl
-
+      this.congtacvien = res.congtacviencontrol
     });
 
   }
@@ -165,6 +175,7 @@ export class UserComponent implements OnInit {
       this.trangthaikhluudata = this.trangthai_kh
     }
     this.luudata = [
+      
       this.data.mawifi,
       this.data.sdtsim,
       this.data.masim,
@@ -179,10 +190,12 @@ export class UserComponent implements OnInit {
       this.ghichu,
       this.trangthaikhluudata,
       null,
-      this.thanhtoan
+      this.thanhtoan,
+      this.congtacvien
     ]
 
     this.updatedata = [
+     
       this.data.ngaythue,
       this.data.ngaytra,
       null,
@@ -199,9 +212,11 @@ export class UserComponent implements OnInit {
       null,
       this.thanhtoan,
       this.data.mawifi,
+      this.congtacvien
     ]
 
     this.olduser = [
+     
       this.data.mawifi,
       this.data.sdtsim,
       this.data.masim,
@@ -216,7 +231,8 @@ export class UserComponent implements OnInit {
       this.editData.ghichu,
       this.trangthai_kh,
       null,
-      this.thanhtoan
+      this.thanhtoan,
+      this.congtacvien
     ]
 
     if (this.editData.mawifi) {
@@ -278,13 +294,12 @@ export class UserComponent implements OnInit {
     }
     else
       this.userform.controls.ngaytra.setValue(null)
-
   }
 
   cancel() {
     this.router.navigateByUrl('dashboard')
   }
 
-
+  onchangecongtacvien(){}
 
 }

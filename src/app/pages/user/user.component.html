@@ -31,38 +31,20 @@
           </div>
           <div class=" row">
             <div class=" col-md-6 pr-md-1">
-              <div class=" form-group" >
+              <div class=" form-group">
                 <label> Họ Tên </label> <label style="color: #ec250d;"> *</label>
                 <input class=" form-control" placeholder="Họ Tên" type="text" formControlName="hoten" />
               </div>
             </div>
-        
+
             <div class=" col-md-6 pl-md-1">
-              <div class=" form-group" >
+              <div class=" form-group">
                 <label> Facebook </label>
                 <input class=" form-control" placeholder="Facebook" type="email" formControlName="facebook" />
               </div>
             </div>
           </div>
-          <!-- <div class=" row">
-            <div class=" col-md-6 pr-md-1">
-              <div class=" form-group">
-                <label> Ngày Thuê </label>
-                <div>
-                  <p-calendar formControlName="ngaythue" [showIcon]="true" dateFormat="dd.mm.yy">
-                  </p-calendar>
-                </div>
-              </div>
-            </div>
-            <div class=" col-md-6 pl-md-1">
-              <div class=" form-group">
-                <label>Ngày Trả</label>
-                <div>
-                  <p-calendar formControlName="ngaytra" [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
-                </div>
-              </div>
-            </div>
-          </div> -->
+          
           <div class=" row">
             <div class=" col-md-12">
               <div class=" form-group">
@@ -84,7 +66,7 @@
               <p-calendar formControlName="ngaytra" [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
             </div>
           </div>
-          
+
           <div class=" row">
             <div class=" col-md-4 pr-md-1">
               <div class=" form-group">
@@ -100,69 +82,33 @@
                   <p-inputSwitch formControlName="trangthai" [(ngModel)]="checked" (click)="onClick($event)">
                   </p-inputSwitch>
                 </div> -->
-            <div>
-                  <p-dropdown   [options]="trangthaikh" formControlName="trangthaikhdd" (onChange)="onchange()"></p-dropdown>
+                <div>
+                  <p-dropdown [options]="trangthaikh" formControlName="trangthaikhdd" (onChange)="onchange()">
+                  </p-dropdown>
                 </div>
               </div>
             </div>
           </div>
           <div class=" row">
-            <div class=" col-md-12">
+            <div class=" col-md-4 pr-md-1">
               <div class=" form-group">
-                <label   style="margin-right: 10px;"> Thanh Toán</label>
+                <label style="margin-right: 10px;"> Thanh Toán</label>
                 <div>
-                  <p-calendar formControlName="thanhtoanctrl"  view="month" dateFormat="mm/yy" [showIcon]="true" [yearNavigator]="true" yearRange="2019:2030"></p-calendar>
+                  <p-calendar formControlName="thanhtoanctrl" view="month" dateFormat="mm/yy" [showIcon]="true"
+                    [yearNavigator]="true" yearRange="2019:2030"></p-calendar>
                 </div>
-            
-           <!-- <div style="margin-bottom: 10px;">
-                <p-dropdown  [options]="namthanhtoan" formControlName="namthanhtoan" (onChange)="onchangenamthanhtoan()"></p-dropdown>
-              </div> -->
-                
-                <!-- <table class="table_monthly">
 
-                  <thead class=" text-primary" style="border-bottom:1px solid #344675 ;">
 
-                    <th *ngFor="let column of cols1" style="color: #ec250d">
-                      {{column}}
+              </div>
+            </div>
+            <div class=" col-md-6 pl-md-1">
+              <div class=" form-group">
+                <label>Cộng tác viên</label>
 
-                    </th>
-
-                  </thead>
-                  <tbody>
-                    <tr [formGroup]="thanhtoanform">
-                      <td *ngFor="let column of cols1">
-                        <input type="checkbox" class="form-check-input-monthly"
-                          style="width: 24px !important;height: 24px !important; margin-top: 4px;"
-                          formControlName="thanhtoan{{column}}">
-                      </td>
-
-                    </tr>
-
-                  </tbody>
-                </table> -->
-                <!-- <br />
-                <table class="table_monthly">
-
-                  <thead class=" text-primary" style="border-bottom:1px solid #344675 ;">
-
-                    <th *ngFor="let column of cols2" style="color: #ec250d">
-                      {{column}}
-
-                    </th>
-
-                  </thead>
-                  <tbody>
-                    <tr [formGroup]="thanhtoanform">
-                      <td *ngFor="let column of cols2">
-                        <input type="checkbox" class="form-check-input-monthly"
-                          style="width: 24px !important;height: 24px !important; margin-top: 4px;"
-                          formControlName="thanhtoan{{column}}">
-                      </td>
-
-                    </tr>
-
-                  </tbody>
-                </table> -->
+                <div>
+                  <p-dropdown [options]="dsCongtacvien" formControlName="congtacviencontrol"
+                    (onChange)="onchangecongtacvien()"></p-dropdown>
+                </div>
               </div>
             </div>
           </div>
@@ -181,7 +127,8 @@
         <div class=" card-footer" [hidden]="isDisable">
           <button class=" btn btn-fill btn-danger" type="submit" (click)="submit()" [hidden]="isDisable">Save</button>
 
-          <button class=" btn " style="background:rgba(224, 46, 22, 0.6)" (click)="cancel()" [hidden]="isDisable">Cancel</button>
+          <button class=" btn " style="background:rgba(224, 46, 22, 0.6)" (click)="cancel()"
+            [hidden]="isDisable">Cancel</button>
         </div>
       </div>
     </div>

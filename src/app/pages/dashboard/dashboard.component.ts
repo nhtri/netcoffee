@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
   editmawifi:any
   edithoten:any
   editthanhtoan:any
+  editcongtacvien:any
   edittrangthai:any
   editdata:any
   userform: FormGroup | any;
@@ -232,6 +233,7 @@ console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate
       this.edittrangthai,
       null,
       this.editthanhtoan,
+      this.editdata.congtacvien,
       this.editdata.mawifi,
     ]
 
@@ -249,6 +251,7 @@ console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate
       this.editdata.masim,
       //'sudung',
       'sudung',
+      null,
       null,
       null,
       this.editdata.mawifi,
@@ -269,7 +272,8 @@ console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate
       this.editdata.ghichu,
       this.edittrangthai,
       null,
-      this.editthanhtoan
+      this.editthanhtoan,
+      this.editdata.congtacvien
     ]
 
 
