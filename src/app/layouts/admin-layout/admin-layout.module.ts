@@ -24,6 +24,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { DialogModule } from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
 import { ChuatracocComponent } from 'src/app/pages/chuatracoc/chuatracoc.component';
+import { WifidoicaplaisimComponent } from 'src/app/pages/wifidoicaplaisim/wifidoicaplaisim.component';
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import { ChuatracocComponent } from 'src/app/pages/chuatracoc/chuatracoc.compone
     WifiComponent,
     CongtacvienComponent,
     ChuatracocComponent,
+    WifidoicaplaisimComponent,
      RtlComponent
   ]
 })

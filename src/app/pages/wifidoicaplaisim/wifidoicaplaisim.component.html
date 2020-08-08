@@ -3,7 +3,7 @@
         <div class=" col-md-12">
             <div class=" card">
                 <div class=" card-header">
-                    <h4 class=" card-title">DS WIFI tồn kho</h4>
+                    <h4 class=" card-title">DS WIFI đợi cấp lại sim</h4>
                     <br />
                     <div>
                         <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()"
@@ -43,7 +43,7 @@
 
 
                                     </th>
-                                    <th></th>
+                                    
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -57,7 +57,14 @@
                                     <td>
 
 
-                                        {{rowData.mawifi}}
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input pInputText type="text" [(ngModel)]="rowData.mawifi" required>
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{rowData.mawifi}}
+                                            </ng-template>
+                                        </p-cellEditor>
 
                                     </td>
                                     <td>
@@ -83,11 +90,7 @@
                                             </ng-template>
                                         </p-cellEditor>
                                     </td>
-                                    <td style="text-align:center">
-                                        <a (click)="selectNetWithButton(rowData)" routerLink="/user"
-                                            [state]="(rowData)"><i class="fas fa-address-card"
-                                                style="font-size:20px"></i></a>
-                                    </td>
+                                   
                                     <td style="text-align:center">
                                         <button *ngIf="!editing" pButton type="button" pInitEditableRow
                                             icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(rowData)"

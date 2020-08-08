@@ -17,9 +17,16 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: "/wifi",
-    title: "WiFi",
+    title: "WiFi Tồn Kho",
     // rtlTitle: "لوحة القيادة",
     icon: "icon-world",
+    class: ""
+  },
+  {
+    path: "/wifidoicaplaisim",
+    title: "WiFi Đợi Cấp Lại Sim",
+    // rtlTitle: "لوحة القيادة",
+    icon: "icon-atom",
     class: ""
   },
   // {

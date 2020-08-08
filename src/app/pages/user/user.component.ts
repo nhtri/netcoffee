@@ -211,8 +211,9 @@ congtacvien:any
       this.trangthaikhluudata,
       null,
       this.thanhtoan,
+      this.congtacvien,
       this.data.mawifi,
-      this.congtacvien
+      
     ]
 
     this.olduser = [
