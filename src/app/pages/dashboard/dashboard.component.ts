@@ -13,6 +13,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  selectedData:any[]=[];
   data: network[] = [];
   month: any
   date: any
@@ -219,7 +220,16 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  onRowSelect($event){
+    this.selectedData.push($event.data.mawifi)
+    console.log(this.selectedData)
+  }
 
+  onRowUnselect($event){
+    console.log($event)
+    this.selectedData= this.selectedData.filter(item => item !== $event.data.mawifi)
+    console.log(this.selectedData)
+  }
 
   onRowEditInit(val) {
     this.editdata = val

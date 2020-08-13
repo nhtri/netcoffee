@@ -16,21 +16,23 @@
           <input pInputText type="text" placeholder="DT SIM" style="margin-right: 15px; height: 30px; margin-bottom: 15px;  width: 120px;"  (input)="tt.filter($event.target.value, 'sdtsim', 'contains')">
                  
           <input pInputText type="text"  placeholder="Họ Tên" style="margin-right: 15px; height: 30px; margin-bottom: 15px;  width: 120px;" (input)="tt.filter($event.target.value, 'hoten', 'contains')">
-          <p-dropdown  [options]="trangthaitt" (onChange)="onchange($event.value)" ></p-dropdown>       
-          <br/>
+          <p-dropdown  [options]="trangthaitt" (onChange)="onchange($event.value)" ></p-dropdown> <span style="margin-right: 15px"></span>
           <p-dropdown  [options]="congtacvien" (onChange)="onchangectv($event.value)" ></p-dropdown>       
           
           <!-- <div class=" table-responsive" style="margin-top: 15px;"> -->
             <br/>
             <br/>
             <p-table dataKey="mawifi" editMode="row" #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="20"
-              [tableStyle]="{'table-layout':'auto'}">
+              [tableStyle]="{'table-layout':'auto'}"  (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
 
 
 
               <ng-template pTemplate="header" let-columns class=" text-primary">
                 <tr>
                   <th></th>
+                  <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
                   <th *ngFor="let col of columns" [pSortableColumn]="col.field">
 
 
@@ -48,6 +50,9 @@
               <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-ri="rowIndex">
                 <tr [pEditableRow]="rowData">
                   <td>{{i+1}}</td>
+                  <td>
+                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                </td>
                   <td *ngFor="let col of columns" >
 
 
