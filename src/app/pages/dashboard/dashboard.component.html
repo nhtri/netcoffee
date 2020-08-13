@@ -17,7 +17,10 @@
                  
           <input pInputText type="text"  placeholder="Họ Tên" style="margin-right: 15px; height: 30px; margin-bottom: 15px;  width: 120px;" (input)="tt.filter($event.target.value, 'hoten', 'contains')">
           <p-dropdown  [options]="trangthaitt" (onChange)="onchange($event.value)" ></p-dropdown> <span style="margin-right: 15px"></span>
-          <p-dropdown  [options]="congtacvien" (onChange)="onchangectv($event.value)" ></p-dropdown>       
+          <p-dropdown  [options]="congtacvien" (onChange)="onchangectv($event.value)" ></p-dropdown>  
+          <br/>
+          <br/>
+          <span>Chọn và thay đổi CTV     </span><p-dropdown  [options]="congtacvien" (onChange)="onchangethaydoictv($event.value)" ></p-dropdown>       
           
           <!-- <div class=" table-responsive" style="margin-top: 15px;"> -->
             <br/>
