@@ -16,23 +16,24 @@ export class DashboardComponent implements OnInit {
   data: network[] = [];
   month: any
   date: any
-  year:any
+  year: any
   cols: any[];
   trangthaitt: any
-  trangthaikh:any
-  ispayment:any
-  selthanhtoan:any
-  
-  displayDialog=false
-  updatedata:any
-  updatedatawifi:any
-  olduser:any
-  editmawifi:any
-  edithoten:any
-  editthanhtoan:any
-  editcongtacvien:any
-  edittrangthai:any
-  editdata:any
+  congtacvien: any
+  trangthaikh: any
+  ispayment: any
+  selthanhtoan: any
+
+  displayDialog = false
+  updatedata: any
+  updatedatawifi: any
+  olduser: any
+  editmawifi: any
+  edithoten: any
+  editthanhtoan: any
+  editcongtacvien: any
+  edittrangthai: any
+  editdata: any
   userform: FormGroup | any;
 
   constructor(
@@ -44,16 +45,16 @@ export class DashboardComponent implements OnInit {
     this.onFormChanges();
     this.ispayment = false
     console.log(this.ispayment)
-    
+
 
     this.trangthaikh = [
-      {label:'Sử Dụng', value:'sudung'},
-      {label:'Tạm Ngưng', value:'tamngung'},
-      {label:'Hủy', value:'huy'},
-      {label:'Trả Lại', value:'tralai'},
-     
+      { label: 'Sử Dụng', value: 'sudung' },
+      { label: 'Tạm Ngưng', value: 'tamngung' },
+      { label: 'Hủy', value: 'huy' },
+      { label: 'Trả Lại', value: 'tralai' },
+
       { label: 'Trả Lại - Chưa Trả Cọc', value: 'chuatracoc' }
-  ];
+    ];
   }
 
   ngOnInit() {
@@ -64,20 +65,20 @@ export class DashboardComponent implements OnInit {
       { field: 'sdtsim', header: 'DT SIM' },
       { field: 'hoten', header: 'Họ Tên' },
       { field: 'giacuoc', header: 'Giá Cước' },
-    
+
 
       { field: 'facebook', header: 'Fb' },
-      
-     
+
+
       { field: 'thanhtoan', header: 'Thanh Toán' },
-      
+
 
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => 
-      
-      this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh =='sudung')
-      
-      )
+    this.networkserviceService.getAllWiFi().subscribe(val =>
+
+      this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung')
+
+    )
     this.date = new Date().getDate()
     this.year = new Date().getFullYear()
 
@@ -93,20 +94,23 @@ export class DashboardComponent implements OnInit {
     //   }
     // }
 
-    
+
     if (this.date > 24) {
       this.month = new Date().getMonth() + 1
-    
+
     }
     if (this.date <= 24) {
-      this.month = new Date().getMonth() 
+      this.month = new Date().getMonth()
     }
     this.trangthaitt = [
       { label: 'All', value: 'all' },
       { label: 'Đã Thanh Toán', value: 'dathanhtoan' },
       { label: 'Chưa Thanh Toán', value: 'chuathanhtoan' }
     ]
-    console.log(this.date, this.month,new Date(), new Date("2020-03-02T00:00:00.000Z").getMonth())
+    this.congtacvien = [{ label: 'Khách Lẻ', value: 'khachle' }]
+    this.networkserviceService.getAllCongtacvien().subscribe(val => val.forEach(el => {
+      this.congtacvien.push({ label: el.hoten, value: el.hoten })
+    }))
   }
 
   initForm() {
@@ -126,11 +130,11 @@ export class DashboardComponent implements OnInit {
       this.edittrangthai = res.trangthaikhdd
       this.editthanhtoan = res.thanhtoanctrl
       new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate() + 1))
-console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate() + 1)))
+      console.log('res', new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate() + 1)))
     });
 
   }
-  
+
   selectNetWithButton(value) {
     console.log(value)
   }
@@ -163,44 +167,62 @@ console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate
 
 
   onchange(value) {
-  
-    if(value == 'dathanhtoan'){
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
-      (val => 
-    
-      val.hoten != null && val.trangthai_kh == 'sudung' && val.hoten != '' &&  
-      
-        (new Date(val.thanhtoan).getMonth() >= this.month 
-        && new Date(val.thanhtoan).getFullYear() == this.year)
-        || new Date(val.thanhtoan).getFullYear() > this.year
+
+    if (value == 'dathanhtoan') {
+      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
+        (val =>
+
+          val.hoten != null && val.trangthai_kh == 'sudung' && val.hoten != '' &&
+
+          (new Date(val.thanhtoan).getMonth() >= this.month
+            && new Date(val.thanhtoan).getFullYear() == this.year)
+          || new Date(val.thanhtoan).getFullYear() > this.year
 
         )
-        )
+      )
     }
-    else if(value == 'chuathanhtoan'){
-      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => 
-        val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'&&
-        (new Date(val.thanhtoan).getMonth() < this.month || 
-        new Date(val.thanhtoan).getFullYear() < this.year)))
+    else if (value == 'chuathanhtoan') {
+      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val =>
+        val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' &&
+        (new Date(val.thanhtoan).getMonth() < this.month ||
+          new Date(val.thanhtoan).getFullYear() < this.year)))
     }
-    else if(value == 'all'){
-      this.networkserviceService.getAllWiFi().subscribe(val => 
-        
-        this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh =='sudung'
-        
-        
+    else if (value == 'all') {
+      this.networkserviceService.getAllWiFi().subscribe(val =>
+
+        this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
+
+
         )
-       
-        
-        )
-    
+
+
+      )
+
     }
     console.log('value', value)
   }
 
-  
+  onchangectv(value) {
+    console.log(value)
+    if (value === 'khachle') {
+      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
+        (val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' 
+        ))
+    }
+    else {
+      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
+        (val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' &&
+          val.congtacvien === value
+        )
+      )
+    }
+
+  }
+
+
+
   onRowEditInit(val) {
-    this.editdata=val
+    this.editdata = val
     this.displayDialog = true;
     this.editmawifi = val.mawifi
     this.edithoten = val.hoten
@@ -214,8 +236,8 @@ console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate
 
   save() {
 
-    if(this.edittrangthai==null){
-      this.edittrangthai='sudung'
+    if (this.edittrangthai == null) {
+      this.edittrangthai = 'sudung'
     }
     this.updatedata = [
       this.editdata.ngaythue,
@@ -277,13 +299,13 @@ console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate
     ]
 
 
-    if (this.edittrangthai =='tamngung' || this.edittrangthai == 'sudung' ) {
+    if (this.edittrangthai == 'tamngung' || this.edittrangthai == 'sudung') {
       this.networkserviceService.updateAllUser(this.updatedata).subscribe(
         data => {
           alert("Lưu Thành Công");
           this.displayDialog = false;
           location.reload();
-      
+
           console.log("POST Request is successful ", data);
         },
         error => {
@@ -291,41 +313,41 @@ console.log('res',new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate
           console.log("Error", error);
 
         })
-      }
-
-      if (this.edittrangthai =='huy' || this.edittrangthai == 'tralai' || this.edittrangthai == 'chuatracoc') {
-
-        this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
-          data => {
-            alert("Lưu Thành Công");
-            this.displayDialog = false;
-            location.reload();
-     
-         
-            console.log("POST Request is successful ", data);
-          },
-          error => {
-  
-            console.log("Error", error);
-  
-          })
-
-
-
-        this.networkserviceService.postAllAccount(this.olduser).subscribe(
-          data => {
-            alert("Lưu Khách Hàng cũ Thành Công");
-            location.reload();
-            console.log("POST Request is successful ", data);
-          },
-          error => {
-
-            console.log("Error", error);
-
-          })
-        }
-
-
-
     }
+
+    if (this.edittrangthai == 'huy' || this.edittrangthai == 'tralai' || this.edittrangthai == 'chuatracoc') {
+
+      this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
+        data => {
+          alert("Lưu Thành Công");
+          this.displayDialog = false;
+          location.reload();
+
+
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+
+          console.log("Error", error);
+
+        })
+
+
+
+      this.networkserviceService.postAllAccount(this.olduser).subscribe(
+        data => {
+          alert("Lưu Khách Hàng cũ Thành Công");
+          location.reload();
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+
+          console.log("Error", error);
+
+        })
+    }
+
+
+
+  }
 }
