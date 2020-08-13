@@ -82,6 +82,12 @@ export class NetworkserviceService {
     const updateAllUserAPI = `${NETWORK.API.WiFi}`;
     return this.httpClient.put<any>(updateAllUserAPI, data,this.httpOptions)  
   }
+
+  updateAllOldUser(data): Observable<any>  {
+    const updateAllOldUserAPI = `${NETWORK.API.ACCOUNT}`;
+    return this.httpClient.put<any>(updateAllOldUserAPI, data,this.httpOptions)  
+  }
+
   updateAllCongtacvien(data): Observable<any>  {
     const updateAllCongtacvienAPI = `${NETWORK.API.Congtacvien}`;
     return this.httpClient.put<any>(updateAllCongtacvienAPI, data,this.httpOptions)  
