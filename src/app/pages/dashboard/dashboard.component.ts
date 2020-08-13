@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
 
 
       { field: 'facebook', header: 'Fb' },
+      { field: 'congtacvien', header: 'CTV' },
 
 
       { field: 'thanhtoan', header: 'Thanh Toán' },
@@ -218,6 +219,26 @@ export class DashboardComponent implements OnInit {
       )
     }
 
+  }
+
+  onchangethaydoictv(value){
+    this.selectedData.forEach(element => {
+      const updateData = [value,element]
+    this.networkserviceService.updatewificongtacvien(updateData).subscribe(
+      data => {
+        
+
+        console.log("POST Request is successful ", data);
+      },
+      error => {
+
+        console.log("Error", error);
+
+      })
+    });
+    alert("Lưu Thành Công");
+          this.displayDialog = false;
+          location.reload();
   }
 
   onRowSelect($event){

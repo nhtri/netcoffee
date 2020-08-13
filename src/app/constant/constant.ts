@@ -6,5 +6,6 @@ export const NETWORK = {
         ACCOUNT: HOST + 'account',
         Admin: HOST + 'admin',
         Old: HOST + 'wifi/old',
+        WiFiCongtacvien: HOST + 'wificongtacvien'
     }
 };

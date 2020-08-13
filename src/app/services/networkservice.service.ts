@@ -41,6 +41,11 @@ export class NetworkserviceService {
     return this.httpClient.get<any>(getAllAccountAPI);    
   }
 
+  updatewificongtacvien(data){
+    const updatewificongtacvienAPI = `${NETWORK.API.WiFiCongtacvien}`;
+    return this.httpClient.put<any>(updatewificongtacvienAPI, data,this.httpOptions)  
+  }
+
   getOldWiFi() {
     const getOldWiFiAPI = `${NETWORK.API.Old}`;
     return this.httpClient.get<any>(getOldWiFiAPI);    
