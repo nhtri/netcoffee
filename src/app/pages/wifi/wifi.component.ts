@@ -91,6 +91,7 @@ export class WifiComponent implements OnInit {
       'sudung',
       null,
       null,
+      null,
       val.mawifi,
     ]
     this.networkserviceService.updateAllUser(this.wifidataupdate).subscribe(
@@ -152,7 +153,7 @@ export class WifiComponent implements OnInit {
           this.wifidata.mawifi,
           this.wifidata.sdtsim,
           this.wifidata.masim,
-          , null, null, null, null, null, true, null, null,'sudung',null,null
+          , null, null, null, null, null, true, null, null,'sudung',null,null,null
         ]
         this.networkserviceService.postAllUser(this.luuwifidata).subscribe(
           data => {

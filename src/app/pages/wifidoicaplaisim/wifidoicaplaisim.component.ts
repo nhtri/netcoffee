@@ -40,7 +40,7 @@ export class WifidoicaplaisimComponent implements OnInit {
       { field: 'masim', header: 'Mã SIM' },
 
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten == null || val.hoten == ''))
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => (val.hoten == null || val.hoten == '')&&val.trangthaiwifi!=null))
     console.log(this.data)
 
     this.networkserviceService.getAllWiFi().subscribe(val => this.dataAll = val)
@@ -90,6 +90,7 @@ export class WifidoicaplaisimComponent implements OnInit {
       'sudung',
       null,
       null,
+      null,
       val.mawifi,
     ]
     this.networkserviceService.updateAllUser(this.wifidataupdate).subscribe(
@@ -131,52 +132,49 @@ export class WifidoicaplaisimComponent implements OnInit {
 
   }
 
-  showDialogToAdd() {
+  
 
-    this.displayDialog = true;
-  }
+  // save() {
 
-  save() {
+  //   let isDup = false
+  //   for (let i = 0; i < this.dataAll.length; i++) {
+  //     if (this.dataAll[i].mawifi === this.wifidata.mawifi) {
+  //       isDup = true
+  //       break;
+  //     }
+  //   }
+  //   if (isDup == false) {
+  //     if (this.wifidata.mawifi && this.wifidata.masim && this.wifidata.sdtsim) {
+  //       this.luuwifidata = [
+  //         this.wifidata.mawifi,
+  //         this.wifidata.sdtsim,
+  //         this.wifidata.masim,
+  //         , null, null, null, null, null, true, null, null,'sudung',null,null
+  //       ]
+  //       this.networkserviceService.postAllUser(this.luuwifidata).subscribe(
+  //         data => {
+  //           alert("Lưu Thành Công");
+  //           this.displayDialog=false
+  //           this.ngOnInit()
+  //           console.log("POST Request is successful ", data);
+  //         },
+  //         error => {
 
-    let isDup = false
-    for (let i = 0; i < this.dataAll.length; i++) {
-      if (this.dataAll[i].mawifi === this.wifidata.mawifi) {
-        isDup = true
-        break;
-      }
-    }
-    if (isDup == false) {
-      if (this.wifidata.mawifi && this.wifidata.masim && this.wifidata.sdtsim) {
-        this.luuwifidata = [
-          this.wifidata.mawifi,
-          this.wifidata.sdtsim,
-          this.wifidata.masim,
-          , null, null, null, null, null, true, null, null,'sudung',null,null
-        ]
-        this.networkserviceService.postAllUser(this.luuwifidata).subscribe(
-          data => {
-            alert("Lưu Thành Công");
-            this.displayDialog=false
-            this.ngOnInit()
-            console.log("POST Request is successful ", data);
-          },
-          error => {
+  //           console.log("Error", error);
 
-            console.log("Error", error);
-
-          })
-      }
-      else {
-        alert("Điền thông tin vào ô * trống");
-      }
-    }
-    else {
-      alert("Mã WiFi đã tồn tại")
-    }
-  }
-  cancel(){
-    this.displayDialog=false
-  }
+  //         })
+  //     }
+  //     else {
+  //       alert("Điền thông tin vào ô * trống");
+  //     }
+  //   }
+  //   else {
+  //     alert("Mã WiFi đã tồn tại")
+  //   }
+  // }
+  // cancel(){
+  //   this.displayDialog=false
+  // }
   exportExcel() {
   
     const worksheet = XLSX.utils.json_to_sheet(this.data);

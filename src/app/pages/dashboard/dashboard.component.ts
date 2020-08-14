@@ -13,7 +13,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  selectedData:any[]=[];
+  selectedData: any[] = [];
   data: network[] = [];
   month: any
   date: any
@@ -36,7 +36,8 @@ export class DashboardComponent implements OnInit {
   edittrangthai: any
   editdata: any
   userform: FormGroup | any;
-
+  congtacvienform: FormGroup | any;
+  trangthaidongtienform: FormGroup | any;
   constructor(
     private networkserviceService: NetworkserviceService,
     private formBuilder: FormBuilder,
@@ -56,6 +57,8 @@ export class DashboardComponent implements OnInit {
 
       { label: 'Trả Lại - Chưa Trả Cọc', value: 'chuatracoc' }
     ];
+
+    this.congtacvien = [{ label: 'Any', value: 'any' }, { label: 'Khách Lẻ', value: 'khachle' }]
   }
 
   ngOnInit() {
@@ -84,17 +87,7 @@ export class DashboardComponent implements OnInit {
     this.date = new Date().getDate()
     this.year = new Date().getFullYear()
 
-    // if (this.date > 24) {
-    //   this.month = new Date().getMonth() + 1
-    //   if (new Date().getMonth() + 1 == 1) {
-    //     this.month = 13
-    //   }
-    // }
-    // if (this.date <= 24) {
-    //   if (new Date().getMonth() == 0) {
-    //     this.month = 12
-    //   }
-    // }
+    
 
 
     if (this.date > 24) {
@@ -109,7 +102,8 @@ export class DashboardComponent implements OnInit {
       { label: 'Đã Thanh Toán', value: 'dathanhtoan' },
       { label: 'Chưa Thanh Toán', value: 'chuathanhtoan' }
     ]
-    this.congtacvien = [{ label: 'Khách Lẻ', value: 'khachle' }]
+    this.congtacvien = [{ label: 'Any', value: 'any' }, { label: 'Khách Lẻ', value: 'khachle' }]
+
     this.networkserviceService.getAllCongtacvien().subscribe(val => val.forEach(el => {
       this.congtacvien.push({ label: el.hoten, value: el.hoten })
     }))
@@ -123,7 +117,17 @@ export class DashboardComponent implements OnInit {
 
     })
 
+    this.congtacvienform = this.formBuilder.group({
 
+      congtacviencontrol: new FormControl(null)
+
+    })
+
+    this.trangthaidongtienform = this.formBuilder.group({
+
+      trangthaidongtiencontrol: new FormControl(null)
+
+    })
   }
 
   onFormChanges() {
@@ -170,85 +174,201 @@ export class DashboardComponent implements OnInit {
 
   onchange(value) {
 
-    if (value == 'dathanhtoan') {
-      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
-        (val =>
+    if (this.congtacvienform.get('congtacviencontrol').value === 'khachle') {
+      if (value == 'dathanhtoan') {
+        console.log(this.congtacvienform.get('congtacviencontrol').value)
+        this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
+          (val =>
 
-          val.hoten != null && val.trangthai_kh == 'sudung' && val.hoten != '' &&
+            val.congtacvien == null && val.hoten != null && val.trangthai_kh == 'sudung' && val.hoten != '' &&
 
-          (new Date(val.thanhtoan).getMonth() >= this.month
-            && new Date(val.thanhtoan).getFullYear() == this.year)
-          || new Date(val.thanhtoan).getFullYear() > this.year
+            (new Date(val.thanhtoan).getMonth() >= this.month
+              && new Date(val.thanhtoan).getFullYear() == this.year)
+            || new Date(val.thanhtoan).getFullYear() > this.year
+
+          )
+        )
+      }
+      else if (value == 'chuathanhtoan') {
+        this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val =>
+          val.congtacvien === null &&
+          val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' &&
+          (new Date(val.thanhtoan).getMonth() < this.month ||
+            new Date(val.thanhtoan).getFullYear() < this.year)))
+      }
+      else if (value == 'all') {
+        this.networkserviceService.getAllWiFi().subscribe(val =>
+
+          this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
+
+
+          )
+
 
         )
-      )
-    }
-    else if (value == 'chuathanhtoan') {
-      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val =>
-        val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' &&
-        (new Date(val.thanhtoan).getMonth() < this.month ||
-          new Date(val.thanhtoan).getFullYear() < this.year)))
-    }
-    else if (value == 'all') {
-      this.networkserviceService.getAllWiFi().subscribe(val =>
 
-        this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
+      }
+    }
+    else {
+      if (value == 'dathanhtoan') {
+        console.log(this.congtacvienform.get('congtacviencontrol').value)
+        this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
+          (val =>
+
+            val.congtacvien === this.congtacvienform.get('congtacviencontrol').value &&
+            val.hoten != null && val.trangthai_kh == 'sudung' && val.hoten != '' &&
+
+            (new Date(val.thanhtoan).getMonth() >= this.month
+              && new Date(val.thanhtoan).getFullYear() == this.year)
+            || new Date(val.thanhtoan).getFullYear() > this.year
+
+          )
+        )
+      }
+      else if (value == 'chuathanhtoan') {
+        this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val =>
+          val.congtacvien === this.congtacvienform.get('congtacviencontrol').value &&
+          val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' &&
+          (new Date(val.thanhtoan).getMonth() < this.month ||
+            new Date(val.thanhtoan).getFullYear() < this.year)))
+      }
+      else if (value == 'all') {
+        this.networkserviceService.getAllWiFi().subscribe(val =>
+
+          this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
+
+
+          )
 
 
         )
 
-
-      )
+      }
 
     }
+
     console.log('value', value)
   }
 
   onchangectv(value) {
     console.log(value)
-    if (value === 'khachle') {
-      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
-        (val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' 
-        ))
+    // if (value === 'any') {
+    //   this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
+    //     (val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
+    //     ))
+    // }
+    // if (value === 'khachle') {
+    //   this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
+    //     (val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' && val.congtacvien === null
+    //     ))
+    // }
+    // else {
+    //   this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
+    //     (val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' &&
+    //       val.congtacvien === value
+    //     )
+    //   )
+    // }
+    if (this.congtacvienform.get('congtacviencontrol').value === 'khachle') {
+      if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'dathanhtoan') {
+     
+        this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
+          (val =>
+
+            val.congtacvien == null && val.hoten != null && val.trangthai_kh == 'sudung' && val.hoten != '' &&
+
+            (new Date(val.thanhtoan).getMonth() >= this.month
+              && new Date(val.thanhtoan).getFullYear() == this.year)
+            || new Date(val.thanhtoan).getFullYear() > this.year
+
+          )
+        )
+      }
+      else if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'chuathanhtoan') {
+        this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val =>
+          val.congtacvien === null &&
+          val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' &&
+          (new Date(val.thanhtoan).getMonth() < this.month ||
+            new Date(val.thanhtoan).getFullYear() < this.year)))
+      }
+      else if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'all') {
+        this.networkserviceService.getAllWiFi().subscribe(val =>
+
+          this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
+
+
+          )
+
+
+        )
+
+      }
     }
     else {
-      this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
-        (val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' &&
-          val.congtacvien === value
-        )
-      )
-    }
+      if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'dathanhtoan') {
+   
+        this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
+          (val =>
 
+            val.congtacvien === this.congtacvienform.get('congtacviencontrol').value &&
+            val.hoten != null && val.trangthai_kh == 'sudung' && val.hoten != '' &&
+
+            (new Date(val.thanhtoan).getMonth() >= this.month
+              && new Date(val.thanhtoan).getFullYear() == this.year)
+            || new Date(val.thanhtoan).getFullYear() > this.year
+
+          )
+        )
+      }
+      else if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'chuathanhtoan') {
+        this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val =>
+          val.congtacvien === this.congtacvienform.get('congtacviencontrol').value &&
+          val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' &&
+          (new Date(val.thanhtoan).getMonth() < this.month ||
+            new Date(val.thanhtoan).getFullYear() < this.year)))
+      }
+      else if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'all') {
+        this.networkserviceService.getAllWiFi().subscribe(val =>
+
+          this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
+
+
+          )
+        )
+
+      }
+
+    }
   }
 
-  onchangethaydoictv(value){
+  onchangethaydoictv(value) {
     this.selectedData.forEach(element => {
-      const updateData = [value,element]
-    this.networkserviceService.updatewificongtacvien(updateData).subscribe(
-      data => {
-        
+      const updateData = [value, element]
+      this.networkserviceService.updatewificongtacvien(updateData).subscribe(
+        data => {
 
-        console.log("POST Request is successful ", data);
-      },
-      error => {
 
-        console.log("Error", error);
+          console.log("POST Request is successful ", data);
+        },
+        error => {
 
-      })
+          console.log("Error", error);
+
+        })
     });
     alert("Lưu Thành Công");
-          this.displayDialog = false;
-          location.reload();
+    this.displayDialog = false;
+    location.reload();
   }
 
-  onRowSelect($event){
+  onRowSelect($event) {
     this.selectedData.push($event.data.mawifi)
     console.log(this.selectedData)
   }
 
-  onRowUnselect($event){
+  onRowUnselect($event) {
     console.log($event)
-    this.selectedData= this.selectedData.filter(item => item !== $event.data.mawifi)
+    this.selectedData = this.selectedData.filter(item => item !== $event.data.mawifi)
     console.log(this.selectedData)
   }
 
@@ -287,6 +407,7 @@ export class DashboardComponent implements OnInit {
       null,
       this.editthanhtoan,
       this.editdata.congtacvien,
+      null,
       this.editdata.mawifi,
     ]
 
@@ -307,6 +428,7 @@ export class DashboardComponent implements OnInit {
       null,
       null,
       null,
+      'doicaplaisim',
       this.editdata.mawifi,
     ]
 
@@ -326,7 +448,8 @@ export class DashboardComponent implements OnInit {
       this.edittrangthai,
       null,
       this.editthanhtoan,
-      this.editdata.congtacvien
+      this.editdata.congtacvien,
+      null
     ]
 
 

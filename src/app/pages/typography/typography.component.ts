@@ -176,6 +176,7 @@ console.log(res)
       'sudung',
       null,
       null,
+      'doicaplaisim',
       this.editdata.mawifi,
     ]
 

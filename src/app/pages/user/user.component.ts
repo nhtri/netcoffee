@@ -53,7 +53,7 @@ congtacvien:any
 
   ngOnInit() {
     
-    this.dsCongtacvien=[{label:'Khách Lẻ',value:'khachle'}]
+    this.dsCongtacvien=[{label:'Any',value:'any'},{label:'Khách Lẻ',value:'khachle'}]
     this.networkserviceService.getAllCongtacvien().subscribe(val => val.forEach(el=> {
       this.dsCongtacvien.push({label:el.hoten,value:el.hoten})
     
@@ -191,7 +191,8 @@ congtacvien:any
       this.trangthaikhluudata,
       null,
       this.thanhtoan,
-      this.congtacvien
+      this.congtacvien,
+      null
     ]
 
     this.updatedata = [
@@ -212,6 +213,7 @@ congtacvien:any
       null,
       this.thanhtoan,
       this.congtacvien,
+      null,
       this.data.mawifi,
       
     ]
@@ -233,7 +235,8 @@ congtacvien:any
       this.trangthai_kh,
       null,
       this.thanhtoan,
-      this.congtacvien
+      this.congtacvien,
+      null
     ]
 
     if (this.editData.mawifi) {
