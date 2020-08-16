@@ -87,16 +87,20 @@ export class WifidoicaplaisimComponent implements OnInit {
       null,
       val.sdtsim,
       val.masim,
+      
       'sudung',
       null,
       null,
+      val.congtacvien,
       null,
+      
       val.mawifi,
     ]
     this.networkserviceService.updateAllUser(this.wifidataupdate).subscribe(
       data => {
         alert("WiFi đã được cấp lại thành công. Chuyển qua Ds Wifi tồn kho");
 
+        this.ngOnInit();
         console.log("POST Request is successful ", data);
       },
       error => {

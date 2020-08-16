@@ -92,6 +92,7 @@ export class WifiComponent implements OnInit {
       null,
       null,
       null,
+      null,
       val.mawifi,
     ]
     this.networkserviceService.updateAllUser(this.wifidataupdate).subscribe(

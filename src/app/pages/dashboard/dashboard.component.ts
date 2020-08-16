@@ -212,7 +212,7 @@ export class DashboardComponent implements OnInit {
 
       }
     }
-    else if (this.congtacvienform.get('congtacviencontrol').value === 'any') {
+    else if (this.congtacvienform.get('congtacviencontrol').value === 'any'||this.congtacvienform.get('congtacviencontrol').value === null) {
       if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'dathanhtoan') {
      
         this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
