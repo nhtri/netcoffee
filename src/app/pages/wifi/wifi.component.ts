@@ -41,7 +41,7 @@ export class WifiComponent implements OnInit {
       { field: 'masim', header: 'Mã SIM' },
 
     ];
-    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.hoten == null || val.hoten == ''||val.trangthaiwifi ==null))
+    this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => (val.hoten == null || val.hoten == '')&&val.trangthaiwifi ==null))
     console.log(this.data)
 
     this.networkserviceService.getAllWiFi().subscribe(val => this.dataAll = val)
