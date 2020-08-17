@@ -525,7 +525,8 @@ export class DashboardComponent implements OnInit {
         data => {
           alert("Lưu Thành Công");
           this.displayDialog = false;
-          location.reload();
+          this.ngOnInit()
+          // location.reload();
 
           console.log("POST Request is successful ", data);
         },
@@ -542,7 +543,8 @@ export class DashboardComponent implements OnInit {
         data => {
           alert("Lưu Thành Công");
           this.displayDialog = false;
-          location.reload();
+          this.ngOnInit()
+          // location.reload();
 
 
           console.log("POST Request is successful ", data);
@@ -558,7 +560,8 @@ export class DashboardComponent implements OnInit {
       this.networkserviceService.postAllAccount(this.olduser).subscribe(
         data => {
           alert("Lưu Khách Hàng cũ Thành Công");
-          location.reload();
+          // location.reload();
+          this.ngOnInit()
           console.log("POST Request is successful ", data);
         },
         error => {
