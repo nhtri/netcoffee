@@ -157,6 +157,8 @@ console.log(res)
       this.edittrangthai,
       null,
       this.editthanhtoan,
+      this.editdata.congtacvien,
+      null,
       this.editdata.mawifi,
     ]
 
@@ -174,6 +176,7 @@ console.log(res)
       this.editdata.masim,
       //'sudung',
       'sudung',
+      null,
       null,
       null,
       'doicaplaisim',
@@ -195,7 +198,9 @@ console.log(res)
       this.editdata.ghichu,
       this.edittrangthai,
       null,
-      this.editthanhtoan
+      this.editthanhtoan,
+      this.editdata.congtacvien,
+      null
     ]
 
 
@@ -217,6 +222,28 @@ console.log(res)
 
       if (this.edittrangthai =='huy' || this.edittrangthai == 'tralai' || this.edittrangthai == 'chuatracoc' ) {
 
+        if(this.edittrangthai == 'tralai'|| this.edittrangthai == 'chuatracoc' ){
+          this.updatedatawifi = [
+            null,
+            null,
+            null,
+            null,
+            null,
+            true,
+            null,
+            null,
+            null,
+            this.editdata.sdtsim,
+            this.editdata.masim,
+            //'sudung',
+            'sudung',
+            null,
+            null,
+            null,
+            null,
+            this.editdata.mawifi,
+          ]
+        }
         this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
           data => {
             alert("Lưu Thành Công");

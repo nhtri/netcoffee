@@ -58,9 +58,10 @@ congtacvien:any
       this.dsCongtacvien.push({label:el.hoten,value:el.hoten})
     
     this.editData = window.history.state
+    console.log(this.editData)
     this.userform.trangthaikhdd = 'sudung'
     if ((this.editData.mawifi && this.editData.trangthai_kh == 'sudung') || (this.editData.mawifi && this.editData.trangthai_kh == 'tamngung')) {
-
+console.log('tritst')
       this.userform.controls.mawifi.setValue(this.editData.mawifi)
       this.userform.controls.mawifi.disable()
       this.userform.controls.sdtsim.setValue(this.editData.sdtsim)
@@ -118,6 +119,7 @@ congtacvien:any
 
     }
     else {
+      console.log('cccc')
       this.userform.controls.trangthaikhdd.setValue('sudung')
       this.userform.controls.trangthaikhdd.disable()
       this.userform.controls.thanhtoanctrl.setValue(new Date())
