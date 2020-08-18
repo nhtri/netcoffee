@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
   displayDialog = false
   updatedata: any
   updatedatawifi: any
+  updatedatawifitralai: any
   olduser: any
   editmawifi: any
   edithoten: any
@@ -499,6 +500,27 @@ export class DashboardComponent implements OnInit {
       this.editdata.mawifi,
     ]
 
+    this.updatedatawifitralai = [
+      null,
+      null,
+      null,
+      null,
+      null,
+      true,
+      null,
+      null,
+      null,
+      this.editdata.sdtsim,
+      this.editdata.masim,
+      //'sudung',
+      'sudung',
+      null,
+      null,
+      null,
+      null,
+      this.editdata.mawifi,
+    ]
+
     this.olduser = [
       this.editdata.mawifi,
       this.editdata.sdtsim,
@@ -537,7 +559,7 @@ export class DashboardComponent implements OnInit {
         })
     }
 
-    if (this.edittrangthai == 'huy' || this.edittrangthai == 'tralai' || this.edittrangthai == 'chuatracoc') {
+    if (this.edittrangthai == 'huy' ) {
 
       this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
         data => {
@@ -571,7 +593,38 @@ export class DashboardComponent implements OnInit {
         })
     }
 
+    if (this.edittrangthai == 'tralai' || this.edittrangthai == 'chuatracoc') {
 
+      
+      console.log(this.updatedatawifitralai)
+      this.networkserviceService.updateAllUser(this.updatedatawifitralai).subscribe(
+        data => {
+          alert("Lưu Thành Công");
+          this.displayDialog = false;
+          this.ngOnInit()
+          this.userform.controls.trangthaikhdd.setValue(null)
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+
+          console.log("Error", error);
+
+        })
+
+
+
+      this.networkserviceService.postAllAccount(this.olduser).subscribe(
+        data => {
+          alert("Lưu Khách Hàng cũ Thành Công");
+          this.ngOnInit()
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+
+          console.log("Error", error);
+
+        })
+    }
 
   }
 }

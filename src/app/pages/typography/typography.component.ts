@@ -17,14 +17,15 @@ export class TypographyComponent implements OnInit {
   trangthaikh: any
   userform: FormGroup | any;
   displayDialog = false
-  updatedata:any
-  updatedatawifi:any
-  olduser:any
+  updatedata: any
+  updatedatawifi: any
+  updatedatawifitralai: any
+  olduser: any
   editmawifi: any
   edithoten: any
   edittrangthai: any
   editthanhtoan: any
-  editdata:any
+  editdata: any
   constructor(
     private networkserviceService: NetworkserviceService,
     private formBuilder: FormBuilder,
@@ -33,11 +34,11 @@ export class TypographyComponent implements OnInit {
     this.initForm();
     this.onFormChanges();
 
-   
+
   }
 
   ngOnInit() {
-    
+
     this.cols = [
       { field: 'mawifi', header: 'Mã WiFi' },
       { field: 'hoten', header: 'Họ Tên' },
@@ -53,7 +54,7 @@ export class TypographyComponent implements OnInit {
 
     ];
     this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val => val.trangthai_kh == 'tamngung'))
-    
+
 
   }
 
@@ -73,7 +74,7 @@ export class TypographyComponent implements OnInit {
       thanhtoanctrl: new FormControl(null)
 
     })
-   
+
 
   }
 
@@ -83,7 +84,7 @@ export class TypographyComponent implements OnInit {
       this.edittrangthai = res.trangthaikhdd
       this.editthanhtoan = res.thanhtoanctrl
       new Date(this.editthanhtoan.setDate(this.editthanhtoan.getDate() + 1))
-console.log(res)
+      console.log(res)
     });
 
   }
@@ -120,7 +121,7 @@ console.log(res)
 
 
   onRowEditInit(val) {
-    this.editdata=val
+    this.editdata = val
     this.displayDialog = true;
     this.editmawifi = val.mawifi
     this.edithoten = val.hoten
@@ -138,8 +139,8 @@ console.log(res)
   }
 
   save() {
-    if(this.edittrangthai==null){
-      this.edittrangthai='tamngung'
+    if (this.edittrangthai == null) {
+      this.edittrangthai = 'tamngung'
     }
     this.updatedata = [
       this.editdata.ngaythue,
@@ -182,6 +183,26 @@ console.log(res)
       'doicaplaisim',
       this.editdata.mawifi,
     ]
+    this.updatedatawifitralai = [
+      null,
+      null,
+      null,
+      null,
+      null,
+      true,
+      null,
+      null,
+      null,
+      this.editdata.sdtsim,
+      this.editdata.masim,
+      //'sudung',
+      'sudung',
+      null,
+      null,
+      null,
+      null,
+      this.editdata.mawifi,
+    ]
 
     this.olduser = [
       this.editdata.mawifi,
@@ -204,13 +225,13 @@ console.log(res)
     ]
 
 
-    if (this.edittrangthai =='sudung' || this.edittrangthai == 'tamngung' ) {
+    if (this.edittrangthai == 'sudung' || this.edittrangthai == 'tamngung') {
       this.networkserviceService.updateAllUser(this.updatedata).subscribe(
         data => {
           alert("Lưu Thành Công");
           this.displayDialog = false;
-        this.ngOnInit()
-        this.userform.controls.trangthaikhdd.setValue(null)
+          this.ngOnInit()
+          this.userform.controls.trangthaikhdd.setValue(null)
           console.log("POST Request is successful ", data);
         },
         error => {
@@ -218,63 +239,74 @@ console.log(res)
           console.log("Error", error);
 
         })
-      }
+    }
 
-      if (this.edittrangthai =='huy' || this.edittrangthai == 'tralai' || this.edittrangthai == 'chuatracoc' ) {
+    if (this.edittrangthai == 'huy' ) {
 
-        if(this.edittrangthai == 'tralai'|| this.edittrangthai == 'chuatracoc' ){
-          this.updatedatawifi = [
-            null,
-            null,
-            null,
-            null,
-            null,
-            true,
-            null,
-            null,
-            null,
-            this.editdata.sdtsim,
-            this.editdata.masim,
-            //'sudung',
-            'sudung',
-            null,
-            null,
-            null,
-            null,
-            this.editdata.mawifi,
-          ]
-        }
-        this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
-          data => {
-            alert("Lưu Thành Công");
-            this.displayDialog = false;
+      
+      console.log(this.updatedatawifi)
+      this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
+        data => {
+          alert("Lưu Thành Công");
+          this.displayDialog = false;
           this.ngOnInit()
           this.userform.controls.trangthaikhdd.setValue(null)
-            console.log("POST Request is successful ", data);
-          },
-          error => {
-  
-            console.log("Error", error);
-  
-          })
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+
+          console.log("Error", error);
+
+        })
 
 
 
-        this.networkserviceService.postAllAccount(this.olduser).subscribe(
-          data => {
-            alert("Lưu Khách Hàng cũ Thành Công");
-            this.ngOnInit()
-            console.log("POST Request is successful ", data);
-          },
-          error => {
+      this.networkserviceService.postAllAccount(this.olduser).subscribe(
+        data => {
+          alert("Lưu Khách Hàng cũ Thành Công");
+          this.ngOnInit()
+          console.log("POST Request is successful ", data);
+        },
+        error => {
 
-            console.log("Error", error);
+          console.log("Error", error);
 
-          })
-        }
-
-
-
+        })
     }
+
+    if (this.edittrangthai == 'tralai' || this.edittrangthai == 'chuatracoc') {
+
+      
+      console.log(this.updatedatawifitralai)
+      this.networkserviceService.updateAllUser(this.updatedatawifitralai).subscribe(
+        data => {
+          alert("Lưu Thành Công");
+          this.displayDialog = false;
+          this.ngOnInit()
+          this.userform.controls.trangthaikhdd.setValue(null)
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+
+          console.log("Error", error);
+
+        })
+
+
+
+      this.networkserviceService.postAllAccount(this.olduser).subscribe(
+        data => {
+          alert("Lưu Khách Hàng cũ Thành Công");
+          this.ngOnInit()
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+
+          console.log("Error", error);
+
+        })
+    }
+
+  }
 
 }
