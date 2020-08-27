@@ -10,8 +10,6 @@
           <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()"
             style="margin-right: 15px; margin-bottom: 15px;" class="ui-button-success"></button>
 
-
-
           <input pInputText type="text" placeholder="Mã WiFi"
             style="margin-right: 15px; height: 30px; margin-bottom: 15px; width: 120px;"
             (input)="tt.filter($event.target.value, 'mawifi', 'contains')">
@@ -25,18 +23,23 @@
           <input pInputText type="text" placeholder="Họ Tên"
             style="margin-right: 15px; height: 30px; margin-bottom: 15px;  width: 120px;"
             (input)="tt.filter($event.target.value, 'hoten', 'contains')">
-            <div [formGroup]="trangthaidongtienform">
-          <p-dropdown formControlName="trangthaidongtiencontrol" [options]="trangthaitt" (onChange)="onchange($event.value)"></p-dropdown> <span
-            style="margin-right: 15px"></span>
-          </div>
-          <span
-            style="margin-right: 15px"></span>
-          <div [formGroup]="congtacvienform">
-            <p-dropdown formControlName="congtacviencontrol" [options]="congtacvien" (onChange)="onchangectv($event.value)"></p-dropdown>
-          </div>
+          <span [formGroup]="trangthaidongtienform">
+            <p-dropdown formControlName="trangthaidongtiencontrol" [options]="trangthaitt"
+              (onChange)="onchange($event.value)"></p-dropdown> <span style="margin-right: 15px"></span>
+          </span>
+          <span [formGroup]="congtacvienform">
+            <p-dropdown formControlName="congtacviencontrol" [options]="congtacvien"
+              (onChange)="onchangectv($event.value)"></p-dropdown>
+          </span>
           <br />
           <br />
-          <span>Chọn và thay đổi CTV </span>
+          <br />
+
+          <span ><b>Chọn và thay đổi Thanh Toán </b></span>
+          <p-calendar view="month" dateFormat="mm/yy" [showIcon]="true" [yearNavigator]="true" yearRange="2019:2030"
+            (onSelect)="onSelectThanhToan($event)"></p-calendar>
+
+          <span style="margin-left: 40px;"> <b>Chọn và thay đổi CTV </b></span>
           <p-dropdown [options]="congtacvien" (onChange)="onchangethaydoictv($event.value)"></p-dropdown>
 
           <!-- <div class=" table-responsive" style="margin-top: 15px;"> -->
@@ -55,17 +58,12 @@
                   <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
                 <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-
-
                   {{col.header}}
-
-
-
                 </th>
-
                 <th></th>
                 <th></th>
               </tr>
+
 
             </ng-template>
             <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns" let-editing="editing"

@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
   editmawifi: any
   edithoten: any
   editthanhtoan: any
+  editthanhtoan2: any
   editcongtacvien: any
   edittrangthai: any
   editdata: any
@@ -410,23 +411,25 @@ export class DashboardComponent implements OnInit {
   }
 
   onchangethaydoictv(value) {
-    this.selectedData.forEach(element => {
-      const updateData = [value, element]
-      this.networkserviceService.updatewificongtacvien(updateData).subscribe(
-        data => {
-
-
-          console.log("POST Request is successful ", data);
-        },
-        error => {
-
-          console.log("Error", error);
-
-        })
-    });
-    alert("Lưu Thành Công");
-    this.displayDialog = false;
-    location.reload();
+    if (confirm("Bạn có muốn thay đổi cộng tác viên không")) {
+      this.selectedData.forEach(element => {
+        const updateData = [value, element]
+        this.networkserviceService.updatewificongtacvien(updateData).subscribe(
+          data => {
+            console.log("POST Request is successful ", data);
+          },
+          error => {
+            console.log("Error", error);
+          })
+      });
+      alert("Lưu Thành Công");
+      this.displayDialog = false;
+      location.reload();
+    } else {
+     
+    }
+    
+    // this.ngOnInit()
   }
 
   onRowSelect($event) {
@@ -547,15 +550,15 @@ export class DashboardComponent implements OnInit {
         data => {
           alert("Lưu Thành Công");
           this.displayDialog = false;
-          // this.ngOnInit()
+          this.ngOnInit()
           // location.reload();
-          this.networkserviceService.getAllWiFi().subscribe(val =>
+          // this.networkserviceService.getAllWiFi().subscribe(val =>
 
-            this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung')
+          //   this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung')
       
-          )
-          this.onchange(this.trangthaidongtienform.get('trangthaidongtiencontrol').value);
-          this.onchangectv(this.congtacvienform.get('congtacviencontrol').value)
+          // )
+          // this.onchange(this.trangthaidongtienform.get('trangthaidongtiencontrol').value);
+          // this.onchangectv(this.congtacvienform.get('congtacviencontrol').value)
           console.log("POST Request is successful ", data);
         },
         error => {
@@ -571,15 +574,15 @@ export class DashboardComponent implements OnInit {
         data => {
           alert("Lưu Thành Công");
           this.displayDialog = false;
-          // this.ngOnInit()
+          this.ngOnInit()
           // location.reload();
-          this.networkserviceService.getAllWiFi().subscribe(val =>
+          // this.networkserviceService.getAllWiFi().subscribe(val =>
 
-            this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung')
+          //   this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung')
       
-          )
-          this.onchange(this.trangthaidongtienform.get('trangthaidongtiencontrol').value);
-          this.onchangectv(this.congtacvienform.get('congtacviencontrol').value)
+          // )
+          // this.onchange(this.trangthaidongtienform.get('trangthaidongtiencontrol').value);
+          // this.onchangectv(this.congtacvienform.get('congtacviencontrol').value)
 
 
           console.log("POST Request is successful ", data);
@@ -596,14 +599,14 @@ export class DashboardComponent implements OnInit {
         data => {
           alert("Lưu Khách Hàng cũ Thành Công");
           // location.reload();
-          // this.ngOnInit()
-          this.networkserviceService.getAllWiFi().subscribe(val =>
+          this.ngOnInit()
+          // this.networkserviceService.getAllWiFi().subscribe(val =>
 
-            this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung')
+          //   this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung')
       
-          )
-          this.onchange(this.trangthaidongtienform.get('trangthaidongtiencontrol').value);
-          this.onchangectv(this.congtacvienform.get('congtacviencontrol').value)
+          // )
+          // this.onchange(this.trangthaidongtienform.get('trangthaidongtiencontrol').value);
+          // this.onchangectv(this.congtacvienform.get('congtacviencontrol').value)
           console.log("POST Request is successful ", data);
         },
         error => {
@@ -621,14 +624,14 @@ export class DashboardComponent implements OnInit {
         data => {
           alert("Lưu Thành Công");
           this.displayDialog = false;
-          // this.ngOnInit()
-          this.networkserviceService.getAllWiFi().subscribe(val =>
+          this.ngOnInit()
+          // this.networkserviceService.getAllWiFi().subscribe(val =>
 
-            this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung')
+          //   this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung')
       
-          )
-          this.onchange(this.trangthaidongtienform.get('trangthaidongtiencontrol').value);
-          this.onchangectv(this.congtacvienform.get('congtacviencontrol').value)
+          // )
+          // this.onchange(this.trangthaidongtienform.get('trangthaidongtiencontrol').value);
+          // this.onchangectv(this.congtacvienform.get('congtacviencontrol').value)
           this.userform.controls.trangthaikhdd.setValue(null)
           console.log("POST Request is successful ", data);
         },
@@ -643,15 +646,15 @@ export class DashboardComponent implements OnInit {
       this.networkserviceService.postAllAccount(this.olduser).subscribe(
         data => {
           alert("Lưu Khách Hàng cũ Thành Công");
-          // this.ngOnInit()
-          this.networkserviceService.getAllWiFi().subscribe(val =>
+          this.ngOnInit()
+          // this.networkserviceService.getAllWiFi().subscribe(val =>
 
-            this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung')
+          //   this.data = val.filter(val => val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung')
       
-          )
-          this.onchange(this.trangthaidongtienform.get('trangthaidongtiencontrol').value);
-          this.onchangectv(this.congtacvienform.get('congtacviencontrol').value)
-          console.log("POST Request is successful ", data);
+          // )
+          // this.onchange(this.trangthaidongtienform.get('trangthaidongtiencontrol').value);
+          // this.onchangectv(this.congtacvienform.get('congtacviencontrol').value)
+          // console.log("POST Request is successful ", data);
         },
         error => {
 
@@ -660,5 +663,34 @@ export class DashboardComponent implements OnInit {
         })
     }
 
+  }
+
+  onSelectThanhToan(val){
+
+    if (confirm("Bạn có muốn thay đổi thanh tóan không")) {
+      this.editthanhtoan2 = val
+      new Date(this.editthanhtoan2.setDate(this.editthanhtoan2.getDate() + 1))
+      console.log('res2', new Date(this.editthanhtoan2.setDate(this.editthanhtoan2.getDate() + 1)))
+      
+      this.selectedData.forEach(element => {
+        const updateData = [this.editthanhtoan2, element]
+        this.networkserviceService.updatewifithanhtoan(updateData).subscribe(
+          data => {
+            console.log("POST Request is successful ", data);
+          },
+          error => {
+            console.log("Error", error);
+          })
+      });
+      alert("Lưu Thành Công");
+      this.displayDialog = false;
+      location.reload();
+      //this.ngOnInit()
+    } else {
+     
+    }
+
+    
+      // 
   }
 }
