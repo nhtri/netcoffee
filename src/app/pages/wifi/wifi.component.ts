@@ -153,8 +153,8 @@ export class WifiComponent implements OnInit {
         this.luuwifidata = [
           this.wifidata.mawifi,
           this.wifidata.sdtsim,
-          this.wifidata.masim,
-          , null, null, null, null, null, true, null, null,'sudung',null,null,null,null,null
+          this.wifidata.masim,null,
+          null, null, null, null, null, true, null, null,'sudung',null,null,null,null
         ]
         this.networkserviceService.postAllUser(this.luuwifidata).subscribe(
           data => {
