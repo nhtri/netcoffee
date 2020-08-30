@@ -11,8 +11,9 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
   templateUrl: "typography.component.html"
 })
 export class TypographyComponent implements OnInit {
+  selectedData: any[] = [];
   data: network[] = [];
-
+  editthanhtoan2: any
   cols: any[];
   trangthaikh: any
   userform: FormGroup | any;
@@ -88,6 +89,7 @@ export class TypographyComponent implements OnInit {
     });
 
   }
+
   selectNetWithButton(value) {
     console.log(value)
   }
@@ -128,10 +130,6 @@ export class TypographyComponent implements OnInit {
     this.editthanhtoan = val.thanhtoan
     this.userform.controls.thanhtoanctrl.setValue(new Date(val.thanhtoan))
   }
-
-
-
-
 
 
   cancel() {
@@ -309,4 +307,44 @@ export class TypographyComponent implements OnInit {
 
   }
 
+
+  onSelectThanhToan(val){
+ console.log(val)
+    if (confirm("Bạn có muốn thay đổi thanh tóan không")) {
+      this.editthanhtoan2 = val
+      new Date(this.editthanhtoan2.setDate(this.editthanhtoan2.getDate() + 1))
+      console.log('res2', new Date(this.editthanhtoan2.setDate(this.editthanhtoan2.getDate() + 1)))
+      
+      this.selectedData.forEach(element => {
+        const updateData = [this.editthanhtoan2, element]
+        this.networkserviceService.updatewifithanhtoan(updateData).subscribe(
+          data => {
+            console.log("POST Request is successful ", data);
+          },
+          error => {
+            console.log("Error", error);
+          })
+      });
+      alert("Lưu Thành Công");
+      this.displayDialog = false;
+      location.reload();
+      //this.ngOnInit()
+    } else {
+     
+    }
+
+    
+      // 
+  }
+
+  onRowSelect($event) {
+    this.selectedData.push($event.data.mawifi)
+    console.log(this.selectedData)
+  }
+
+  onRowUnselect($event) {
+    console.log($event)
+    this.selectedData = this.selectedData.filter(item => item !== $event.data.mawifi)
+    console.log(this.selectedData)
+  }
 }

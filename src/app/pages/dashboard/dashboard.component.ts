@@ -550,6 +550,7 @@ export class DashboardComponent implements OnInit {
         data => {
           alert("Lưu Thành Công");
           this.displayDialog = false;
+          this.userform.controls.trangthaikhdd.setValue(null)
           this.ngOnInit()
           // location.reload();
           // this.networkserviceService.getAllWiFi().subscribe(val =>
@@ -574,6 +575,7 @@ export class DashboardComponent implements OnInit {
         data => {
           alert("Lưu Thành Công");
           this.displayDialog = false;
+          this.userform.controls.trangthaikhdd.setValue(null)
           this.ngOnInit()
           // location.reload();
           // this.networkserviceService.getAllWiFi().subscribe(val =>
@@ -599,6 +601,7 @@ export class DashboardComponent implements OnInit {
         data => {
           alert("Lưu Khách Hàng cũ Thành Công");
           // location.reload();
+          this.userform.controls.trangthaikhdd.setValue(null)
           this.ngOnInit()
           // this.networkserviceService.getAllWiFi().subscribe(val =>
 
@@ -624,6 +627,7 @@ export class DashboardComponent implements OnInit {
         data => {
           alert("Lưu Thành Công");
           this.displayDialog = false;
+          this.userform.controls.trangthaikhdd.setValue(null)
           this.ngOnInit()
           // this.networkserviceService.getAllWiFi().subscribe(val =>
 
@@ -632,7 +636,7 @@ export class DashboardComponent implements OnInit {
           // )
           // this.onchange(this.trangthaidongtienform.get('trangthaidongtiencontrol').value);
           // this.onchangectv(this.congtacvienform.get('congtacviencontrol').value)
-          this.userform.controls.trangthaikhdd.setValue(null)
+          
           console.log("POST Request is successful ", data);
         },
         error => {

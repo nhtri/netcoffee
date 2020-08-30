@@ -24,14 +24,23 @@
 
           <br />
           <br />
+          <span ><b>Chọn và thay đổi Thanh Toán </b></span>
+          <p-calendar view="month" dateFormat="mm/yy" [showIcon]="true" [yearNavigator]="true" yearRange="2019:2030"
+            (onSelect)="onSelectThanhToan($event)"></p-calendar>
+          <br/>
+          <br/>
 
           <p-table dataKey="mawifi" editMode="row" #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="20"
-            [tableStyle]="{'table-layout':'auto'}">
+            [tableStyle]="{'table-layout':'auto'}" (onRowSelect)="onRowSelect($event)"
+            (onRowUnselect)="onRowUnselect($event)">
 
 
 
             <ng-template pTemplate="header" let-columns class=" text-primary">
               <tr>
+                  <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                  </th>
                 <th *ngFor="let col of columns" [pSortableColumn]="col.field">
 
 
@@ -48,6 +57,9 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-ri="rowIndex">
               <tr [pEditableRow]="rowData">
+                <td>
+                  <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                </td>
                 <td *ngFor="let col of columns">
 
 
