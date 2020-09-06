@@ -39,7 +39,12 @@
           <p-calendar view="month" dateFormat="mm/yy" [showIcon]="true" [yearNavigator]="true" yearRange="2019:2030"
             (onSelect)="onSelectThanhToan($event)"></p-calendar>
 
-          <span style="margin-left: 40px;"> <b>Chọn và thay đổi CTV </b></span>
+          <span style="margin-left: 40px;"> <b>Chọn và thay đổi Trang Thai </b></span>
+          <p-dropdown [options]="thaydoitrangthaigroup" (onChange)="onchangethaydoitrangthaigroup($event.value)"></p-dropdown>
+            
+          <br/>
+          <br/>
+          <span> <b>Chọn và thay đổi CTV </b></span>
           <p-dropdown [options]="congtacvien" (onChange)="onchangethaydoictv($event.value)"></p-dropdown>
 
           <!-- <div class=" table-responsive" style="margin-top: 15px;"> -->
