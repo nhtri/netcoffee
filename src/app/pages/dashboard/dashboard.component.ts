@@ -65,10 +65,10 @@ export class DashboardComponent implements OnInit {
     this.thaydoitrangthaigroup = [
       { label: 'Sử Dụng', value: 'sudung' },
       { label: 'Tạm Ngưng', value: 'tamngung' },
-      { label: 'Hủy', value: 'huy' },
-      { label: 'Trả Lại', value: 'tralai' },
+      { label: 'Hủy', value: 'huy' }
+      // { label: 'Trả Lại', value: 'tralai' },
 
-      { label: 'Trả Lại - Chưa Trả Cọc', value: 'chuatracoc' }
+      // { label: 'Trả Lại - Chưa Trả Cọc', value: 'chuatracoc' }
     ];
 
     this.congtacvien = [{ label: 'Any', value: 'any' }, { label: 'Khách Lẻ', value: 'khachle' }]
@@ -460,8 +460,73 @@ export class DashboardComponent implements OnInit {
           this.displayDialog = false;
           location.reload();
         });
-      } else {
-
+      } else if(value == 'huy') {
+        this.selectedFullData.forEach(element => {
+          this.updatedatawifi = [
+            null,
+            null,
+            null,
+            null,
+            null,
+            true,
+            null,
+            null,
+            null,
+            element.sdtsim,
+            element.masim,
+            'sudung',
+            null,
+            null,
+            null,
+            'doicaplaisim',
+            element.mawifi,
+          ]
+          this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
+            data => {
+              alert("Lưu Thành Công");
+    
+    
+              console.log("POST Request is successful ", data);
+            },
+            error => {
+    
+              console.log("Error", error);
+    
+            })
+    
+            this.olduser = [
+              element.mawifi,
+              element.sdtsim,
+              element.masim,
+              element.ngaythue,
+              new Date(),
+              null,
+              element.giacuoc,
+              element.facebook,
+              null,
+              element.diachi,
+              element.hoten,
+              element.ghichu,
+              'huy',
+              null,
+              null,
+              element.congtacvien,
+              null
+            ]
+    
+          this.networkserviceService.postAllAccount(this.olduser).subscribe(
+            data => {
+              alert("Lưu Khách Hàng cũ Thành Công");
+              console.log("POST Request is successful ", data);
+              
+          location.reload();
+            },
+            error => {
+    
+              console.log("Error", error);
+    
+            })
+        });
       }
 
     }
@@ -478,6 +543,7 @@ export class DashboardComponent implements OnInit {
   onRowUnselect($event) {
     console.log($event)
     this.selectedData = this.selectedData.filter(item => item !== $event.data.mawifi)
+    this.selectedFullData = this.selectedFullData.filter(item => item !== $event.data)
     console.log(this.selectedData)
   }
 

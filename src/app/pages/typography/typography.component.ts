@@ -12,6 +12,8 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 })
 export class TypographyComponent implements OnInit {
   selectedData: any[] = [];
+  
+  selectedFullData:any[] = [];
   data: network[] = [];
   editthanhtoan2: any
   cols: any[];
@@ -21,6 +23,8 @@ export class TypographyComponent implements OnInit {
   updatedata: any
   updatedatawifi: any
   updatedatawifitralai: any
+  
+  thaydoitrangthaigroup:any
   olduser: any
   editmawifi: any
   edithoten: any
@@ -35,7 +39,15 @@ export class TypographyComponent implements OnInit {
     this.initForm();
     this.onFormChanges();
 
+    this.thaydoitrangthaigroup = [
+      
+      { label: 'Tạm Ngưng', value: 'tamngung' },
+      { label: 'Sử Dụng', value: 'sudung' },
+      { label: 'Hủy', value: 'huy' }
+      // { label: 'Trả Lại', value: 'tralai' },
 
+      // { label: 'Trả Lại - Chưa Trả Cọc', value: 'chuatracoc' }
+    ];
   }
 
   ngOnInit() {
@@ -340,11 +352,105 @@ export class TypographyComponent implements OnInit {
   onRowSelect($event) {
     this.selectedData.push($event.data.mawifi)
     console.log(this.selectedData)
+    this.selectedFullData.push($event.data)
+    console.log('selectedFullData',this.selectedFullData)
   }
 
   onRowUnselect($event) {
     console.log($event)
     this.selectedData = this.selectedData.filter(item => item !== $event.data.mawifi)
     console.log(this.selectedData)
+    this.selectedFullData = this.selectedFullData.filter(item => item !== $event.data)
+    console.log(this.selectedData)
+  }
+
+
+  onchangethaydoitrangthaigroup(value) {
+
+    if (confirm("Bạn có muốn thay đổi trạng thái không")) {
+      if (value == 'sudung') {
+        this.selectedFullData.forEach(element => {
+          const updateData = ['sudung', element.mawifi]
+          this.networkserviceService.updatewifitamngung(updateData).subscribe(
+            data => {
+              console.log("POST Request is successful ", data);
+            },
+            error => {
+              console.log("Error", error);
+            });
+          alert("Lưu Thành Công");
+          this.displayDialog = false;
+          location.reload();
+        });
+      } else if(value == 'huy') {
+        this.selectedFullData.forEach(element => {
+          this.updatedatawifi = [
+            null,
+            null,
+            null,
+            null,
+            null,
+            true,
+            null,
+            null,
+            null,
+            element.sdtsim,
+            element.masim,
+            'sudung',
+            null,
+            null,
+            null,
+            'doicaplaisim',
+            element.mawifi,
+          ]
+          this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
+            data => {
+              alert("Lưu Thành Công");
+    
+    
+              console.log("POST Request is successful ", data);
+            },
+            error => {
+    
+              console.log("Error", error);
+    
+            })
+    
+            this.olduser = [
+              element.mawifi,
+              element.sdtsim,
+              element.masim,
+              element.ngaythue,
+              new Date(),
+              null,
+              element.giacuoc,
+              element.facebook,
+              null,
+              element.diachi,
+              element.hoten,
+              element.ghichu,
+              'huy',
+              null,
+              null,
+              element.congtacvien,
+              null
+            ]
+    
+          this.networkserviceService.postAllAccount(this.olduser).subscribe(
+            data => {
+              alert("Lưu Khách Hàng cũ Thành Công");
+              console.log("POST Request is successful ", data);
+              
+          location.reload();
+            },
+            error => {
+    
+              console.log("Error", error);
+    
+            })
+        });
+      }
+
+    }
   }
 }
