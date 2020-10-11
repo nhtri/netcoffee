@@ -41,7 +41,7 @@
 
           <span style="margin-left: 40px;"> <b>Chọn và thay đổi Trang Thai </b></span>
           <p-dropdown [options]="thaydoitrangthaigroup" (onChange)="onchangethaydoitrangthaigroup($event.value)"></p-dropdown>
-            
+
           <br/>
           <br/>
           <span> <b>Chọn và thay đổi CTV </b></span>
@@ -51,8 +51,7 @@
           <br />
           <br />
           <p-table dataKey="mawifi" editMode="row" #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="20"
-            [tableStyle]="{'table-layout':'auto'}" (onRowSelect)="onRowSelect($event)"
-            (onRowUnselect)="onRowUnselect($event)">
+            [tableStyle]="{'table-layout':'auto'}" (onRowSelect)="onRowSelect($event)" (onHeaderCheckboxToggle)="onTableHeaderCheckboxToggle($event)"            (onRowUnselect)="onRowUnselect($event)">
 
 
 

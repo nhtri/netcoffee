@@ -12,7 +12,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 })
 export class TypographyComponent implements OnInit {
   selectedData: any[] = [];
-  
+
   selectedFullData:any[] = [];
   data: network[] = [];
   editthanhtoan2: any
@@ -23,7 +23,7 @@ export class TypographyComponent implements OnInit {
   updatedata: any
   updatedatawifi: any
   updatedatawifitralai: any
-  
+
   thaydoitrangthaigroup:any
   olduser: any
   editmawifi: any
@@ -40,7 +40,7 @@ export class TypographyComponent implements OnInit {
     this.onFormChanges();
 
     this.thaydoitrangthaigroup = [
-      
+
       { label: 'Tạm Ngưng', value: 'tamngung' },
       { label: 'Sử Dụng', value: 'sudung' },
       { label: 'Hủy', value: 'huy' }
@@ -253,7 +253,7 @@ export class TypographyComponent implements OnInit {
 
     if (this.edittrangthai == 'huy' ) {
 
-      
+
       console.log(this.updatedatawifi)
       this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
         data => {
@@ -286,7 +286,7 @@ export class TypographyComponent implements OnInit {
 
     if (this.edittrangthai == 'tralai' || this.edittrangthai == 'chuatracoc') {
 
-      
+
       console.log(this.updatedatawifitralai)
       this.networkserviceService.updateAllUser(this.updatedatawifitralai).subscribe(
         data => {
@@ -326,7 +326,7 @@ export class TypographyComponent implements OnInit {
       this.editthanhtoan2 = val
       new Date(this.editthanhtoan2.setDate(this.editthanhtoan2.getDate() + 1))
       console.log('res2', new Date(this.editthanhtoan2.setDate(this.editthanhtoan2.getDate() + 1)))
-      
+
       this.selectedData.forEach(element => {
         const updateData = [this.editthanhtoan2, element]
         this.networkserviceService.updatewifithanhtoan(updateData).subscribe(
@@ -342,11 +342,11 @@ export class TypographyComponent implements OnInit {
       location.reload();
       //this.ngOnInit()
     } else {
-     
+
     }
 
-    
-      // 
+
+      //
   }
 
   onRowSelect($event) {
@@ -406,16 +406,16 @@ export class TypographyComponent implements OnInit {
           this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
             data => {
               alert("Lưu Thành Công");
-    
-    
+
+
               console.log("POST Request is successful ", data);
             },
             error => {
-    
+
               console.log("Error", error);
-    
+
             })
-    
+
             this.olduser = [
               element.mawifi,
               element.sdtsim,
@@ -435,22 +435,31 @@ export class TypographyComponent implements OnInit {
               element.congtacvien,
               null
             ]
-    
+
           this.networkserviceService.postAllAccount(this.olduser).subscribe(
             data => {
               alert("Lưu Khách Hàng cũ Thành Công");
               console.log("POST Request is successful ", data);
-              
+
           location.reload();
             },
             error => {
-    
+
               console.log("Error", error);
-    
+
             })
         });
       }
 
     }
+  }
+  onTableHeaderCheckboxToggle(val){
+    if(val.checked===true){
+      this.data.filter(data=> this.selectedData.push(data.mawifi))
+    }
+else if(val.checked===false){
+  this.selectedData=[];
+}
+    console.log(val,this.selectedData)
   }
 }

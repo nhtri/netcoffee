@@ -27,16 +27,16 @@
           <span ><b>Chọn và thay đổi Thanh Toán </b></span>
           <p-calendar view="month" dateFormat="mm/yy" [showIcon]="true" [yearNavigator]="true" yearRange="2019:2030"
             (onSelect)="onSelectThanhToan($event)"></p-calendar>
-          
+
             <span style="margin-left: 40px;"> <b>Chọn và thay đổi Trang Thai </b></span>
             <p-dropdown [options]="thaydoitrangthaigroup" (onChange)="onchangethaydoitrangthaigroup($event.value)"></p-dropdown>
-              
+
             <br/>
           <br/>
 
           <p-table dataKey="mawifi" editMode="row" #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="20"
             [tableStyle]="{'table-layout':'auto'}" (onRowSelect)="onRowSelect($event)"
-            (onRowUnselect)="onRowUnselect($event)">
+            (onRowUnselect)="onRowUnselect($event)" (onHeaderCheckboxToggle)="onTableHeaderCheckboxToggle($event)"  >
 
 
 

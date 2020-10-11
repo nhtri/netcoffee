@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
     this.date = new Date().getDate()
     this.year = new Date().getFullYear()
 
-    
+
 
 
     if (this.date > 24) {
@@ -193,7 +193,7 @@ export class DashboardComponent implements OnInit {
         this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
           (val =>
 
-            val.congtacvien == 'khachle' && 
+            val.congtacvien == 'khachle' &&
             val.hoten != null && val.trangthai_kh == 'sudung' && val.hoten != '' &&
 
             (new Date(val.thanhtoan).getMonth() >= this.month
@@ -212,8 +212,8 @@ export class DashboardComponent implements OnInit {
       }
       else if (value == 'all') {
         this.networkserviceService.getAllWiFi().subscribe(val =>
-          
-          this.data = val.filter(val => 
+
+          this.data = val.filter(val =>
             val.congtacvien === 'khachle' &&
             val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
 
@@ -227,7 +227,7 @@ export class DashboardComponent implements OnInit {
     }
     else if (this.congtacvienform.get('congtacviencontrol').value === 'any'||this.congtacvienform.get('congtacviencontrol').value === null) {
       if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'dathanhtoan') {
-     
+
         this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
           (val =>
 
@@ -242,7 +242,7 @@ export class DashboardComponent implements OnInit {
       }
       else if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'chuathanhtoan') {
         this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val =>
-          
+
           val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' &&
           (new Date(val.thanhtoan).getMonth() < this.month ||
             new Date(val.thanhtoan).getFullYear() < this.year)))
@@ -250,7 +250,7 @@ export class DashboardComponent implements OnInit {
       else if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'all'||this.trangthaidongtienform.get('trangthaidongtiencontrol').value == null) {
         this.networkserviceService.getAllWiFi().subscribe(val =>
 
-          this.data = val.filter(val => 
+          this.data = val.filter(val =>
             val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
 
 
@@ -287,7 +287,7 @@ export class DashboardComponent implements OnInit {
       else if (value == 'all') {
         this.networkserviceService.getAllWiFi().subscribe(val =>
 
-          this.data = val.filter(val => 
+          this.data = val.filter(val =>
             val.congtacvien === this.congtacvienform.get('congtacviencontrol').value &&
             val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
 
@@ -306,11 +306,11 @@ export class DashboardComponent implements OnInit {
 
   onchangectv(value) {
     console.log(value)
-    
-    
+
+
     if (this.congtacvienform.get('congtacviencontrol').value === 'khachle') {
       if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'dathanhtoan') {
-     
+
         this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
           (val =>
 
@@ -334,7 +334,7 @@ export class DashboardComponent implements OnInit {
         console.log('test1')
         this.networkserviceService.getAllWiFi().subscribe(val =>
 
-          this.data = val.filter(val => 
+          this.data = val.filter(val =>
             val.congtacvien == 'khachle' &&
             val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
 
@@ -348,7 +348,7 @@ export class DashboardComponent implements OnInit {
     }
     else if (this.congtacvienform.get('congtacviencontrol').value === 'any') {
       if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'dathanhtoan') {
-     
+
         this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
           (val =>
 
@@ -363,7 +363,7 @@ export class DashboardComponent implements OnInit {
       }
       else if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'chuathanhtoan') {
         this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter(val =>
-          
+
           val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung' &&
           (new Date(val.thanhtoan).getMonth() < this.month ||
             new Date(val.thanhtoan).getFullYear() < this.year)))
@@ -371,7 +371,7 @@ export class DashboardComponent implements OnInit {
       else if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'all'||this.trangthaidongtienform.get('trangthaidongtiencontrol').value == null) {
         this.networkserviceService.getAllWiFi().subscribe(val =>
 
-          this.data = val.filter(val => 
+          this.data = val.filter(val =>
             val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
 
 
@@ -384,7 +384,7 @@ export class DashboardComponent implements OnInit {
     }
     else {
       if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'dathanhtoan') {
-   
+
         this.networkserviceService.getAllWiFi().subscribe(val => this.data = val.filter
           (val =>
 
@@ -408,7 +408,7 @@ export class DashboardComponent implements OnInit {
       else if (this.trangthaidongtienform.get('trangthaidongtiencontrol').value == 'all'||this.trangthaidongtienform.get('trangthaidongtiencontrol').value == null) {
         this.networkserviceService.getAllWiFi().subscribe(val =>
 
-          this.data = val.filter(val => 
+          this.data = val.filter(val =>
             val.congtacvien === this.congtacvienform.get('congtacviencontrol').value &&
              val.hoten != null && val.hoten != '' && val.trangthai_kh == 'sudung'
 
@@ -437,9 +437,9 @@ export class DashboardComponent implements OnInit {
       this.displayDialog = false;
       location.reload();
     } else {
-     
+
     }
-    
+
     // this.ngOnInit()
   }
 
@@ -484,16 +484,16 @@ export class DashboardComponent implements OnInit {
           this.networkserviceService.updateAllUser(this.updatedatawifi).subscribe(
             data => {
               alert("Lưu Thành Công");
-    
-    
+
+
               console.log("POST Request is successful ", data);
             },
             error => {
-    
+
               console.log("Error", error);
-    
+
             })
-    
+
             this.olduser = [
               element.mawifi,
               element.sdtsim,
@@ -513,18 +513,18 @@ export class DashboardComponent implements OnInit {
               element.congtacvien,
               null
             ]
-    
+
           this.networkserviceService.postAllAccount(this.olduser).subscribe(
             data => {
               alert("Lưu Khách Hàng cũ Thành Công");
               console.log("POST Request is successful ", data);
-              
+
           location.reload();
             },
             error => {
-    
+
               console.log("Error", error);
-    
+
             })
         });
       }
@@ -656,7 +656,7 @@ export class DashboardComponent implements OnInit {
           this.displayDialog = false;
           this.userform.controls.trangthaikhdd.setValue(null)
           this.ngOnInit()
-          
+
           console.log("POST Request is successful ", data);
         },
         error => {
@@ -703,7 +703,7 @@ export class DashboardComponent implements OnInit {
 
     if (this.edittrangthai == 'tralai' || this.edittrangthai == 'chuatracoc') {
 
-      
+
       console.log(this.updatedatawifitralai)
       this.networkserviceService.updateAllUser(this.updatedatawifitralai).subscribe(
         data => {
@@ -711,8 +711,8 @@ export class DashboardComponent implements OnInit {
           this.displayDialog = false;
           this.userform.controls.trangthaikhdd.setValue(null)
           this.ngOnInit()
-          
-          
+
+
           console.log("POST Request is successful ", data);
         },
         error => {
@@ -727,7 +727,7 @@ export class DashboardComponent implements OnInit {
         data => {
           alert("Lưu Khách Hàng cũ Thành Công");
           this.ngOnInit()
-          
+
         },
         error => {
 
@@ -744,7 +744,7 @@ export class DashboardComponent implements OnInit {
       this.editthanhtoan2 = val
       new Date(this.editthanhtoan2.setDate(this.editthanhtoan2.getDate() + 1))
       console.log('res2', new Date(this.editthanhtoan2.setDate(this.editthanhtoan2.getDate() + 1)))
-      
+
       this.selectedData.forEach(element => {
         const updateData = [this.editthanhtoan2, element]
         this.networkserviceService.updatewifithanhtoan(updateData).subscribe(
@@ -760,10 +760,20 @@ export class DashboardComponent implements OnInit {
       location.reload();
       //this.ngOnInit()
     } else {
-     
+
     }
 
-    
-      // 
+
+      //
+  }
+
+  onTableHeaderCheckboxToggle(val){
+    if(val.checked===true){
+      this.data.filter(data=> this.selectedData.push(data.mawifi))
+    }
+else if(val.checked===false){
+  this.selectedData=[];
+}
+    console.log(val,this.selectedData)
   }
 }
